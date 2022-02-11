@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
 import DepotManagement from "./app/components/DepotManagement";
+import Frame from "./app/components/frame/Frame";
 
 export default function AppRouter() {
     //Mock data
@@ -10,6 +11,7 @@ export default function AppRouter() {
 
     return <>
         <Router>
+            <Frame />
             <Switch>
                 <Route path="/management">
                     <DepotManagement />
