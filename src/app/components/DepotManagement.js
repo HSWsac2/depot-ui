@@ -5,7 +5,7 @@ export default function DepotManagement() {
         <Container
             maxWidth="lg"
             spacing={0}
-            sx={{ display: 'flex', minHeight: '100vh', alignItems: 'center', justifyContent: 'center' }}
+            sx={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}
         >
             <Stack spacing={12}>
                 <Stack spacing={2}>

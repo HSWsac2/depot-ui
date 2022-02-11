@@ -10,11 +10,11 @@ const NavigationTabs = () => {
     const tabs = [
         {
             label: "Depotverwaltung",
-            pathPrefix: "/control",
-            target: "/control"
+            pathPrefix: "/management",
+            target: "/management"
         },
         {
-            label: "Depotuebersicht",
+            label: "Depotübersicht",
             pathPrefix: "/overview",
             target: "/overview"
 

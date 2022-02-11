@@ -9,20 +9,20 @@ const HeaderBar = ({ role, setRole }) => {
     return (<AppBar position="static">
         <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Depot-Uebersicht
+                Depot-Übersicht
             </Typography>
             <Box sx={{ minWidth: 100 }}>
                 <FormControl fullWidth>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        labelId="select-label"
+                        id="select"
                         value={role}
                         onChange={handleChangeFirst}
                         autoWidth
                         defaultValue={role}
                     >
                         <MenuItem value={"customer"} sx={{ minWidth: 100 }}>Kunde</MenuItem>
-                        <MenuItem value={"banker"} sx={{ minWidth: 100 }}>Banker</MenuItem>
+                        <MenuItem value={"staff"} sx={{ minWidth: 100 }}>Mitarbeiter</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
