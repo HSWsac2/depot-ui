@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
-import { Customer } from "./app/model/Customer";
+import DepotManagement from "./app/components/DepotManagement";
 
 export default function AppRouter() {
     //Mock data
@@ -11,6 +11,9 @@ export default function AppRouter() {
     return <>
         <Router>
             <Switch>
+                <Route path="/management">
+                    <DepotManagement />
+                </Route>
                 <Route path="/">
                     <CustomerInformation customer={customer} />
                 </Route>
