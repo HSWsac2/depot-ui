@@ -3,13 +3,7 @@ import * as React from 'react';
 import NavigationTabs from './NavigationTabs';
 import HeaderBar from './HeaderBar';
 
-interface FrameProps {
-    children?: React.ReactNode;
-    role: string;
-    setRole(customer: string): void;
-}
-
-const Frame = ({ children, role, setRole }: FrameProps) => {
+const Frame = ({ children, role, setRole }) => {
     return (
         <>
             <HeaderBar role={role} setRole={setRole} />

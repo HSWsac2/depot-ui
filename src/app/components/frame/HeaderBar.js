@@ -1,13 +1,9 @@
 import { AppBar, Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
 
-interface HeaderBarProps {
-    role: string;
-    setRole(role: string): void;
-}
-const HeaderBar = ({ role, setRole }: HeaderBarProps) => {
+const HeaderBar = ({ role, setRole }) => {
 
-    const handleChangeFirst = (event: SelectChangeEvent) => {
-        setRole(event.target.value as string);
+    const handleChangeFirst = (event) => {
+        setRole(event.target.value);
     };
 
     return (<AppBar position="static">

@@ -33,13 +33,13 @@ const NavigationTabs = () => {
 
     const selectedTabIndex = tabs.findIndex(tab => location.pathname.startsWith(tab.pathPrefix));
 
-    const a11yProps = (index: number) => ({
+    const a11yProps = (index) => ({
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
     }
     );
 
-    const navigateTo = (target: string) => {
+    const navigateTo = (target) => {
         history.push(target)
     }
 
