@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
 import DepotManagement from "./app/components/DepotManagement";
+import DepotOverview from "./app/components/depotOverview/DepotOverview";
 import Frame from "./app/components/frame/Frame";
 
 export default function AppRouter() {
@@ -18,6 +19,9 @@ export default function AppRouter() {
                 </Route>
                 <Route path="/data">
                     <CustomerInformation customer={customer} setCustomer={setCustomer}/>
+                </Route>
+                <Route path="/overview">
+                    <DepotOverview/>
                 </Route>
             </Switch>
         </Router>
