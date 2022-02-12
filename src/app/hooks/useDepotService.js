@@ -1,7 +1,7 @@
-import useFetch from "./useFetch";
+import useAxios from "./useFetch";
 
-const useDepotService = url => {
-    return useFetch(`http://localhost:8080/${url}`)
+const useDepotService = ({url, method}) => {
+    return useAxios({baseUrl: `http://localhost:8080`, url, method});
 };
 
 export default useDepotService;
