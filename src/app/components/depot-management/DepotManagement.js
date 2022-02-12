@@ -1,14 +1,14 @@
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import ConfirmButton from "./ConfirmButton";
 
 export default function DepotManagement() {
 
-    const handleLoeschung = () => {
-        alert("Depot gelöscht.");
+    const handleDeleteDepot = () => {
+        alert("Wenn dieser Knopf jetzt funktioniert hätte, wäre Ihr Depot unwiderruflich gelöscht. Glück für Sie, dass wir noch nicht so weit sind.");
     }
 
-    const handleSperrung = () => {
-        alert("Depot gesperrt. Entsperren geht aber nicht :-)");
+    const handleCloseDepot = () => {
+        alert("Depot geschlossen. Wieder öffnen geht aber nicht :-)");
     }
 
     return (
@@ -19,16 +19,16 @@ export default function DepotManagement() {
         >
             <Stack spacing={12}>
                 <Stack spacing={2}>
-                    <Typography variant='h3'>Depot sperren</Typography>
-                    <Typography variant='body1'>Mit Betätigung dieses Buttons sperren Sie ihr Depot. Es können keine weiteren Transaktionen durchgeführt werden, bis das Depot wieder entsprerrt wird.</Typography>
+                    <Typography variant='h3'>Depot schließen</Typography>
+                    <Typography variant='body1'>Mit Betätigung dieses Buttons sperren Sie ihr Depot. Es können keine weiteren Transaktionen durchgeführt werden. Beachten Sie, dass sich hierfür keine Wertpapiere in ihrem Depot befinden dürfen.</Typography>
                     <Box>
                         <ConfirmButton 
-                            buttonText="Depot sperren"
-                            acceptCallback={handleSperrung}
-                            dialogTitle="Wollen Sie Ihr Depot sperren?"
+                            buttonText="Depot schließen"
+                            acceptCallback={handleCloseDepot}
+                            dialogTitle="Wollen Sie Ihr Depot schließen?"
                             color="error"
-                            dialogBody="Sie können keine Transaktionen durchführen, solange ihr Depot gesperrt ist. Eine Entsperrung ist jederzeit möglich."
-                            acceptText="Sperren"
+                            dialogBody="Eine Wiedereröffnung ist jederzeit an dieser Stelle möglich."
+                            acceptText="Schließen"
                         />
                     </Box>
                 </Stack>
@@ -38,7 +38,7 @@ export default function DepotManagement() {
                     <Box>
                         <ConfirmButton 
                             buttonText="Depot löschen"
-                            acceptCallback={handleLoeschung}
+                            acceptCallback={handleDeleteDepot}
                             dialogTitle="Wollen Sie Ihr Depot wirklich unwiderruflich löschen?"
                             color="error"
                             dialogBody="Diese Entscheidung kann nicht rückgängig gemacht werden."
