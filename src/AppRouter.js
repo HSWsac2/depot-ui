@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
-import DepotManagement from "./app/components/DepotManagement";
+import DepotManagement from "./app/components/depot-management/DepotManagement";
 import DepotOverview from "./app/components/depotOverview/DepotOverview";
 import Frame from "./app/components/frame/Frame";
 
