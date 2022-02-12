@@ -7,7 +7,7 @@ import Frame from "./app/components/frame/Frame";
 
 export default function AppRouter() {
     //Mock data
-    const [customer, setCustomer] = useState({name: "Test Name", phone: "015785708274", email: "testemail@dingens.com", address: "Beispielstraße 15", birthday: "99.12.2099", nationality: "Deutsch"});
+    const [customer, setCustomer] = useState({name: "Test Name", phone: "+4915785708274", email: "testemail@dingens.com", address: "Beispielstraße 15", birthday: "99.12.2099", nationality: "Deutsch"});
 
     return <>
         <Router>

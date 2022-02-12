@@ -1,6 +1,7 @@
 import { AssignmentInd } from "@mui/icons-material";
 import { Alert, Button, Card, Snackbar, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import InputMask from 'react-input-mask';
 import './CustomerInformation.css';
 
 export default function CustomerInformation({customer, setCustomer}) {
@@ -8,6 +9,9 @@ export default function CustomerInformation({customer, setCustomer}) {
     const [openSaveSuccess, setOpenSaveSuccess] = useState(false);
 
     function changedPhone(number) {
+        number = number.replace("(", "");
+        number = number.replace(")", "");
+        number = number.replace(" ", "");
         setCustomer({...customer, phone: number});
         setHasChanged(true);
     }
@@ -30,6 +34,7 @@ export default function CustomerInformation({customer, setCustomer}) {
     function saveCustomerData() {
         setHasChanged(false);
         setOpenSaveSuccess(true);
+        console.log(customer);
     }
 
     return <>
@@ -48,15 +53,22 @@ export default function CustomerInformation({customer, setCustomer}) {
                             value={customer.name}
                             className="dataField"
                             fullWidth
-                        /> 
-                        <TextField 
-                            variant="outlined" 
-                            label="Mobilnummer"
+                        />
+                        <InputMask 
+                            mask="(+99) 999 99999999"
                             value={customer.phone}
-                            className="dataField"
-                            fullWidth
                             onChange={(event) => changedPhone(event.target.value)}
-                        />  
+                        >
+                            {() =>
+                                <TextField 
+                                    variant="outlined" 
+                                    label="Mobilnummer"
+                                    value={customer.phone}
+                                    className="dataField"
+                                    fullWidth
+                                />  
+                            }
+                        </InputMask>
                         <TextField 
                             variant="outlined" 
                             label="E-Mail"
