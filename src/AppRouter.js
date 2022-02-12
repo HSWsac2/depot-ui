@@ -16,8 +16,8 @@ export default function AppRouter() {
                 <Route path="/management">
                     <DepotManagement />
                 </Route>
-                <Route path="/">
-                    <CustomerInformation customer={customer} />
+                <Route path="/data">
+                    <CustomerInformation customer={customer} setCustomer={setCustomer}/>
                 </Route>
             </Switch>
         </Router>

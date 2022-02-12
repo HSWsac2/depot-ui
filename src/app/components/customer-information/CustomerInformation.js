@@ -1,13 +1,39 @@
 import { AssignmentInd } from "@mui/icons-material";
-import { Card, TextField, Typography } from "@mui/material";
-import React from "react";
+import { Alert, Button, Card, Snackbar, TextField, Typography } from "@mui/material";
+import React, { useState } from "react";
 import './CustomerInformation.css';
 
-export default function CustomerInformation({customer}) {
+export default function CustomerInformation({customer, setCustomer}) {
+    const [hasChanged, setHasChanged] = useState(false);
+    const [openSaveSuccess, setOpenSaveSuccess] = useState(false);
+
+    function changedPhone(number) {
+        setCustomer({...customer, phone: number});
+        setHasChanged(true);
+    }
+
+    function changedEmail(email) {
+        setCustomer({...customer, email: email});
+        setHasChanged(true);
+    }
+
+    function changedAddress(address) {
+        setCustomer({...customer, address: address});
+        setHasChanged(true);
+    }
+
+    function changedNationality(nationality) {
+        setCustomer({...customer, nationality: nationality});
+        setHasChanged(true);
+    }
+
+    function saveCustomerData() {
+        setHasChanged(false);
+        setOpenSaveSuccess(true);
+    }
 
     return <>
         <div className="customerContainer">
-            <Typography variant="h2">Kundendaten</Typography>
             <div className="customerIcon">
                 <AssignmentInd sx={{fontSize: 200}}/>
             </div>
@@ -29,6 +55,7 @@ export default function CustomerInformation({customer}) {
                             value={customer.phone}
                             className="dataField"
                             fullWidth
+                            onChange={(event) => changedPhone(event.target.value)}
                         />  
                         <TextField 
                             variant="outlined" 
@@ -36,6 +63,7 @@ export default function CustomerInformation({customer}) {
                             value={customer.email}
                             className="dataField"
                             fullWidth
+                            onChange={(event) => changedEmail(event.target.value)}
                         />
                     </div>
                 </Card>
@@ -48,6 +76,7 @@ export default function CustomerInformation({customer}) {
                             value={customer.address}
                             className="dataField"
                             fullWidth
+                            onChange={(event) => changedAddress(event.target.value)}
                         /> 
                         <TextField 
                             variant="outlined" 
@@ -63,10 +92,18 @@ export default function CustomerInformation({customer}) {
                             value={customer.nationality}
                             className="dataField"
                             fullWidth
+                            onChange={(event) => changedNationality(event.target.value)}
                         />
                     </div>
                 </Card>
             </div>
+            {
+                hasChanged &&
+                <Button variant="contained" className="saveButton" onClick={() => saveCustomerData()}>Speichern</Button>
+            }
+            <Snackbar open={openSaveSuccess} autoHideDuration={2000} onClose={() => setOpenSaveSuccess(false)}>
+                <Alert severity="success">Kundendaten wurden gespeichert!</Alert>     
+            </Snackbar> 
         </div>
     </>;
 }
