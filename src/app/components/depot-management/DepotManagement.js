@@ -12,8 +12,6 @@ export default function DepotManagement() {
         alert("Depot geschlossen. Wieder öffnen geht aber nicht :-)");
     }
 
-    const { response, error , loading } = useAxios({baseURL: 'https://api.kanye.rest/', method: 'get', url: "/"});
-    console.log(response, error, loading)
     return (
         <Container
             maxWidth="lg"
@@ -21,10 +19,6 @@ export default function DepotManagement() {
             sx={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}
         >
             <Stack spacing={12}>
-                { loading && <Typography>Api Lädt</Typography> }
-                { response && <div><h1>Kanye Quote of the day</h1> <p>{response.quote}</p></div> }
-                { error && <p>Fehler beim Fetch: {error}</p> }
-
                 <Stack spacing={2}>
                     <Typography variant='h3'>Depot schließen</Typography>
                     <Typography variant='body1'>Mit Betätigung dieses Buttons sperren Sie ihr Depot. Es können keine weiteren Transaktionen durchgeführt werden. Beachten Sie, dass sich hierfür keine Wertpapiere in ihrem Depot befinden dürfen.</Typography>
