@@ -49,11 +49,11 @@ export default function DepotOverview() {
                 <Grid item xs={6} md={4}>
                     <p>+0.78%</p>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={12}>
                     <Line options={options} data={data}></Line>
                 </Grid>
-                <Grid item xs={12} md={6} border="2px solid" borderColor="black">
-                    <h2>Hier stehen 5 Umsätze</h2>
+                <Grid item xs={12} md={12} border="2px solid" borderColor="black">
+                    <h2>Hier stehen die Einzelpositionen</h2>
                 </Grid>
             </Grid>
         </div>
