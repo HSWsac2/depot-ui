@@ -28,6 +28,11 @@ const NavigationTabs = () => {
             label: "Handel",
             pathPrefix: "/trade",
             target: "/trade"
+        },
+        {
+            label: "Transaktionen",
+            pathPrefix: "/transactions",
+            target: "/transactions"
         }
     ]
 

@@ -6,6 +6,7 @@ import CustomerInformation from "./app/components/customer-information/CustomerI
 import DepotManagement from "./app/components/depot-management/DepotManagement";
 import DepotOverview from "./app/components/depotOverview/DepotOverview";
 import Frame from "./app/components/frame/Frame";
+import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
 
 export default function AppRouter() {
     //Mock data
@@ -23,6 +24,9 @@ export default function AppRouter() {
                 </Route>
                 <Route path="/overview">
                     <DepotOverview/>
+                </Route>
+                <Route path="/transactions">
+                    <TransactionOverview/>
                 </Route>
             </Switch>
         </Router>
