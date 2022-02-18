@@ -1,0 +1,39 @@
+.search {
+    position: relative;
+    background-color: darkgray;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.search:hover {
+    background-color: lightgray;
+    transition: 0.2s;
+}
+
+.searchIconWrapper {
+    padding: 5px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchfield {
+    padding-left: 30px;
+    border: 0px;
+    line-height: 1.75em !important;
+}
+
+.stockSearch {
+    margin-top: 50px;
+    margin-right: 200px;
+    margin-left: 200px;
+    height: auto;
+}
+
+.searchCard {
+    height: auto !important;
+}

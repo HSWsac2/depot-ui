@@ -6,6 +6,7 @@ import CustomerInformation from "./app/components/customer-information/CustomerI
 import DepotManagement from "./app/components/depot-management/DepotManagement";
 import DepotOverview from "./app/components/depotOverview/DepotOverview";
 import Frame from "./app/components/frame/Frame";
+import Trading from "./app/components/trading/Trading";
 import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
 
 export default function AppRouter() {
@@ -27,6 +28,9 @@ export default function AppRouter() {
                 </Route>
                 <Route path="/transactions">
                     <TransactionOverview/>
+                </Route>
+                <Route path="/trade">
+                    <Trading />
                 </Route>
             </Switch>
         </Router>
