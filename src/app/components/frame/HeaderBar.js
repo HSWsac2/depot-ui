@@ -1,4 +1,5 @@
 import { AppBar, Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 
 const HeaderBar = ({ role, setRole }) => {
 
@@ -12,19 +13,7 @@ const HeaderBar = ({ role, setRole }) => {
                 Depot-Übersicht
             </Typography>
             <Box sx={{ minWidth: 100 }}>
-                <FormControl fullWidth>
-                    <Select
-                        labelId="select-label"
-                        id="select"
-                        value={role}
-                        onChange={handleChangeFirst}
-                        autoWidth
-                        defaultValue={role}
-                    >
-                        <MenuItem value={"customer"} sx={{ minWidth: 100 }}>Kunde</MenuItem>
-                        <MenuItem value={"staff"} sx={{ minWidth: 100 }}>Mitarbeiter</MenuItem>
-                    </Select>
-                </FormControl>
+            <Button variant="contained" color="secondary">Anmelden</Button>
             </Box>
         </Toolbar>
     </AppBar>
