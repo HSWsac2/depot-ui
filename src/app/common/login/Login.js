@@ -10,8 +10,10 @@ export default function Login() {
     const [rememberUser, setRememberUser] = useState(false);
 
     const [, setUserCookie, removeUserCookie] = useCookies(['user']);
+    const {setCurrentUser} = useContext(UserContext);
 
     function login() {
+        setCurrentUser(user)
         if (rememberUser) {
             setUserCookie("user", user, {path: "/", maxAge: 600});
         } else {
