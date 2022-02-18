@@ -1,5 +1,7 @@
 import { Button, Card, CardActions, CardContent, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useCookies } from "react-cookie";
+import { UserContext } from "../../../context/UserContext";
 
 import './Login.css';
 
@@ -7,8 +9,14 @@ export default function Login() {
     const [user, setUser] = useState({username: null, password: null});
     const [rememberUser, setRememberUser] = useState(false);
 
+    const [, setUserCookie, removeUserCookie] = useCookies(['user']);
+
     function login() {
-        //TODO navigiere zur Seite
+        if (rememberUser) {
+            setUserCookie("user", user, {path: "/", maxAge: 600});
+        } else {
+            removeUserCookie();
+        }
     }
 
     return <>
