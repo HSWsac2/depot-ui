@@ -9,15 +9,14 @@ const NavigationTabs = () => {
 
     const tabs = [
         {
+            label: "Depotübersicht",
+            pathPrefix: "/overview",
+            target: "/overview" 
+        },
+        {
             label: "Depotverwaltung",
             pathPrefix: "/management",
             target: "/management"
-        },
-        {
-            label: "Depotübersicht",
-            pathPrefix: "/overview",
-            target: "/overview"
-
         },
         {
             label: "Kundendaten",
