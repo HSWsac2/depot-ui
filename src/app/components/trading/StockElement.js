@@ -2,11 +2,13 @@ import React from "react";
 import { Avatar, Box, Divider, ListItem, ListItemAvatar, ListItemButton, Typography, useMediaQuery } from "@mui/material";
 import { maxHeight } from "@mui/system";
 
+import './StockElement.css';
+
 const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
 
-export default function StockElement({key, stock, isLast}) {
+export default function StockElement({stock, isLast, onClick}) {
     return <>
-        <ListItem sx={{padding: 0}}>
+        <ListItem sx={{padding: 0}} className="stockElement" onClick={onClick}>
             <ListItemAvatar sx={{width: 150, display: 'flex'}}>
                     <svg style={{maxWidth: '90px', maxHeight: '50px', marginLeft: 'auto', marginRight: 'auto'}}>
                         <image href={stock.logoUrl} style={{width: '90px', transform: 'translateY(25%'}}></image>
