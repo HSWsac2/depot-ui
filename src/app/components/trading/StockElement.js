@@ -19,10 +19,13 @@ export default function StockElement({stock, isLast, onClick}) {
                 width: '100%'
             }}>
                 <Box sx={{ display: 'flex', width: '100%' }}>
-                    <Typography variant='h6' sx={{ display: 'inline', flexGrow: 1, fontWeight: 'bold', marginRight: '12px' }}>
+                    <Typography variant='h6' sx={{ display: 'inline', width: '20vw', fontWeight: 'bold', marginRight: '12px' }}>
                         {stock.name}
                     </Typography>
-                    <Typography align='right' sx={{ display: 'inline', fontWeight: 'bold' }}>
+                    <Typography variant='subtitle1' align='right' sx={{ display: 'inline-flex', flexGrow: 1, justifyContent: 'flex-start', marginTop: '3px'}}>
+                        {stock.isin}
+                    </Typography>
+                    <Typography align='right' sx={{ display: 'inline', fontWeight: 'bold', width: '5vw' }}>
                         {currencyFormat.format(stock.pricePerShare)}
                     </Typography>
                 </Box>
