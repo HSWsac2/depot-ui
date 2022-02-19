@@ -14,10 +14,10 @@ export default function CustomerInformation({customer, setCustomer}) {
         method: 'get',
         baseUrl: '',
     })
-    
-    const [hasChanged, setHasChanged] = useState(false);
-    const [openSaveSuccess, setOpenSaveSuccess] = useState(false);
 
+    // TODO use userInformation    
+    console.log("userInformation", userInformation);
+    
     return <>
         <div className="customerContainer">
             <div className="customerIcon">
