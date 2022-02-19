@@ -1,10 +1,22 @@
 import { AssignmentInd } from "@mui/icons-material";
 import { Alert, Button, Card, Snackbar, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import InputMask from 'react-input-mask';
+import { UserContext } from "../../../context/UserContext";
+import useAxios from "../../hooks/useAxios";
 import './CustomerInformation.css';
 
 export default function CustomerInformation({customer, setCustomer}) {
+    
+    const {currentUser} = useContext(UserContext);
+    const userInformation = useAxios({
+        url: `http://localhost:8080/api/depotService/clients/${currentUser.clientId}`,
+        method: 'get',
+        baseUrl: '',
+    })
+    
+    const [hasChanged, setHasChanged] = useState(false);
+    const [openSaveSuccess, setOpenSaveSuccess] = useState(false);
 
     return <>
         <div className="customerContainer">
