@@ -35,6 +35,7 @@ export default function Login() {
                     setLoginFailed(true);
                 }
             })
+            .catch(console.log)
 
     }
 

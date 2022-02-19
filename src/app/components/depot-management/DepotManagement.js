@@ -18,6 +18,7 @@ export default function DepotManagement() {
             spacing={0}
             sx={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}
         >
+
             <Stack spacing={12}>
                 <Stack spacing={2}>
                     <Typography variant='h3'>Depot schließen</Typography>
