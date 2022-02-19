@@ -15,24 +15,25 @@ export default function AppRouter() {
 
     return <>
         <Router>
-            <Frame />
-            <Switch>
-                <ProtectedRoute path="/management">
+            <Frame >
+                <Switch>
+                    <ProtectedRoute path="/management">
                         <DepotManagement />
-                </ProtectedRoute>
-                <ProtectedRoute path="/data">
-                    <CustomerInformation customer={customer} setCustomer={setCustomer} />
-                </ProtectedRoute>
-                <ProtectedRoute path="/overview">
-                    <DepotOverview />
-                </ProtectedRoute>
-                <ProtectedRoute path="/transactions">
-                    <TransactionOverview />
-                </ProtectedRoute>
-                <ProtectedRoute path="/trade">
-                    <Trading />
-                </ProtectedRoute>
-            </Switch>
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/data">
+                        <CustomerInformation customer={customer} setCustomer={setCustomer} />
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/overview">
+                        <DepotOverview />
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/transactions">
+                        <TransactionOverview />
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/trade">
+                        <Trading />
+                    </ProtectedRoute>
+                </Switch>
+            </Frame>
         </Router>
     </>;
 }
