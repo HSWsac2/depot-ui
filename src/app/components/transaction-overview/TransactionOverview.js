@@ -82,7 +82,7 @@ const TransactionOverview = () => {
     return <Container
         maxWidth="lg"
         spacing={0}
-        sx={{ marginTop: '4rem' }}
+        sx={{ marginTop: '2rem' }}
     >
         <List>
             {transactions.map((transaction, index) => (
