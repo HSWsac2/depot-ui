@@ -7,7 +7,7 @@ import './BuySellDialog.css';
 
 export default function BuySellDialog({stock, isOpen, handleClose}) {
 
-    const [amount, setAmount] = useState(undefined);
+    const [amount, setAmount] = useState("");
     const [errorOpen, setErrorOpen] = useState(false);
     const [successOpen, setSuccessOpen] = useState(false);
     const [method, setMethod] = useState("");
