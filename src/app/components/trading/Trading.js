@@ -44,7 +44,7 @@ export default function Trading() {
     const [displayedStocks, setDisplayedStocks] = useState(stocks);
 
     function onStockSearch(value) {
-        setDisplayedStocks(stocks.filter(stock => stock.name.includes(value)));
+        setDisplayedStocks(stocks.filter(stock => stock.name.toLowerCase().includes(value.toLowerCase())));
     }
 
     function onSelectStock(stock) {
