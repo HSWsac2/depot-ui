@@ -21,19 +21,23 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
     function buyStock() {
         setMethod("buy");
             //TODO service call buy
-        setSuccessOpen(true);
-        stock.amount = stock.amount + parseInt(amount);
+        if (amount) {
+            setSuccessOpen(true);
+            stock.amount = stock.amount + parseInt(amount);
+        }
     }
 
     function sellStock() {
         setMethod("sell");
-        if (stock.amount >= parseInt(amount)) {
-            //TODO service call sell
-            setSuccessOpen(true);
-            stock.amount = stock.amount - parseInt(amount);
-        } else {
-            setErrorMsg("Nicht genügend Wertpapiere vorhanden");
-            setErrorOpen(true);
+        if (amount) {
+            if (stock.amount >= parseInt(amount)) {
+                //TODO service call sell
+                setSuccessOpen(true);
+                stock.amount = stock.amount - parseInt(amount);
+            } else {
+                setErrorMsg("Nicht genügend Wertpapiere vorhanden");
+                setErrorOpen(true);
+            }
         }
     }
 
