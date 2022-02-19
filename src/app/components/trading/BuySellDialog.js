@@ -12,9 +12,10 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
     const [successOpen, setSuccessOpen] = useState(false);
     const [method, setMethod] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [isError, setIsError] = useState(false);
 
     function closeDialog() {
-        setAmount(undefined);
+        setAmount("");
         handleClose();
     }
 
@@ -24,6 +25,8 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
         if (amount) {
             setSuccessOpen(true);
             stock.amount = stock.amount + parseInt(amount);
+        } else {
+            setIsError(true);
         }
     }
 
@@ -38,7 +41,14 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
                 setErrorMsg("Nicht genügend Wertpapiere vorhanden");
                 setErrorOpen(true);
             }
+        } else {
+            setIsError(true);
         }
+    }
+
+    function enterAmount(value) {
+        setAmount(value);
+        setIsError(false);
     }
 
     function closeToasts() {
@@ -62,14 +72,17 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
                     mask="999999"
                     maskChar={null}
                     value={amount} 
-                    onChange={(event) => setAmount(event.target.value)}
+                    onChange={(event) => enterAmount(event.target.value)}
                     style={{display: 'inline'}}
                 >
                     { () =>
-                        <TextField variant="outlined" label="Anzahl" className="amountField"></TextField>
+                        <TextField variant="outlined" label="Anzahl" className="amountField" error={isError}></TextField>
                     }
                 </InputMask>
             </div>
+            { amount.length > 0 &&
+                <DialogContentText className="tradingContent" sx={{marginTop: '10px'}}>{`Gesamtpreis: ${amount * stock.pricePerShare}€`}</DialogContentText>
+            }
             <div className="tradingActions">
                 <Button variant="contained" className="tradingButton" onClick={() => buyStock()}>Kaufen</Button>
                 <Button variant="contained" className="tradingButton" onClick={() => sellStock()}>Verkaufen</Button>
