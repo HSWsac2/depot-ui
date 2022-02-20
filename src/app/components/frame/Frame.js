@@ -9,10 +9,15 @@ import { ThemeProvider } from '@emotion/react';
 const theme = createTheme({
     palette: {
       primary: {
-        main: purple[500],
+        main: '#002884',
+        light: '#757ce8',
+        contrastText: '#fff'
       },
       secondary: {
-        main: "#d1c4e9",
+        light: '#ff7961',
+        main: '#f44336',
+        dark: '#ba000d',
+        contrastText: '#000',
       },
     },
   });
@@ -23,7 +28,7 @@ const Frame = ({ children, role, setRole }) => {
             <ThemeProvider theme={theme}>
             <HeaderBar role={role} setRole={setRole} />
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
+                <Grid container spacing={2}>
                     <Grid item xs={1}>
                     </Grid>
                     <Grid item xs={10}>

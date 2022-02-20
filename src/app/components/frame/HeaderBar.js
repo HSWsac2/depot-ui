@@ -16,7 +16,7 @@ const HeaderBar = ({ role, setRole }) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Depot-Übersicht
             </Typography>
-            <Box sx={{ minWidth: 100 }}>
+            <Box color="light" sx={{ minWidth: 100 }}>
                 <FormControl fullWidth>
                     <Select
                         labelId="demo-simple-select-label"
@@ -26,8 +26,8 @@ const HeaderBar = ({ role, setRole }) => {
                         autoWidth
                         defaultValue={setting}
                     >
-                        <MenuItem value={"1"} sx={{ minWidth: 100 }}><RocketLaunchIcon/>Depot1</MenuItem>
-                        <MenuItem value={"2"} sx={{ minWidth: 100 }}><RocketLaunchIcon />Depot2</MenuItem>
+                        <MenuItem  value={"data"} sx={{ minWidth: 100 }}><AccountBalanceIcon />Konto</MenuItem>
+                        <MenuItem value={"logOut"} sx={{ minWidth: 100 }}><PowerSettingsNewIcon />Ausloggen</MenuItem>
                         <Divider sx={{ my: 0.5 }} />
                         <li>
                             <Typography
@@ -36,12 +36,12 @@ const HeaderBar = ({ role, setRole }) => {
                                 display="block"
                                 variant="caption"
                                 >
-                             Sonstiges
+                             Depots
                             </Typography>
                         </li>
-                        <MenuItem value={"data"} sx={{ minWidth: 100 }}><AccountBalanceIcon />Kundendaten</MenuItem>
-                        <MenuItem value={"logOut"} sx={{ minWidth: 100 }}><PowerSettingsNewIcon />Ausloggen</MenuItem>
-                    </Select>
+                        <MenuItem value={"1"} sx={{ minWidth: 100 }}><RocketLaunchIcon/>Depot1</MenuItem>
+                        <MenuItem value={"2"} sx={{ minWidth: 100 }}><RocketLaunchIcon />Depot2</MenuItem>
+                        </Select>
                 </FormControl>
             </Box>
         </Toolbar>
