@@ -1,42 +1,23 @@
 import { AssignmentInd } from "@mui/icons-material";
 import { Alert, Button, Card, Snackbar, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import InputMask from 'react-input-mask';
+import { UserContext } from "../../../context/UserContext";
+import useAxios from "../../hooks/useAxios";
 import './CustomerInformation.css';
 
 export default function CustomerInformation({customer, setCustomer}) {
-    const [hasChanged, setHasChanged] = useState(false);
-    const [openSaveSuccess, setOpenSaveSuccess] = useState(false);
+    
+    const {currentUser} = useContext(UserContext);
+    const userInformation = useAxios({
+        url: `http://localhost:8080/api/depotService/clients/${currentUser.clientId}`,
+        method: 'get',
+        baseUrl: '',
+    })
 
-    function changedPhone(number) {
-        number = number.replace("(", "");
-        number = number.replace(")", "");
-        number = number.replace(" ", "");
-        setCustomer({...customer, phone: number});
-        setHasChanged(true);
-    }
-
-    function changedEmail(email) {
-        setCustomer({...customer, email: email});
-        setHasChanged(true);
-    }
-
-    function changedAddress(address) {
-        setCustomer({...customer, address: address});
-        setHasChanged(true);
-    }
-
-    function changedNationality(nationality) {
-        setCustomer({...customer, nationality: nationality});
-        setHasChanged(true);
-    }
-
-    function saveCustomerData() {
-        setHasChanged(false);
-        setOpenSaveSuccess(true);
-        console.log(customer);
-    }
-
+    // TODO use userInformation    
+    console.log("userInformation", userInformation);
+    
     return <>
         <div className="customerContainer">
             <div className="customerIcon">
@@ -54,28 +35,21 @@ export default function CustomerInformation({customer, setCustomer}) {
                             className="dataField"
                             fullWidth
                         />
-                        <InputMask 
-                            mask="(+99) 999 99999999"
+                        <TextField 
+                            variant="outlined" 
+                            label="Mobilnummer"
                             value={customer.phone}
-                            onChange={(event) => changedPhone(event.target.value)}
-                        >
-                            {() =>
-                                <TextField 
-                                    variant="outlined" 
-                                    label="Mobilnummer"
-                                    value={customer.phone}
-                                    className="dataField"
-                                    fullWidth
-                                />  
-                            }
-                        </InputMask>
+                            className="dataField"
+                            fullWidth
+                            disabled
+                        />  
                         <TextField 
                             variant="outlined" 
                             label="E-Mail"
                             value={customer.email}
                             className="dataField"
                             fullWidth
-                            onChange={(event) => changedEmail(event.target.value)}
+                            disabled
                         />
                     </div>
                 </Card>
@@ -88,7 +62,7 @@ export default function CustomerInformation({customer, setCustomer}) {
                             value={customer.address}
                             className="dataField"
                             fullWidth
-                            onChange={(event) => changedAddress(event.target.value)}
+                            disabled
                         /> 
                         <TextField 
                             variant="outlined" 
@@ -104,18 +78,11 @@ export default function CustomerInformation({customer, setCustomer}) {
                             value={customer.nationality}
                             className="dataField"
                             fullWidth
-                            onChange={(event) => changedNationality(event.target.value)}
+                            disabled
                         />
                     </div>
                 </Card>
             </div>
-            {
-                hasChanged &&
-                <Button variant="contained" className="saveButton" onClick={() => saveCustomerData()}>Speichern</Button>
-            }
-            <Snackbar open={openSaveSuccess} autoHideDuration={2000} onClose={() => setOpenSaveSuccess(false)}>
-                <Alert severity="success">Kundendaten wurden gespeichert!</Alert>     
-            </Snackbar> 
         </div>
     </>;
 }
