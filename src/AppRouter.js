@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
 import DepotManagement from "./app/components/depot-management/DepotManagement";
@@ -15,25 +15,37 @@ export default function AppRouter() {
 
     return <>
         <Router>
-            <Frame >
-                <Switch>
-                    <ProtectedRoute path="/management">
+            <Switch>
+                <ProtectedRoute path="/management">
+                    <Frame >
                         <DepotManagement />
-                    </ProtectedRoute>
-                    <ProtectedRoute path="/data">
+                    </Frame>
+                </ProtectedRoute>
+                <ProtectedRoute path="/data">
+                    <Frame >
                         <CustomerInformation customer={customer} setCustomer={setCustomer} />
-                    </ProtectedRoute>
-                    <ProtectedRoute path="/overview">
+                    </Frame>
+                </ProtectedRoute>
+                <ProtectedRoute path="/overview">
+                    <Frame >
                         <DepotOverview />
-                    </ProtectedRoute>
-                    <ProtectedRoute path="/transactions">
+                    </Frame>
+                </ProtectedRoute>
+                <ProtectedRoute path="/transactions">
+                    <Frame >
                         <TransactionOverview />
-                    </ProtectedRoute>
-                    <ProtectedRoute path="/trade">
+                    </Frame>
+                </ProtectedRoute>
+                <ProtectedRoute path="/trade">
+                    <Frame >
                         <Trading />
-                    </ProtectedRoute>
-                </Switch>
-            </Frame>
+                    </Frame>
+                </ProtectedRoute>
+                <Route path="/">
+                    <Redirect to="/overview" />
+                </Route>
+            </Switch>
+
         </Router>
     </>;
 }
