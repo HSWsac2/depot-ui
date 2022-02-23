@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useAxios = ({ url, method, baseURL }) => {
+const useAxios = ({ url, method, baseURL, active }) => {
   const [state, setState] = useState({ response: null, error: null, loading: true });
 
   useEffect(() => {
+    if (!active) {
+      return
+    }
     setState(state => ({ response: state.data, error: state.error, loading: true }));
+    console.log("querying", url, method, baseURL)
     axios
       .request({ url, method, baseURL })
       .then((res) => {
@@ -14,7 +18,7 @@ const useAxios = ({ url, method, baseURL }) => {
       .catch((err) => {
         setState({ response: null, error: err, loading: false });
       });
-  }, [url, method, baseURL]);
+  }, [url, method, baseURL, active]);
 
   return state;
 };

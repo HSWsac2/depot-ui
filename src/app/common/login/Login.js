@@ -19,7 +19,7 @@ export default function Login() {
         if (rememberUser) {
             setUserCookie("user", user, { path: "/", maxAge: 600 });
         } else {
-            removeUserCookie();
+            removeUserCookie("user");
         }
     }
 
@@ -30,7 +30,7 @@ export default function Login() {
             .then(user => {
                 if (user !== undefined) {
                     setLoginFailed(false);
-                    setUser({ clientId: user.client_id })
+                    setUser({ ...user })
                 } else {
                     setLoginFailed(true);
                 }

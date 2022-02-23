@@ -9,10 +9,12 @@ import './CustomerInformation.css';
 export default function CustomerInformation({customer, setCustomer}) {
     
     const {currentUser} = useContext(UserContext);
+
     const userInformation = useAxios({
-        url: `http://localhost:8080/api/depotService/clients/${currentUser.clientId}`,
+        url: `http://localhost:8080/api/depotService/clients/${currentUser?.clientId}`,
         method: 'get',
         baseUrl: '',
+        active: currentUser != null,
     })
 
     // TODO use userInformation    
