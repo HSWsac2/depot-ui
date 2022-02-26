@@ -3,14 +3,17 @@
     height: 100vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap :7rem;
+    grid-gap: 7rem;
     box-sizing: border-box;
 }
 
 .loginContent {
     display: flex;
     align-items: center;
-    width: 360px;
+}
+
+.loginContainer form {
+    width: 360px; 
 }
 
 .avatar {
@@ -28,11 +31,31 @@
 
 .loginField {
     margin: 25px 0;
-    width: 20rem;
     display: flex;
     align-items: flex-end;
+    padding-right: 10px;
 }
 
 .loginField.first {
     margin-top: 10;
+}
+
+@media screen and (max-width: 992px){
+	.loginContainer {
+		grid-gap: 2rem;
+	}
+}
+
+@media screen and (max-width: 768px){
+	.loginContainer {
+		grid-template-columns: 1fr;
+	}
+
+	.accent {
+		display: none;
+	}
+
+	.loginContent {
+		justify-content: center;
+	}
 }
