@@ -44,7 +44,12 @@ export default function Login() {
 
     return <>
         <Box className='loginContainer'>
-            <Box bgcolor='primary.main' className="accent"/>
+            <Box bgcolor='primary.main' className="accent">
+                <img src="/logo.png" alt="logo" />
+                <Typography color='white' variant='h2'>
+                    Mein Depot
+                </Typography>
+            </Box>
             <Box className="loginContent">
                 <form onSubmit={e => login(e)}>
                     <Avatar className='avatar' />

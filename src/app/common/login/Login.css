@@ -1,3 +1,17 @@
+.accent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.accent img {
+    width: 12rem;
+    height: 12rem;
+    filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.2));
+}
+
 .loginContainer {
     width: 100vw;
     height: 100vh;
