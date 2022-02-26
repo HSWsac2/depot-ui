@@ -1,5 +1,6 @@
 import { Alert, Button, Dialog, DialogContentText, DialogTitle, Snackbar, TextField } from "@mui/material";
 import { purple } from "@mui/material/colors";
+import axios from "axios";
 import React, { useState } from "react";
 import InputMask from 'react-input-mask';
 
@@ -21,10 +22,16 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
 
     function buyStock() {
         setMethod("buy");
-            //TODO service call buy
         if (amount) {
-            setSuccessOpen(true);
-            stock.amount = stock.amount + parseInt(amount);
+            //TODO set position and sub id correctly
+            axios.post('http://localhost:8081/orders/454/1', {stock_isin: stock.isin, amount: parseInt(amount)}).then((res) => {
+                if (res.status === 200) {
+                    setSuccessOpen(true);
+                    stock.amount = stock.amount + parseInt(amount);
+                } else {
+                    //TODO error handling
+                }
+            });
         } else {
             setIsError(true);
         }
@@ -34,9 +41,15 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
         setMethod("sell");
         if (amount) {
             if (stock.amount >= parseInt(amount)) {
-                //TODO service call sell
-                setSuccessOpen(true);
-                stock.amount = stock.amount - parseInt(amount);
+                //TODO set position and sub id correctly
+            axios.post('http://localhost:8081/orders/454/1', {stock_isin: stock.isin, amount: parseInt(amount * -1)}).then((res) => {
+                if (res.status === 200) {
+                    setSuccessOpen(true);
+                    stock.amount = stock.amount - parseInt(amount);
+                } else {
+                    //TODO error handling
+                }
+            });
             } else {
                 setErrorMsg("Nicht genügend Wertpapiere vorhanden");
                 setErrorOpen(true);

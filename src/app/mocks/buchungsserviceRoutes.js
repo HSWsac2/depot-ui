@@ -39,6 +39,10 @@ const buchungsroutes =  [
                 }
             ]
         
+    },
+    { //TODO mock properties
+        method: 'post',
+        url: ''
     }
 ]
 
