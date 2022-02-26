@@ -56,6 +56,27 @@ export default function CustomerInformation({customer, setCustomer}) {
                     </div>
                 </Card>
                 <Card className="customerDataCard">
+                    <Typography variant="h5" className="cardTitle">Kontodaten</Typography>
+                    <div className="cardContent">
+                        <TextField 
+                            variant="outlined" 
+                            label="Verrechnungskonto"
+                            value={customer.account}
+                            className="dataField"
+                            fullWidth
+                            disabled
+                        /> 
+                        <TextField 
+                            variant="outlined" 
+                            label="Kaufkraft"
+                            value={customer.buyingpower}
+                            className="dataField"
+                            fullWidth
+                            disabled
+                        />  
+                    </div>
+                </Card>
+                <Card className="customerDataCard">
                     <Typography variant="h5" className="cardTitle">Persönliche Daten</Typography>
                     <div className="cardContent">
                         <TextField 

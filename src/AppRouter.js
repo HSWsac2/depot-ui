@@ -11,7 +11,7 @@ import TransactionOverview from "./app/components/transaction-overview/Transacti
 
 export default function AppRouter() {
     //Mock data
-    const [customer, setCustomer] = useState({ name: "Test Name", phone: "+4915785708274", email: "testemail@dingens.com", address: "Beispielstraße 15", birthday: "99.12.2099", nationality: "Deutsch" });
+    const [customer, setCustomer] = useState({ name: "Test Name", phone: "+4915785708274", email: "testemail@dingens.com", address: "Beispielstraße 15", birthday: "99.12.2099", nationality: "Deutsch", buyingpower: "12 Mille", account: "DE32DINGSBUMSIBAN" });
 
     return <>
         <Router>
