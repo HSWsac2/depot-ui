@@ -8,6 +8,7 @@ import Frame from "./app/components/frame/Frame";
 import Trading from "./app/components/trading/Trading";
 import ProtectedRoute from "./app/components/frame/ProtectedRoute";
 import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
+import Footer from './app/components/frame/Footer';
 
 export default function AppRouter() {
     //Mock data
@@ -45,7 +46,7 @@ export default function AppRouter() {
                     <Redirect to="/overview" />
                 </Route>
             </Switch>
-
+            <Footer/>
         </Router>
     </>;
 }

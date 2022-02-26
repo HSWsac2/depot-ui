@@ -14,17 +14,12 @@ const Frame = ({ children }) => {
                     <Grid item xs={1}>
                     </Grid>
                     <Grid item xs={10}>
-                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            <NavigationTabs />
-                        </Box>
-
                         {children}
-
                     </Grid>
                     <Grid item xs={1}>
                     </Grid>
                 </Grid>
-            </Box>
+            </Box>            
         </>
     )
 }

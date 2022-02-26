@@ -1,12 +1,11 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import * as React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-
 const NavigationTabs = () => {
 
     const history = useHistory();
     const location = useLocation();
-
+ 
     const tabs = [
         {
             label: "Depotübersicht",
@@ -47,15 +46,19 @@ const NavigationTabs = () => {
         history.push(target)
     }
 
-    return (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={selectedTabIndex < 0 ? 0 : selectedTabIndex} aria-label="basic tabs example">
+    return (<Box sx={{ borderBottom: 1, borderColor: 'divider' } }>
+        <Tabs  value={selectedTabIndex < 0 ? 0 : selectedTabIndex} aria-label="basic tabs example"
+        textColor="white"
+        indicatorColor="E0E0E0"
+        >
             {tabs.map((tab, index) => (
                 <Tab
                     key={index}
                     label={tab.label}
                     onClick={() => { navigateTo(tab.target) }}
-                    {...a11yProps(index)}
-                    sx={{ minWidth: 200 }}
+                    sx={{ minWidth: 200}}
+                    
+                    
                 />
             ))}
         </Tabs>
