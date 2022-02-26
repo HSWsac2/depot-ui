@@ -1,9 +1,11 @@
 import { AppBar, Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
 import NavigationTabs from './NavigationTabs';
 import Grid from '@mui/material/Grid';
+import HeaderMenu from './HeaderMenu';
 
-
-    return (<AppBar position="static">
+const HeaderBar=() => {
+    return (
+    <AppBar position="static">
         <Toolbar>
             <Grid container spacing={1}>
                 <Grid item xs={10}>
@@ -12,21 +14,7 @@ import Grid from '@mui/material/Grid';
                     </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                    <Box sx={{ minWidth: 100 }}>
-                        <FormControl fullWidth>
-                            <Select
-                                labelId="select-label"
-                                id="select"
-                                value={role}
-                                onChange={handleChangeFirst}
-                                autoWidth
-                                defaultValue={role}
-                            >
-                                <MenuItem value={"customer"} sx={{ minWidth: 100 }}>Kunde</MenuItem>
-                                <MenuItem value={"staff"} sx={{ minWidth: 100 }}>Mitarbeiter</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
+                    <HeaderMenu />
                 </Grid>
                 <Grid item xs={12}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -34,7 +22,6 @@ import Grid from '@mui/material/Grid';
                     </Box>
                 </Grid>
             </Grid>
-            <HeaderMenu/>
         </Toolbar>
 
     </AppBar>

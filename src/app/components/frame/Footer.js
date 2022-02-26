@@ -1,8 +1,10 @@
 import { AppBar, Link, Grid, Toolbar, Typography } from '@mui/material';
-
+import "./Footer.css"
 const Footer = () => {
 
-    return (<AppBar position="static">
+    return (
+    <footer className="footer">
+    <AppBar position="static">
         <Toolbar>
             <Grid container spacing={1}>
                 <Grid item xs={10}>
@@ -19,6 +21,7 @@ const Footer = () => {
             </Grid>
         </Toolbar>
     </AppBar>
+    </footer>
     )
 }
 
