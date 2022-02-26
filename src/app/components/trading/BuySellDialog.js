@@ -64,7 +64,7 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
             <svg style={{maxWidth: '90px', maxHeight: '50px', marginLeft: 'auto', marginRight: 'auto', marginBottom: '20px'}}>
                         <image href={stock.logoUrl} style={{width: '90px', transform: 'translateY(25%'}}></image>
             </svg>
-            <DialogContentText className="tradingContent">{`Aktueller Preis: ${stock.pricePerShare}€`}</DialogContentText>
+            <DialogContentText className="tradingContent">{`Aktueller Preis: ${stock.price_per_piece}€`}</DialogContentText>
             <DialogContentText className="tradingContent">{`Anzahl im Besitz: ${stock.amount}`}</DialogContentText>
             <div className="amount">
                 <DialogContentText className="tradingContent amountLabel">Anzahl zu handeln: </DialogContentText>
@@ -81,7 +81,7 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
                 </InputMask>
             </div>
             { amount.length > 0 &&
-                <DialogContentText className="tradingContent" sx={{marginTop: '10px'}}>{`Gesamtpreis: ${amount * stock.pricePerShare}€`}</DialogContentText>
+                <DialogContentText className="tradingContent" sx={{marginTop: '10px'}}>{`Gesamtpreis: ${amount * stock.price_per_piece}€`}</DialogContentText>
             }
             <div className="tradingActions">
                 <Button variant="contained" className="tradingButton" onClick={() => buyStock()}>Kaufen</Button>
