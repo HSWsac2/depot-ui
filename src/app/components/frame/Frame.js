@@ -8,7 +8,7 @@ const Frame = ({ children }) => {
     return (
         <div className="wrapper">
             <HeaderBar />
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{flexGrow: 1}}>
                 <Grid item xs={1}>
                 </Grid>
                 <Grid item xs={10}>
