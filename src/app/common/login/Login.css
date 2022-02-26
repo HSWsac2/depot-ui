@@ -1,38 +1,38 @@
 .loginContainer {
-    background-color: lightgray;
+    width: 100vw;
     height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap :7rem;
+    box-sizing: border-box;
+}
+
+.loginContent {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    width: 360px;
 }
 
-.loginCard {
-    max-width: 600px;
-    min-width: 40vh;
-    margin: auto;
-    padding-block: 2rem;
-}
-
-.loginField {
-    margin-top: 10px !important;
-}
-
-.loginCardContent {
-    padding-bottom: 5px !important;
-}
-
-.loginButton {
-    background-color: lightgray !important;
-    color: black !important;
-    width: 100%;
-}
-
-.loginActions {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+.avatar {
+    width: 90px;
+    height: 90px; 
+    display: block;
+    margin: auto
 }
 
 .loginTitle {
-    width: 150px;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin: 15px 0 !important;
+    text-align: center;
+    font-weight: 500 !important;
+}
+
+.loginField {
+    margin: 25px 0!important;
+    width: 20rem;
+    display: flex;
+    align-items: flex-end;
+}
+
+.loginField.first {
+    margin-top: 10 !important;
 }
