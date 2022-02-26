@@ -3,8 +3,8 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { UserContext } from "../../../context/UserContext";
-
 import './Login.css';
+
 
 export default function Login() {
     const [loginInformation, setLoginInformation] = useState({ email: null, password: null });
@@ -48,14 +48,14 @@ export default function Login() {
                         <Typography variant="h5" className="loginField">E-Mail</Typography>
                         <TextField
                             variant="outlined"
-                            value={loginInformation.email}
+                            value={loginInformation.email ?? ""}
                             onChange={(event) => setLoginInformation({ ...loginInformation, email: event.target.value })}
                             fullWidth
                         />
                         <Typography variant="h5" className="loginField">Passwort</Typography>
                         <TextField
                             variant="outlined"
-                            value={loginInformation.password}
+                            value={loginInformation.password ?? ""}
                             type="password"
                             onChange={(event) => setLoginInformation({ ...loginInformation, password: event.target.value })}
                             fullWidth
