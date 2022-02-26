@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { UserContext } from '../../../context/UserContext';
+import { DepotContext } from '../../../context/DepotContext';
 import useAxios from '../../hooks/useAxios';
 import { DropdownMenu } from './DropdownMenu';
 
@@ -19,7 +20,10 @@ export default function HeaderMenu() {
     const open = Boolean(anchorEl);
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const [, , removeUserCookie] = useCookies(['user']);
+    const [, setDepotCookie] = useCookies(['depot']);
 
+    const {currentDepot, setCurrentDepot} = useContext(DepotContext);
+    
     const { response, error, loading } = useAxios({
         url: `http://localhost:8080/api/depotService/deposits/${currentUser?.client_id}`,
         method: 'get',
@@ -40,8 +44,6 @@ export default function HeaderMenu() {
         console.log(removeUserCookie)
     }
 
-    // TODO move to context
-    const [selectedDeposit, setSelectedDeposit] = useState(null);
 
     return (
         <>
@@ -54,7 +56,7 @@ export default function HeaderMenu() {
                     aria-expanded={open ? 'true' : undefined}
                 >
                     <Typography color="white">
-                        {selectedDeposit ? `${selectedDeposit.position_id} ${selectedDeposit.position_sub_id}` : "Depotauswahl"}
+                        {currentDepot ? `${currentDepot.position_id} ${currentDepot.position_sub_id}` : "Depotauswahl"}
                     </Typography>
                     <Avatar sx={{ width: 32, height: 32, ml: 1 }}>
                         <Person />
@@ -76,7 +78,11 @@ export default function HeaderMenu() {
                 {response && response.map(deposit => (
                     <MenuItem 
                         key={deposit.position_id + deposit.position_sub_id}
-                        onClick={() => setSelectedDeposit(deposit)}
+                        onClick={() => {
+                            setCurrentDepot(deposit);
+                            setDepotCookie("positionId", deposit.position_id, { path: "/", maxAge: 600 })
+                            setDepotCookie("positionSubId", deposit.position_sub_id, { path: "/", maxAge: 600 })
+                        }}
                         >
                         {/* Will be the deposit name soon */}
                         <Avatar></Avatar>{deposit.position_id} {deposit.position_sub_id}

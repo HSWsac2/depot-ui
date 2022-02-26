@@ -1,8 +1,10 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import './App.css';
 import AppRouter from './AppRouter';
+import { DepotContext } from './context/DepotContext';
 import { UserContext } from './context/UserContext';
 
 function App() {
@@ -24,14 +26,29 @@ function App() {
   });
 
   const [userCookie] = useCookies(['user']);
+  const [depotCookie] = useCookies(['depot'])
+  const { positionId, positionSubId } = depotCookie;
+
   const [currentUser, setCurrentUser] = useState(userCookie.user ?? null)
+  const [currentDepot, setCurrentDepot] = useState(null)
+
+  // get initial deposit based on cookie values
+  useEffect(() => {
+    if (positionId == null || positionSubId == null || currentUser == null) return;
+    axios.get(`http://localhost:8080/api/depotService/deposits/${positionId}/${positionSubId}`)
+      .then(response => response.data)
+      .then(response => setCurrentDepot(response))
+      .catch(console.error)
+  }, [positionId, positionSubId, currentUser]);
 
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser }} >
-      <ThemeProvider theme={theme}>
-        <AppRouter />
-      </ThemeProvider>
-    </UserContext.Provider>
+      <DepotContext.Provider value={{ currentDepot, setCurrentDepot }} >
+        <ThemeProvider theme={theme}>
+          <AppRouter />
+        </ThemeProvider>
+      </DepotContext.Provider >
+    </UserContext.Provider >
   )
 }
 
