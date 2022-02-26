@@ -62,11 +62,28 @@
 
 @media screen and (max-width: 768px){
 	.loginContainer {
+        grid-gap: 0;
 		grid-template-columns: 1fr;
+        grid-template-rows: max-content auto;
+
 	}
 
-	.accent {
-		display: none;
+    .accent {
+        flex-direction: row;
+        padding: 1rem 0;
+    }
+
+    .accent h2 {
+        font-weight: 400;
+        font-size: 2.125rem;
+        line-height: 1.235;
+        letter-spacing: 0.00735em;
+        margin-left: 10px;
+    }
+
+	.accent img{
+        width: 5rem;
+        height: 5rem;
 	}
 
 	.loginContent {
