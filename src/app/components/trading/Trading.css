@@ -8,6 +8,10 @@
     border-radius: 5px;
 }
 
+.tradingContainer {
+    min-height: 100%;
+}
+
 .search:hover {
     background-color: lightgray;
     transition: 0.2s;

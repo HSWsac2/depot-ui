@@ -26,7 +26,7 @@ export default function StockElement({stock, isLast, onClick}) {
                         {stock.isin}
                     </Typography>
                     <Typography align='right' sx={{ display: 'inline', fontWeight: 'bold', width: '5vw' }}>
-                        {currencyFormat.format(stock.pricePerShare)}
+                        {currencyFormat.format(stock.price_per_piece)}
                     </Typography>
                 </Box>
             </Box>

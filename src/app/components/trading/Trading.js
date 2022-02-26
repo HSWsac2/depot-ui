@@ -1,6 +1,7 @@
 import { Card, InputBase, List } from "@mui/material";
-import React, { useState } from "react";
-import SearchIcon from '@mui/icons-material/Search';    
+import React, { useState, useEffect } from "react";
+import SearchIcon from '@mui/icons-material/Search';  
+import axios from 'axios';  
 
 import './Trading.css';
 import StockElement from "./StockElement";
@@ -9,46 +10,24 @@ import BuySellDialog from "./BuySellDialog";
 export default function Trading() {
     const [tradingDialogOpen, setTradingDialogOpen] = useState(false);
     const [selectedStock, setSelectedStock] = useState(undefined)
-    
-    const stocks = [
-        {
-            id: 1,
-            name: "Alphabet",
-            pricePerShare: 2350,
-            logoUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Alphabet_Inc_Logo_2015.svg",
-            amount: 4,
-            isin: "DE123DINGSBUMS"
-        },
-        {
-            id: 2,
-            name: "Meta",
-            pricePerShare: 192,
-            logoUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
-            amount: 3,
-            isin: "DE456DINGSBUMS"
-        },
-        {
-            id: 3,
-            name: "Amazon.com, Inc.",
-            pricePerShare: 2672,
-            logoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-            amount: 2,
-            isin: "DE789DINGSBUMS"
-        },
-        {
-            id: 4,
-            name: "Netflix",
-            pricePerShare: 241,
-            logoUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
-            amount: 1,
-            isin: "DE135DINGSBUMS"
-        }
-    ]
 
-    const [displayedStocks, setDisplayedStocks] = useState(stocks);
+    const [allStocks, setAllStocks] = useState([]);
+
+    const [displayedStocks, setDisplayedStocks] = useState([]);
+
+    useEffect(() => {
+      const fetchStocks = async () => {
+          const stocks = await axios.get('http://localhost:8081/stocks');
+          console.log(stocks.data);
+          setAllStocks(stocks.data);
+          setDisplayedStocks(stocks.data);
+      }
+    
+      fetchStocks();
+    }, []);
 
     function onStockSearch(value) {
-        setDisplayedStocks(stocks.filter(stock => stock.name.toLowerCase().includes(value.toLowerCase()) || stock.isin.toLowerCase().includes(value.toLowerCase())));
+        setDisplayedStocks(allStocks.filter(stock => stock.name.toLowerCase().includes(value.toLowerCase()) || stock.isin.toLowerCase().includes(value.toLowerCase())));
     }
 
     function onSelectStock(stock) {

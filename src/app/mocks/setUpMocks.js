@@ -1,4 +1,5 @@
 import routes from './routes.js'
+import buchungsroutes from './buchungsserviceRoutes.js';
 
 const setUpMocks = () => {
     var axios = require("axios");
@@ -13,5 +14,9 @@ const setUpMocks = () => {
     routes.forEach(route => {
          mock.onGet(`http://localhost:8080/api/depotService${route.url}`).reply(route.code, route.response);
     });
+
+    buchungsroutes.forEach(route => {
+        mock.onGet(`http://localhost:8081${route.url}`).reply(route.code, route.response);
+   });
 }
 export default setUpMocks;
