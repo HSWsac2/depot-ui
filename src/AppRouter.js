@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.m
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
 import DepotManagement from "./app/components/DepotManagement";
 import Frame from "./app/components/frame/Frame";
+import Footer from './app/components/frame/Footer';
 
 export default function AppRouter() {
     //Mock data
@@ -20,6 +21,7 @@ export default function AppRouter() {
                     <CustomerInformation customer={customer} />
                 </Route>
             </Switch>
+            <Footer/>
         </Router>
     </>;
 }

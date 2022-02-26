@@ -1,12 +1,11 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import * as React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-
 const NavigationTabs = () => {
 
     const history = useHistory();
     const location = useLocation();
-
+ 
     const tabs = [
         {
             label: "Depotverwaltung",
