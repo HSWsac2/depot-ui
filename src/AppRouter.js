@@ -46,7 +46,6 @@ export default function AppRouter() {
                     <Redirect to="/overview" />
                 </Route>
             </Switch>
-            <Footer/>
         </Router>
     </>;
 }

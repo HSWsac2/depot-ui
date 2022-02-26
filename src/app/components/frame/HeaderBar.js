@@ -1,18 +1,13 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import HeaderMenu from './HeaderMenu';
-import { useState } from 'react';
-import { useRef } from 'react';
+import NavigationMenu from './NavigationMenu';
 
 const title = "Depot"
 const HeaderBar = () => {
@@ -39,23 +34,12 @@ const HeaderBar = () => {
         },
     ];
 
-    const navAnchor = useRef(null);
-    const [navOpen, setNavOpen] = useState(false);
-
-    const handleOpenNavMenu = (event) => {
-        setNavOpen(true);
-    };
-
-    const handleCloseNavMenu = () => {
-        setNavOpen(false);
-    };
-
     return (
         <AppBar position="sticky">
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
+            <Container maxWidth="100%">
+                <Toolbar>
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
@@ -64,50 +48,10 @@ const HeaderBar = () => {
                     </Typography>
 
                     {/* Icon Menu on small devices */}
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="menu"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                            ref={navAnchor}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={navAnchor.current}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={navOpen}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem
-                                    key={page.label}
-                                    component={Link}
-                                    to={page.target}
-                                    onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page.label}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
+                    <NavigationMenu pages={pages}/>
                     {/* Title on small devices */}
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
@@ -115,7 +59,7 @@ const HeaderBar = () => {
                         {title}
                     </Typography>
                     {/* Buttons on big devices */}
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, pl: {md: '0', lg: '2rem'} }}>
                         {pages.map((page) => (
                             <Button
                                 key={page.label}
