@@ -3,7 +3,6 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Alert, Box, Button, Checkbox, FormControlLabel, Snackbar, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useCookies } from "react-cookie";
 import { UserContext } from "../../../context/UserContext";
 import { ReactComponent as Avatar } from './avatar.svg';
 import './Login.css';
@@ -13,19 +12,9 @@ export default function Login() {
     const [rememberUser, setRememberUser] = useState(false);
     const [loginFailed, setLoginFailed] = useState(false);
 
-    const [, setUserCookie, removeUserCookie] = useCookies(['user']);
-    const { setCurrentUser } = useContext(UserContext);
+    const { login } = useContext(UserContext);
 
-    function setUser(user) {
-        setCurrentUser(user)
-        if (rememberUser) {
-            setUserCookie("user", user, { path: "/", maxAge: 600 });
-        } else {
-            removeUserCookie("user");
-        }
-    }
-
-    function login(event) {
+    function handleLogin(event) {
         event.preventDefault();
         axios.get('http://localhost:8080/api/depotService/clients/')
             .then(response => response.data)
@@ -33,7 +22,7 @@ export default function Login() {
             .then(user => {
                 if (user !== undefined) {
                     setLoginFailed(false);
-                    setUser({ ...user })
+                    login({ ...user }, rememberUser)
                 } else {
                     setLoginFailed(true);
                 }
@@ -51,7 +40,7 @@ export default function Login() {
                 </Typography>
             </Box>
             <Box className="loginContent">
-                <form onSubmit={e => login(e)}>
+                <form onSubmit={e => handleLogin(e)}>
                     <Avatar className='avatar' />
                     <Typography variant="h3" className="loginTitle">
                         Login
