@@ -1,9 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import * as React from 'react';
 import HeaderBar from './HeaderBar';
-import NavigationTabs from './NavigationTabs';
-
-
 
 const Frame = ({ children }) => {
     return (
