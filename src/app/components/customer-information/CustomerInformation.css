@@ -17,12 +17,12 @@
 }
 
 .customerDataCard {
-    margin-bottom: 40px !important;
+    margin-bottom: 40px;
 }
 
 .cardTitle {
-    margin-top: 4px !important;
-    margin-left: 10px !important;
+    margin-top: 4px;
+    margin-left: 10px;
 }
 
 .cardContent {
@@ -34,13 +34,13 @@
 }
 
 .dataField {
-    display: block !important;
-    margin-bottom: 20px !important;
+    display: block;
+    margin-bottom: 20px;
 }
 
 .saveButton {
-    background-color: lightgray !important;
-    margin-left: 25% !important;
-    margin-top: -20px !important;
-    color: black !important;
+    background-color: lightgray;
+    margin-left: 25%;
+    margin-top: -20px;
+    color: black;
 }

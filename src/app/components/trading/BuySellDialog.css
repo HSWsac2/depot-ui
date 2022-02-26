@@ -1,16 +1,16 @@
 .tradingTitle {
     text-align: center;
-    padding-bottom: 5px !important;
+    padding-bottom: 5px;
 }
 
 .tradingContent {
-    margin-left: 20px !important;
+    margin-left: 20px;
 }
 
 .amountField {
-    width: 10vw !important;
-    display: inline !important;
-    margin-left: 20px !important;
+    width: 10vw;
+    display: inline;
+    margin-left: 20px;
 }
 
 .amount {
@@ -19,8 +19,8 @@
 }
 
 .amountLabel {
-    display: inline !important;
-    margin-top: 15px !important;
+    display: inline;
+    margin-top: 15px;
 }
 
 .tradingActions {
@@ -33,6 +33,6 @@
 }
 
 .tradingButton {
-    width: 35% !important;
-    display: flex !important;
+    width: 35%;
+    display: flex;
 }

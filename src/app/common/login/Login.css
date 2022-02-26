@@ -21,18 +21,18 @@
 }
 
 .loginTitle {
-    margin: 15px 0 !important;
+    margin: 15px 0;
     text-align: center;
-    font-weight: 500 !important;
+    font-weight: 500;
 }
 
 .loginField {
-    margin: 25px 0!important;
+    margin: 25px 0;
     width: 20rem;
     display: flex;
     align-items: flex-end;
 }
 
 .loginField.first {
-    margin-top: 10 !important;
+    margin-top: 10;
 }

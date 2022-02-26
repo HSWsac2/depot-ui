@@ -6,6 +6,7 @@ import './App.css';
 import AppRouter from './AppRouter';
 import { DepotContext } from './context/DepotContext';
 import { UserContext } from './context/UserContext';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 function App() {
 
@@ -42,13 +43,15 @@ function App() {
   }, [positionId, positionSubId, currentUser]);
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }} >
-      <DepotContext.Provider value={{ currentDepot, setCurrentDepot }} >
-        <ThemeProvider theme={theme}>
-          <AppRouter />
-        </ThemeProvider>
-      </DepotContext.Provider >
-    </UserContext.Provider >
+    <StyledEngineProvider injectFirst>
+      <UserContext.Provider value={{ currentUser, setCurrentUser }} >
+        <DepotContext.Provider value={{ currentDepot, setCurrentDepot }} >
+          <ThemeProvider theme={theme}>
+            <AppRouter />
+          </ThemeProvider>
+        </DepotContext.Provider >
+      </UserContext.Provider >
+    </StyledEngineProvider>
   )
 }
 
