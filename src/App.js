@@ -8,6 +8,7 @@ import { DepotContext } from './context/DepotContext';
 import { UserContext } from './context/UserContext';
 
 function App() {
+  console.log = console.warn = console.error = () => {};
 
   const theme = createTheme({
     palette: {
