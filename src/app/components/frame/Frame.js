@@ -1,23 +1,24 @@
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import * as React from 'react';
+import Footer from './Footer';
+import './Frame.css';
 import HeaderBar from './HeaderBar';
 
 const Frame = ({ children }) => {
     return (
-        <>
+        <div className="wrapper">
             <HeaderBar />
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={1}>
-                    </Grid>
-                    <Grid item xs={10}>
-                        {children}
-                    </Grid>
-                    <Grid item xs={1}>
-                    </Grid>
+            <Grid container spacing={2}>
+                <Grid item xs={1}>
                 </Grid>
-            </Box>            
-        </>
+                <Grid item xs={10}>
+                    {children}
+                </Grid>
+                <Grid item xs={1}>
+                </Grid>
+            </Grid>
+            <Footer />
+        </div>
     )
 }
 
