@@ -1,13 +1,27 @@
 import { AssignmentInd } from "@mui/icons-material";
-import { Card, TextField, Typography } from "@mui/material";
-import React from "react";
+import { Alert, Button, Card, Snackbar, TextField, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
+import InputMask from 'react-input-mask';
+import { UserContext } from "../../../context/UserContext";
+import useAxios from "../../hooks/useAxios";
 import './CustomerInformation.css';
 
-export default function CustomerInformation({customer}) {
+export default function CustomerInformation({customer, setCustomer}) {
+    
+    const {currentUser} = useContext(UserContext);
 
+    const userInformation = useAxios({
+        url: `http://localhost:8080/api/depotService/clients/${currentUser?.clientId}`,
+        method: 'get',
+        baseUrl: '',
+        active: currentUser != null,
+    })
+
+    // TODO use userInformation    
+    console.log("userInformation", userInformation);
+    
     return <>
         <div className="customerContainer">
-            <Typography variant="h2">Kundendaten</Typography>
             <div className="customerIcon">
                 <AssignmentInd sx={{fontSize: 200}}/>
             </div>
@@ -22,13 +36,14 @@ export default function CustomerInformation({customer}) {
                             value={customer.name}
                             className="dataField"
                             fullWidth
-                        /> 
+                        />
                         <TextField 
                             variant="outlined" 
                             label="Mobilnummer"
                             value={customer.phone}
                             className="dataField"
                             fullWidth
+                            disabled
                         />  
                         <TextField 
                             variant="outlined" 
@@ -36,6 +51,7 @@ export default function CustomerInformation({customer}) {
                             value={customer.email}
                             className="dataField"
                             fullWidth
+                            disabled
                         />
                     </div>
                 </Card>
@@ -48,6 +64,7 @@ export default function CustomerInformation({customer}) {
                             value={customer.address}
                             className="dataField"
                             fullWidth
+                            disabled
                         /> 
                         <TextField 
                             variant="outlined" 
@@ -63,6 +80,7 @@ export default function CustomerInformation({customer}) {
                             value={customer.nationality}
                             className="dataField"
                             fullWidth
+                            disabled
                         />
                     </div>
                 </Card>

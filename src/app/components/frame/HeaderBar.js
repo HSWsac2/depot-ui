@@ -2,11 +2,6 @@ import { AppBar, Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEve
 import NavigationTabs from './NavigationTabs';
 import Grid from '@mui/material/Grid';
 
-const HeaderBar = ({ role, setRole }) => {
-
-    const handleChangeFirst = (event) => {
-        setRole(event.target.value);
-    };
 
     return (<AppBar position="static">
         <Toolbar>
@@ -39,6 +34,7 @@ const HeaderBar = ({ role, setRole }) => {
                     </Box>
                 </Grid>
             </Grid>
+            <HeaderMenu/>
         </Toolbar>
 
     </AppBar>

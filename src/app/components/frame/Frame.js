@@ -1,14 +1,16 @@
 import { Box, Grid } from '@mui/material';
 import * as React from 'react';
-import NavigationTabs from './NavigationTabs';
 import HeaderBar from './HeaderBar';
+import NavigationTabs from './NavigationTabs';
 
-const Frame = ({ children, role, setRole }) => {
+
+
+const Frame = ({ children }) => {
     return (
         <>
-            <HeaderBar role={role} setRole={setRole} />
+            <HeaderBar />
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
+                <Grid container spacing={2}>
                     <Grid item xs={1}>
                     </Grid>
                     <Grid item xs={10}>

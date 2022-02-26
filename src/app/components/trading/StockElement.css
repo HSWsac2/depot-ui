@@ -1,0 +1,8 @@
+.stockElement {
+    cursor: pointer;
+}
+
+.stockElement:hover {
+    background-color: lightgray;
+    transition: 0.2s;
+}

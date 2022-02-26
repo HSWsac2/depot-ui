@@ -1,0 +1,36 @@
+.loginContainer {
+    background-color: lightgray;
+    height: 100vh;
+}
+
+.loginCard {
+    width: 40vh;
+    height: 40vh;
+    margin: auto;
+    transform: translateY(75%);
+}
+
+.loginField {
+    margin-top: 10px !important;
+}
+
+.loginCardContent {
+    padding-bottom: 5px !important;
+}
+
+.loginButton {
+    background-color: lightgray !important;
+    color: black !important;
+    width: 100%;
+}
+
+.loginActions {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+}
+
+.loginTitle {
+    width: 150px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
