@@ -1,13 +1,15 @@
 .loginContainer {
     background-color: lightgray;
     height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 .loginCard {
-    width: 40vh;
-    height: 40vh;
+    max-width: 600px;
+    min-width: 40vh;
     margin: auto;
-    transform: translateY(75%);
+    padding-block: 2rem;
 }
 
 .loginField {
