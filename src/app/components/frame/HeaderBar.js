@@ -1,3 +1,8 @@
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import SettingsIcon from '@mui/icons-material/Settings';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,22 +20,27 @@ const HeaderBar = () => {
         {
             label: 'Depotübersicht',
             target: '/overview',
+            icon: <AccountBalanceWalletIcon />,
         },
         {
             label: 'Depotverwaltung',
             target: '/management',
+            icon: <SettingsIcon />,
         },
         {
             label: 'Kundendaten',
             target: '/data',
+            icon: <ContactPageIcon />,
         },
         {
             label: 'Handel',
             target: '/trade',
+            icon: <CurrencyExchangeIcon />,
         },
         {
             label: 'Transaktionen',
             target: '/transactions',
+            icon: <ReceiptLongIcon />,
         },
     ];
 

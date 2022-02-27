@@ -1,4 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
+import { ListItemIcon, ListItemText } from '@mui/material';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -21,7 +22,7 @@ const NavigationMenu = ({ pages }) => {
     const handleCloseNavMenu = () => {
         setNavOpen(false);
     };
-    
+
     return (
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -59,7 +60,12 @@ const NavigationMenu = ({ pages }) => {
                         component={Link}
                         to={page.target}
                         onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">{page.label}</Typography>
+                        <ListItemIcon>
+                            {page.icon}
+                        </ListItemIcon>
+                        <ListItemText>
+                            <Typography>{page.label}</Typography>
+                        </ListItemText>
                     </MenuItem>
                 ))}
             </Menu>
