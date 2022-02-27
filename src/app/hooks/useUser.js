@@ -3,6 +3,8 @@ import { useCookies } from "react-cookie";
 
 const cookieName = 'user';
 
+const defaultCookieOptions = { path: "/", maxAge: 600, sameSite: 'lax' };
+
 const useUser = () => {
     const [userCookie, setUserCookie, removeUserCookie] = useCookies(['user']);
 
@@ -10,15 +12,15 @@ const useUser = () => {
 
     const logout = useCallback(() => {
         setCurrentUser(null)
-        removeUserCookie(cookieName);
+        removeUserCookie(cookieName, defaultCookieOptions);
     }, [setCurrentUser, removeUserCookie]);
 
     const login = useCallback((user, rememberUser) => {
         setCurrentUser(user)
         if (rememberUser) {
-            setUserCookie(cookieName, user, { path: "/", maxAge: 600 });
+            setUserCookie(cookieName, user, defaultCookieOptions);
         } else {
-            removeUserCookie(cookieName);
+            removeUserCookie(cookieName, defaultCookieOptions);
         }
     }, [setCurrentUser, setUserCookie, removeUserCookie])
 

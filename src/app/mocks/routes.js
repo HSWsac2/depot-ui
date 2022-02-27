@@ -76,7 +76,7 @@ const routes = [
     },
     {
         method: 'get',
-        url: '/deposits/111-456-789/222-222-223',
+        url: '/deposits/111-456-789/222-222-222',
         code: 200,
         response: {
             "client_id": 1234567890,
@@ -93,7 +93,7 @@ const routes = [
         response: {
             "client_id": 1234567890,
             "position_id": "111-456-789",
-            "position_sub_id": "222-222-222",
+            "position_sub_id": "222-222-223",
             "saldo": 100,
             "limit": 1000
         },
@@ -117,7 +117,7 @@ const routes = [
         response: {
             "client_id": 7777777777,
             "position_id": "123-456-789",
-            "position_sub_id": "222-222-222",
+            "position_sub_id": "222-222-223",
             "saldo": 100,
             "limit": 1000
         },

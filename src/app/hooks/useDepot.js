@@ -5,6 +5,8 @@ import { useCookies } from "react-cookie";
 const positionIdcookieName = 'positionId';
 const positionSubIdcookieName = 'positionSubId';
 
+const defaultCookieOptions = { path: "/", maxAge: 600, sameSite: 'lax' };
+
 const useDepot = (currentUserId) => {
 
     const [depotCookie, setDepotCookie, removeDepotCookie] = useCookies(['depot'])
@@ -14,15 +16,15 @@ const useDepot = (currentUserId) => {
     const selectDepot = useCallback((depot, rememberDepot) => {
         setCurrentDepot(depot);
         if (rememberDepot) {
-            setDepotCookie(positionIdcookieName, depot.position_id, { path: "/", maxAge: 600 })
-            setDepotCookie(positionSubIdcookieName, depot.position_sub_id, { path: "/", maxAge: 600 })
+            setDepotCookie(positionIdcookieName, depot.position_id, defaultCookieOptions)
+            setDepotCookie(positionSubIdcookieName, depot.position_sub_id, defaultCookieOptions)
         }
     }, [setCurrentDepot, setDepotCookie])
 
     const deselectDepot = useCallback(() => {
         setCurrentDepot(null);
-        removeDepotCookie(positionIdcookieName);
-        removeDepotCookie(positionSubIdcookieName);
+        removeDepotCookie(positionIdcookieName, defaultCookieOptions);
+        removeDepotCookie(positionSubIdcookieName, defaultCookieOptions);
     }, [setCurrentDepot, removeDepotCookie]);
 
     // get initial deposit based on cookie values
