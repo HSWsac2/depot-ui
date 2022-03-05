@@ -3,6 +3,8 @@ import { purple } from "@mui/material/colors";
 import axios from "axios";
 import React, { useState } from "react";
 import InputMask from 'react-input-mask';
+import useDepot from "../../hooks/useDepot";
+import useUser from "../../hooks/useUser";
 
 import './BuySellDialog.css';
 
@@ -20,11 +22,14 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
         handleClose();
     }
 
+    const userValue = useUser();
+    const depotValue = useDepot(userValue.currentUser?.client_id);
+
     function buyStock() {
         setMethod("buy");
         if (amount) {
             //TODO set position and sub id correctly
-            axios.post('http://localhost:8081/orders/454/1', {stock_isin: stock.isin, amount: parseInt(amount)}).then((res) => {
+            axios.post(`http://localhost:8081/orders/${depotValue.currentDepot.position_id}/${depotValue.currentDepot.position_sub_id}`, {stock_isin: stock.isin, amount: parseInt(amount)}).then((res) => {
                 if (res.status === 200) {
                     setSuccessOpen(true);
                     stock.amount = stock.amount + parseInt(amount);
@@ -42,7 +47,7 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
         if (amount) {
             if (stock.amount >= parseInt(amount)) {
                 //TODO set position and sub id correctly
-            axios.post('http://localhost:8081/orders/454/1', {stock_isin: stock.isin, amount: parseInt(amount * -1)}).then((res) => {
+            axios.post(`http://localhost:8081/orders/${depotValue.currentDepot.position_id}/${depotValue.currentDepot.position_sub_id}`, {stock_isin: stock.isin, amount: parseInt(amount * -1)}).then((res) => {
                 if (res.status === 200) {
                     setSuccessOpen(true);
                     stock.amount = stock.amount - parseInt(amount);
@@ -75,9 +80,9 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
         <Dialog open={isOpen} onClose={() => closeDialog()} PaperProps={{sx: {height: '20vw', width: '20vw'}}}>
             <DialogTitle className="tradingTitle">{`${stock.name} handeln`}</DialogTitle>
             <svg style={{maxWidth: '90px', maxHeight: '50px', marginLeft: 'auto', marginRight: 'auto', marginBottom: '20px'}}>
-                        <image href={stock.logoUrl} style={{width: '90px', transform: 'translateY(25%'}}></image>
+                        <image href={stock.link} style={{width: '90px', transform: 'translateY(25%'}}></image>
             </svg>
-            <DialogContentText className="tradingContent">{`Aktueller Preis: ${stock.price_per_piece}€`}</DialogContentText>
+            <DialogContentText className="tradingContent">{`Aktueller Preis: ${stock.price_per_stock}€`}</DialogContentText>
             <DialogContentText className="tradingContent">{`Anzahl im Besitz: ${stock.amount}`}</DialogContentText>
             <div className="amount">
                 <DialogContentText className="tradingContent amountLabel">Anzahl zu handeln: </DialogContentText>
@@ -94,7 +99,7 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
                 </InputMask>
             </div>
             { amount.length > 0 &&
-                <DialogContentText className="tradingContent" sx={{marginTop: '10px'}}>{`Gesamtpreis: ${amount * stock.price_per_piece}€`}</DialogContentText>
+                <DialogContentText className="tradingContent" sx={{marginTop: '10px'}}>{`Gesamtpreis: ${amount * stock.price_per_stock}€`}</DialogContentText>
             }
             <div className="tradingActions">
                 <Button variant="contained" className="tradingButton" onClick={() => buyStock()}>Kaufen</Button>

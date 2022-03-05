@@ -31,7 +31,7 @@ const useDepot = (currentUserId) => {
     useEffect(() => {
         const { positionId, positionSubId } = depotCookie;
         if (positionId == null || positionSubId == null || currentUserId == null) return;
-        axios.get(`http://localhost:8080/api/depotService/deposits/${positionId}/${positionSubId}`)
+        axios.get(`http://localhost:8080/api/depotService/depots/${positionId}/${positionSubId}`)
             .then(response => response.data)
             .then(response => setCurrentDepot(response))
             .catch(console.error)
