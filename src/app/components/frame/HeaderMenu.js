@@ -21,7 +21,7 @@ export default function HeaderMenu() {
     const { currentDepot, selectDepot, deselectDepot } = useContext(DepotContext);
     
     const { response, error, loading } = useAxios({
-        url: `http://localhost:8080/api/depotService/deposits/${currentUser?.client_id}`,
+        url: `http://localhost:8080/api/depotService/depots/${currentUser?.client_id}`,
         method: 'get',
         baseUrl: '',
         active: currentUser?.client_id != null,

@@ -60,11 +60,15 @@ export default function DepotOverview() {
         },
     ]
 
+    //const values = [];
+
+    //positions.forEach(element => values.push(element.))
+
     const data = {
         labels,
         datasets: [
             {
-                label: 'Dataset 1',
+                label: 'Depotwert',
                 data: [1, 3, 328, 373, 433, -26, 540],
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -72,7 +76,7 @@ export default function DepotOverview() {
     }
     const options = {
         responsive: true,
-        
+
     };
     return (
         <div>
@@ -86,37 +90,37 @@ export default function DepotOverview() {
                 <Grid item xs={12} md={12}>
                     <Line options={options} data={data}></Line>
                 </Grid>
-                <Grid item xs={12} md={12} border="2px solid" borderColor="black">
-                    <h2>Hier stehen die Einzelpositionen</h2>
+                <Grid item xs={12} md={12}>
+                    <h2>Einzelpositionen</h2>
                     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Anzahl</TableCell>
-            <TableCell align="right">Einkaufspreis</TableCell>
-            <TableCell align="right">Aktueller Preis</TableCell>
-            <TableCell align="right">Wachstum</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {positions.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
-              <TableCell align="right">{row.buyingPrice}</TableCell>
-              <TableCell align="right">{row.currentPrice}</TableCell>
-              <TableCell align="right">{(row.currentPrice-row.buyingPrice)<0 ? "-"+(row.currentPrice*10/row.buyingPrice) : "+"+(row.currentPrice*10/row.buyingPrice)}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell align="right">Anzahl</TableCell>
+                                    <TableCell align="right">Einkaufspreis</TableCell>
+                                    <TableCell align="right">Aktueller Preis</TableCell>
+                                    <TableCell align="right">Wachstum</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {positions.map((row) => (
+                                    <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="row">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="right">{row.amount}</TableCell>
+                                        <TableCell align="right">{row.buyingPrice}</TableCell>
+                                        <TableCell align="right">{row.currentPrice}</TableCell>
+                                        <TableCell align="right">{(row.currentPrice - row.buyingPrice) < 0 ? "-" + (row.currentPrice * 100 / row.buyingPrice) : "+" + (row.currentPrice * 10 / row.buyingPrice)}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Grid>
             </Grid>
         </div>

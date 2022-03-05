@@ -11,7 +11,7 @@ export default function StockElement({stock, isLast, onClick}) {
         <ListItem sx={{padding: 0}} className="stockElement" onClick={onClick}>
             <ListItemAvatar sx={{width: 150, display: 'flex'}}>
                     <svg style={{maxWidth: '90px', maxHeight: '50px', marginLeft: 'auto', marginRight: 'auto'}}>
-                        <image href={stock.logoUrl} style={{width: '90px', transform: 'translateY(25%'}}></image>
+                        <image href={stock.link} style={{width: '90px', transform: 'translateY(25%'}}></image>
                     </svg>
             </ListItemAvatar>
             <Box sx={{
@@ -26,7 +26,7 @@ export default function StockElement({stock, isLast, onClick}) {
                         {stock.isin}
                     </Typography>
                     <Typography align='right' sx={{ display: 'inline', fontWeight: 'bold', width: '5vw' }}>
-                        {currencyFormat.format(stock.price_per_piece)}
+                        {currencyFormat.format(stock.price_per_stock)}
                     </Typography>
                 </Box>
             </Box>

@@ -1,7 +1,7 @@
-import useAxios from "./useFetch";
+import useAxios from "./useAxios";
 
 const useDepotService = ({url, method}) => {
-    return useAxios({baseUrl: `http://localhost:8080`, url, method});
+    return useAxios({url: `http://localhost:8080`, baseURL: "", method, active: true});
 };
 
 export default useDepotService;

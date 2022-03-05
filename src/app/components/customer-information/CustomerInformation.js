@@ -4,21 +4,24 @@ import React, { useContext, useState } from "react";
 import InputMask from 'react-input-mask';
 import { UserContext } from "../../../context/UserContext";
 import useAxios from "../../hooks/useAxios";
+import useUser from "../../hooks/useUser";
 import './CustomerInformation.css';
 
 export default function CustomerInformation({customer, setCustomer}) {
     
-    const {currentUser} = useContext(UserContext);
+    // const {currentUser} = useContext(UserContext);
 
-    const userInformation = useAxios({
-        url: `http://localhost:8080/api/depotService/clients/${currentUser?.clientId}`,
-        method: 'get',
-        baseUrl: '',
-        active: currentUser != null,
-    })
+    // const userInformation = useAxios({
+    //     url: `http://localhost:8080/api/depotService/clients/${currentUser?.clientId}`,
+    //     method: 'get',
+    //     baseUrl: '',
+    //     active: currentUser != null,
+    // })
+
+    const userValue = useUser();
 
     // TODO use userInformation    
-    console.log("userInformation", userInformation);
+    console.log("userInformation", userValue?.currentUser);
     
     return <>
         <div className="customerContainer">

@@ -16,9 +16,9 @@ export default function Login() {
 
     function handleLogin(event) {
         event.preventDefault();
-        axios.get('http://localhost:8080/api/depotService/clients/')
+        axios.get(`http://localhost:8080/api/depotService/clients/bymail/${loginInformation.email}`)
             .then(response => response.data)
-            .then(users => users.find(user => user.e_mail === loginInformation.email))
+            // .then(users => users.find(user => user.e_mail === loginInformation.email))
             .then(user => {
                 if (user !== undefined) {
                     setLoginFailed(false);

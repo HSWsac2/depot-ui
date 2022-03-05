@@ -1,22 +1,9 @@
 const routes = [
     {
         method: 'get',
-        url: '/clients/',
+        url: '/clients/bymail/john.doe@gmail.com',
         code: 200,
-        response: [
-            {
-                "firstname": "Hans",
-                "lastname": "Meyer",
-                "birthdate": "20.01.2000",
-                "e_mail": "hans@meyer.de",
-                "citizenship": "Deutsch",
-                "street": "string-Street",
-                "street_number": "51a",
-                "plz": "23456",
-                "location": "Buz",
-                "country": "Deutschland",
-                "client_id": 1234567890
-            },
+        response: 
             {
                 "firstname": "John",
                 "lastname": "Doe",
@@ -30,11 +17,10 @@ const routes = [
                 "country": "Deutschland",
                 "client_id": 7777777777
             }
-        ]
     },
     {
         method: 'get',
-        url: '/deposits/7777777777',
+        url: '/depots/7777777777',
         code: 200,
         response: [
             {
@@ -55,7 +41,7 @@ const routes = [
     },
     {
         method: 'get',
-        url: '/deposits/1234567890',
+        url: '/depots/1234567890',
         code: 200,
         response: [
             {
@@ -76,7 +62,7 @@ const routes = [
     },
     {
         method: 'get',
-        url: '/deposits/111-456-789/222-222-222',
+        url: '/depots/111-456-789/222-222-222',
         code: 200,
         response: {
             "client_id": 1234567890,
@@ -88,7 +74,7 @@ const routes = [
     },
     {
         method: 'get',
-        url: '/deposits/111-456-789/222-222-223',
+        url: '/depots/111-456-789/222-222-223',
         code: 200,
         response: {
             "client_id": 1234567890,
@@ -100,7 +86,7 @@ const routes = [
     },
     {
         method: 'get',
-        url: '/deposits/123-456-789/222-222-222',
+        url: '/depots/123-456-789/222-222-222',
         code: 200,
         response: {
             "client_id": 7777777777,
@@ -112,7 +98,7 @@ const routes = [
     },
     {
         method: 'get',
-        url: '/deposits/123-456-789/222-222-223',
+        url: '/depots/123-456-789/222-222-223',
         code: 200,
         response: {
             "client_id": 7777777777,
