@@ -5,31 +5,13 @@ import IconButton from '@mui/material/IconButton';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import {ColorContext } from "../../../context/ColorContext";
 
 const Footer = () => {
-  const [mode, setMode] = React.useState('light');
-  const colorMode = React.useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    [],
-  );
-
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode],
-  );
+  
+  const colorMode = React.useContext(ColorContext);   
 
   return (
-    
-    <ThemeProvider theme={theme}>
     <AppBar position="static">
       <Toolbar>
         <Grid container spacing={1}>
@@ -46,13 +28,12 @@ const Footer = () => {
           </Grid>
           <Grid>
             <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              {colorMode.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Grid>
         </Grid>
       </Toolbar>
     </AppBar>
-    </ThemeProvider>
   )
 }
 
