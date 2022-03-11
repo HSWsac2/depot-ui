@@ -1,6 +1,6 @@
 import { Container, TextField, Typography } from "@mui/material";
 
-function FinalizeCreateDepot() {
+function FinalizeCreateDepot({ depotName, setDepotName, buyingPowerWtf, setBuyingPowerWtf }) {
     return (
         <Container sx={{
             display: 'flex',
@@ -12,10 +12,16 @@ function FinalizeCreateDepot() {
             }}>
                 Finalisieren Sie die Erstellung Ihres Depots durch Vergeben eines Namens
             </Typography>
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" label="Depotname" sx={{
-                width: '600px',
-                maxWidth: '100%'
-            }} />
+            <TextField
+                label="Outlined"
+                variant="outlined"
+                label="Depotname"
+                value={depotName}
+                onChange={(event) => setDepotName(event.target.value)}
+                sx={{
+                    width: '600px',
+                    maxWidth: '100%'
+                }} />
 
             <Typography variant="h6" sx={{
                 // mb: 2,
@@ -28,11 +34,16 @@ function FinalizeCreateDepot() {
             }}>
                 Grüße gehen raus an das Backend-Team
             </Typography>
-            
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" label="Buying Power" sx={{
-                width: '600px',
-                maxWidth: '100%'
-            }} />
+
+            <TextField
+                variant="outlined"
+                label="Buying Power"
+                value={buyingPowerWtf}
+                onChange={(event) => setBuyingPowerWtf(event.target.value)}
+                sx={{
+                    width: '600px',
+                    maxWidth: '100%'
+                }} />
 
 
 

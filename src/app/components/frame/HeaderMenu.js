@@ -39,7 +39,6 @@ export default function HeaderMenu() {
     }
 
 	useEffect(() => {
-		console.log("select?", response, response?.length, currentDepot);
 		if (response && response.length > 0 && !currentDepot) {
 			selectDepot(response[0]);
 		}
