@@ -1,5 +1,5 @@
-import { Card, InputBase, List } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { Alert, Card, InputBase, List, Snackbar } from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
 import SearchIcon from '@mui/icons-material/Search';  
 import axios from 'axios';  
 
@@ -8,6 +8,7 @@ import StockElement from "./StockElement";
 import BuySellDialog from "./BuySellDialog";
 import useUser from "../../hooks/useUser";
 import useDepot from "../../hooks/useDepot";
+import { DepotContext } from "../../../context/DepotContext";
 
 export default function Trading() {
     const [tradingDialogOpen, setTradingDialogOpen] = useState(false);
@@ -16,6 +17,10 @@ export default function Trading() {
     const [allStocks, setAllStocks] = useState([])
 
     const [displayedStocks, setDisplayedStocks] = useState([]);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [isError, setIsError] = useState(false);
+
+    const { currentDepot } = useContext(DepotContext);
 
     useEffect(() => {
         const fetchStocks = async () => {
@@ -32,12 +37,23 @@ export default function Trading() {
     }
 
     function onSelectStock(stock) {
-        setSelectedStock(stock);
-        setTradingDialogOpen(true);
+        if (currentDepot) {
+            setSelectedStock(stock);
+            setTradingDialogOpen(true);
+        } else {
+            setIsError(true);
+            setErrorMsg("Bitte zuerst ein Depot auswählen!");
+        }
+    }
+
+    function closeDialog() {
+        setSelectedStock(undefined);
+        setTradingDialogOpen(false);
     }
 
     return <>
         {allStocks && displayedStocks &&
+        <>
             <div className="tradingContainer">
                 <div className="stockSearch">
                     <Card className="searchCard" sx={{marginBottom: '5vh'}}>
@@ -58,8 +74,12 @@ export default function Trading() {
                         </List>
                     </Card>
                 </div>
-                <BuySellDialog isOpen={tradingDialogOpen} handleClose={() => setTradingDialogOpen(false)} stock={selectedStock}></BuySellDialog>
+                <BuySellDialog isOpen={tradingDialogOpen} handleClose={() => closeDialog()} stock={selectedStock}></BuySellDialog>
             </div>
+            <Snackbar open={isError} autoHideDuration={2000} onClose={() => setIsError(false)}>
+                <Alert severity="error">{errorMsg}</Alert>
+            </Snackbar>
+        </>
         }
     </>;
 }
