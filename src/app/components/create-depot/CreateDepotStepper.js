@@ -3,43 +3,58 @@ import Button from '@mui/material/Button';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
-import { useMemo, useState } from 'react';
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { DepotContext } from '../../../context/DepotContext';
+import { UserContext } from '../../../context/UserContext';
 import CustomerInformation from '../customer-information/CustomerInformation';
 import ClearingAccount from './ChooseClearingAccount';
 import DepotCreated from './DepotCreated';
 import FinalizeCreateDepot from './FinalizeCreateDepot';
 
-const steps = [
-    {
-        label: 'Benutzerdaten verifizieren',
-        component: <CustomerInformation />,
-    },
-    {
-        label: 'Verrechnungskonto auswählen',
-        component: <ClearingAccount />,
-    },
-    {
-        label: 'Depot erstellen',
-        component: <FinalizeCreateDepot />,
-    }
-];
+
 
 export default function HorizontalLinearStepper({ }) {
     const [activeStepIndex, setActiveStep] = useState(0);
 
+    const [depotName, setDepotName] = useState("");
+    const [buyingPowerWtf, setBuyingPowerWtf] = useState("");
+
+    const { currentUser } = useContext(UserContext);
+    const { selectDepot } = useContext(DepotContext);
+    const history = useHistory();
+
+
+    const steps = [
+        { label: 'Benutzerdaten verifizieren' },
+        { label: 'Verrechnungskonto auswählen' },
+        { label: 'Depot erstellen' }
+    ];
+
+    console.log(depotName, buyingPowerWtf);
+
     const handleNext = () => {
+        if (activeStepIndex + 1 === steps.length) {
+            axios.post('http://localhost:8080/api/depotService/depots', {
+                position_id: "1234", // TODO
+                client_id: currentUser.client_id,
+                buying_power: buyingPowerWtf,
+                depot_name: depotName,
+            })
+                .then(response => response.data)
+                .then(response => {
+                    selectDepot(response)
+                })
+                .then(() => history.push('/'));
+
+        }
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
-    const handleReset = () => {
-        setActiveStep(0);
-    };
-
-    const activeStep = useMemo(() => steps[activeStepIndex], [activeStepIndex])
 
     return (
         <Box sx={{ width: '100%', my: '2rem' }}>
@@ -52,11 +67,15 @@ export default function HorizontalLinearStepper({ }) {
                     );
                 })}
             </Stepper>
+
             {activeStepIndex === steps.length ? (
                 <DepotCreated />
             ) : (
                 <>
-                    {activeStep.component}
+                    {activeStepIndex === 0 && <CustomerInformation />}
+                    {activeStepIndex === 1 && <ClearingAccount />}
+                    {activeStepIndex === 2 && <FinalizeCreateDepot depotName={depotName} setDepotName={setDepotName} buyingPowerWtf={buyingPowerWtf} setBuyingPowerWtf={setBuyingPowerWtf} />}
+
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
