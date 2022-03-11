@@ -38,12 +38,12 @@ export default function HorizontalLinearStepper({ }) {
     const handleReset = () => {
         setActiveStep(0);
     };
-    
+
     const activeStep = useMemo(() => steps[activeStepIndex], [activeStepIndex])
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Stepper activeStep={activeStepIndex}>
+        <Box sx={{ width: '100%', my: '2rem' }}>
+            <Stepper activeStep={activeStepIndex} sx={{ mb: '2rem' }}>
                 {steps.map(({ label }) => {
                     return (
                         <Step key={label}>
@@ -53,29 +53,24 @@ export default function HorizontalLinearStepper({ }) {
                 })}
             </Stepper>
             {activeStepIndex === steps.length ? (
-                <>
-                    <DepotCreated />
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Box sx={{ flex: '1 1 auto' }} />
-                        <Button onClick={handleReset}>Reset</Button>
-                    </Box>
-                </>
+                <DepotCreated />
             ) : (
                 <>
                     {activeStep.component}
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
+                            variant="outlined"
                             disabled={activeStepIndex === 0}
                             onClick={handleBack}
                             sx={{ mr: 1 }}
                         >
-                            Back
+                            Zurück
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
 
-                        <Button onClick={handleNext}>
-                            {activeStepIndex === steps.length - 1 ? 'Finish' : 'Next'}
+                        <Button variant="contained" onClick={handleNext}>
+                            {activeStepIndex === steps.length - 1 ? 'Depot erstellen' : 'Weiter'}
                         </Button>
                     </Box>
                 </>
