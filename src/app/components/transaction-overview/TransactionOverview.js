@@ -22,11 +22,12 @@ const TransactionOverview = () => {
 		};
 		if (currentDepot) {
 			fetchTransactions();
+			setIsError(false);
 		} else {
 			setErrorMsg("Bitte zunächst ein Depot auswählen!");
 			setIsError(true);
 		}
-	}, []);
+	}, [currentDepot]);
 
 	// const transactions = [
 	// 	{
