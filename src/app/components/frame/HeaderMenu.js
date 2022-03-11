@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import { DepotContext } from '../../../context/DepotContext';
 import useAxios from '../../hooks/useAxios';
@@ -19,7 +19,8 @@ export default function HeaderMenu() {
     const open = Boolean(anchorEl);
     const { currentUser, logout } = useContext(UserContext);
     const { currentDepot, selectDepot, deselectDepot } = useContext(DepotContext);
-    
+
+
     const { response, error, loading } = useAxios({
         url: `http://localhost:8080/api/depotService/depots/${currentUser?.client_id}`,
         method: 'get',
@@ -30,6 +31,12 @@ export default function HeaderMenu() {
     if (error) {
         throw error;
     }
+
+    useEffect(() => {
+        if (response && response.length > 0 && !currentDepot) {
+            selectDepot(response[1])
+        }
+    }, [currentDepot, response, selectDepot]);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -75,10 +82,10 @@ export default function HeaderMenu() {
                     </div>
                 )}
                 {response && response.map(deposit => (
-                    <MenuItem 
+                    <MenuItem
                         key={deposit.position_id + deposit.position_sub_id}
                         onClick={() => handleDepotClicked(deposit)}
-                        >
+                    >
                         {/* Will be the deposit name soon */}
                         <Avatar></Avatar>{deposit.position_id} {deposit.position_sub_id}
                     </MenuItem>
