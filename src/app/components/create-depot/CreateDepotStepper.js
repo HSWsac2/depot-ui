@@ -32,8 +32,6 @@ export default function HorizontalLinearStepper({ }) {
         { label: 'Depot erstellen' }
     ];
 
-    console.log(depotName, buyingPowerWtf);
-
     const handleNext = () => {
         if (activeStepIndex + 1 === steps.length) {
             axios.post('http://localhost:8080/api/depotService/depots', {
