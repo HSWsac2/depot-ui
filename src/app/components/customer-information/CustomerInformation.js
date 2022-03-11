@@ -8,20 +8,12 @@ import useUser from "../../hooks/useUser";
 import './CustomerInformation.css';
 
 export default function CustomerInformation({customer, setCustomer}) {
-    
-    // const {currentUser} = useContext(UserContext);
-
-    // const userInformation = useAxios({
-    //     url: `http://localhost:8080/api/depotService/clients/${currentUser?.clientId}`,
-    //     method: 'get',
-    //     baseUrl: '',
-    //     active: currentUser != null,
-    // })
 
     const userValue = useUser();
 
     // TODO use userInformation    
     console.log("userInformation", userValue?.currentUser);
+    let user = userValue.currentUser;
     
     return <>
         <div className="customerContainer">
@@ -36,29 +28,29 @@ export default function CustomerInformation({customer, setCustomer}) {
                             variant="outlined" 
                             label="Name" 
                             disabled
-                            value={customer.name}
+                            value={`${user.firstname} ${user.lastname}`}
                             className="dataField"
                             fullWidth
                         />
-                        <TextField 
+                        {/* <TextField 
                             variant="outlined" 
                             label="Mobilnummer"
-                            value={customer.phone}
+                            value={userValue.}
                             className="dataField"
                             fullWidth
                             disabled
-                        />  
+                        />   */}
                         <TextField 
                             variant="outlined" 
                             label="E-Mail"
-                            value={customer.email}
+                            value={user.e_mail}
                             className="dataField"
                             fullWidth
                             disabled
                         />
                     </div>
                 </Card>
-                <Card className="customerDataCard">
+                {/* <Card className="customerDataCard">
                     <Typography variant="h5" className="cardTitle">Kontodaten</Typography>
                     <div className="cardContent">
                         <TextField 
@@ -78,14 +70,22 @@ export default function CustomerInformation({customer, setCustomer}) {
                             disabled
                         />  
                     </div>
-                </Card>
+                </Card> */}
                 <Card className="customerDataCard">
                     <Typography variant="h5" className="cardTitle">Persönliche Daten</Typography>
                     <div className="cardContent">
                         <TextField 
                             variant="outlined" 
                             label="Anschrift"
-                            value={customer.address}
+                            value={`${user.street} ${user.house_number}`}
+                            className="dataField"
+                            fullWidth
+                            disabled
+                        /> 
+                        <TextField 
+                            variant="outlined" 
+                            label="Wohnort"
+                            value={`${user.plz} ${user.city}`}
                             className="dataField"
                             fullWidth
                             disabled
@@ -93,7 +93,7 @@ export default function CustomerInformation({customer, setCustomer}) {
                         <TextField 
                             variant="outlined" 
                             label="Geburtsdatum"
-                            value={customer.birthday}
+                            value={user.birthdate}
                             className="dataField"
                             fullWidth
                             disabled
@@ -101,7 +101,7 @@ export default function CustomerInformation({customer, setCustomer}) {
                         <TextField 
                             variant="outlined" 
                             label="Staatsangehörigkeit"
-                            value={customer.nationality}
+                            value={user.nationality}
                             className="dataField"
                             fullWidth
                             disabled
