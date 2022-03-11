@@ -27,19 +27,18 @@ export default function HeaderMenu() {
 		useContext(DepotContext);
 	const history = useHistory();
 
-	const { response, error, loading } = useAxios({
-		url: `http://localhost:8080/api/depotService/depots/${currentUser?.client_id}`,
-		method: "get",
-		baseUrl: "",
-		active: currentUser?.client_id != null,
-	});
-	// simply throw the error (for now)
-	if (error) {
-		throw error;
-	}
+    const { response, error, loading } = useAxios({
+        url: process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE+`depots/${currentUser?.client_id}`,
+        method: 'get',
+        baseUrl: '',
+        active: currentUser?.client_id != null,
+    });
+    // simply throw the error (for now)
+    if (error) {
+        throw error;
+    }
 
 	useEffect(() => {
-		console.log("select?", response, response?.length, currentDepot);
 		if (response && response.length > 0 && !currentDepot) {
 			selectDepot(response[0]);
 		}
@@ -54,9 +53,9 @@ export default function HeaderMenu() {
 		history.push("/");
 	};
 	const handleDepotClicked = (depot) => selectDepot(depot, true);
-	const handleCreateDepot = () => history.push("/create");
+    const handleCreateDepot = () => history.push('/depot-ui/create')
 
-	const handleSettingsClicked = () => history.push("/data");
+    const handleSettingsClicked = () => history.push('/depot-ui/data')
 
 	const colorMode = React.useContext(ColorContext);
 

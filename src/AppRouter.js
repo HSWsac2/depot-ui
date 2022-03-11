@@ -15,38 +15,38 @@ export default function AppRouter() {
 		<>
 			<Router>
 				<Switch>
-					<ProtectedRoute path="/management">
+					<ProtectedRoute path="/depot-ui/management">
 						<Frame>
 							<DepotManagement />
 						</Frame>
 					</ProtectedRoute>
-					<ProtectedRoute path="/data">
+					<ProtectedRoute path="/depot-ui/data">
 						<Frame>
 							<CustomerInformation />
 						</Frame>
 					</ProtectedRoute>
-					<ProtectedRoute path="/overview">
+					<ProtectedRoute path="/depot-ui/overview">
 						<Frame>
 							<DepotOverview />
 						</Frame>
 					</ProtectedRoute>
-					<ProtectedRoute path="/transactions">
+					<ProtectedRoute path="/depot-ui/transactions">
 						<Frame>
 							<TransactionOverview />
 						</Frame>
 					</ProtectedRoute>
-					<ProtectedRoute path="/trade">
+					<ProtectedRoute path="/depot-ui/trade">
 						<Frame>
 							<Trading />
 						</Frame>
 					</ProtectedRoute>
-					<ProtectedRoute path="/create">
+					<ProtectedRoute path="/depot-ui/create">
 						<Frame>
 							<CreateDepot />
 						</Frame>
 					</ProtectedRoute>
 					<Route path="/">
-						<Redirect to="/overview" />
+						<Redirect to="/depot-ui/overview" />
 					</Route>
 				</Switch>
 			</Router>

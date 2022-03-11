@@ -33,7 +33,7 @@ export default function Login() {
 		if (loginInformation.email && loginInformation.password) {
 			axios
 				.get(
-					`http://localhost:8080/api/depotService/clients/bymail/${loginInformation.email}`
+					process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE+`clients/bymail/${loginInformation.email}`
 				)
 				.then((response) => response.data)
 				// .then(users => users.find(user => user.e_mail === loginInformation.email))
