@@ -29,11 +29,6 @@ const HeaderBar = () => {
             icon: <SettingsIcon />,
         },
         {
-            label: 'Kundendaten',
-            target: '/data',
-            icon: <ContactPageIcon />,
-        },
-        {
             label: 'Handel',
             target: '/trade',
             icon: <CurrencyExchangeIcon />,

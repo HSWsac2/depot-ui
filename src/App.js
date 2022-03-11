@@ -46,6 +46,8 @@ function App() {
       createTheme({
         palette: {
           mode,
+          background:
+          {default: '#ba000d'}
         },
       }),
     [mode],
