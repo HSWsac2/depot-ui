@@ -53,6 +53,7 @@ export default function HeaderMenu() {
     const handleDepotClicked = (depot) => selectDepot(depot, true);
     const handleCreateDepot = () => history.push('/create')
 
+    const handleSettingsClicked = () => history.push('/data')
 
     const colorMode = React.useContext(ColorContext);
 
@@ -104,7 +105,7 @@ export default function HeaderMenu() {
                     </ListItemIcon>
                     Depot erstellen
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={handleSettingsClicked}>
                     <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
