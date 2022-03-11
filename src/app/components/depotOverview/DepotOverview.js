@@ -31,7 +31,14 @@ ChartJS.register(
 
 export default function DepotOverview() {
 
-    const labels = ['5', '10', '15', '20', '25', '30']
+    const labels = ['5', '10', '15', '20', '25', '30'];
+    const depot = {
+        "position_id": "1234",
+        "position_sub_id": "5678",
+        "client_id": 1234,
+        "buying_power": 500,
+        "balance_amt": 20000
+      };
 
     const positions = [
         {
@@ -56,7 +63,7 @@ export default function DepotOverview() {
             name: "Amazon",
             amount: 9,
             buyingPrice: 500.78,
-            currentPrice: 9000.43
+            currentPrice: 300.0
         },
     ]
 
@@ -82,9 +89,12 @@ export default function DepotOverview() {
         <div>
             <Grid className='depotGrid' container spacing={2}>
                 <Grid item xs={6} md={8}>
-                    <h1>130.000,34 €</h1>
+                    <h1>{depot.balance_amt}€</h1>
                 </Grid>
-                <Grid item xs={6} md={4}>
+                <Grid item xs={3} md={2}>
+                    <p>{depot.buying_power}€ nicht investiert</p>
+                </Grid>
+                <Grid item xs={3} md={2}>
                     <p>+0.78%</p>
                 </Grid>
                 <Grid item xs={12} md={12}>
