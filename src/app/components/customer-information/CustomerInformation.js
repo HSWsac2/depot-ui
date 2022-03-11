@@ -12,7 +12,7 @@ export default function CustomerInformation() {
 			{currentUser && (
 				<div className="customerContainer">
 					<div className="customerIcon">
-						<AssignmentInd sx={{ fontSize: 200 }} />
+						<AssignmentInd sx={{ fontSize: "13vw" }} />
 					</div>
 					<div className="customerData">
 						<Card className="customerDataCard">
