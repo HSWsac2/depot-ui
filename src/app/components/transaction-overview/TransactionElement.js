@@ -1,4 +1,5 @@
 import BusinessIcon from "@mui/icons-material/Business";
+import moment from "moment";
 import {
 	Avatar,
 	Box,
@@ -40,9 +41,17 @@ const TransactionElement = ({ transaction, isLast }) => {
 						}}
 					>
 						<Box sx={{ display: "flex", width: "100%" }}>
-							{/* <Typography variant='h6' sx={{ display: 'inline', flexGrow: 1, fontWeight: 'bold', marginRight: '12px' }}>
-                                {transaction.name}
-                            </Typography> */}
+							<Typography
+								variant="h6"
+								sx={{
+									display: "inline",
+									flexGrow: 1,
+									fontWeight: "bold",
+									marginRight: "12px",
+								}}
+							>
+								{transaction.name}
+							</Typography>
 							<Typography
 								align="right"
 								sx={{
@@ -63,9 +72,11 @@ const TransactionElement = ({ transaction, isLast }) => {
 							</Typography>
 						</Box>
 
-						{/* <Typography variant='subtitle1'>
-                            {transaction.date}
-                        </Typography> */}
+						<Typography variant="subtitle1">
+							{moment(transaction.keydate, "YYYY-MM-DD").format(
+								"DD.MM.YYYY"
+							)}
+						</Typography>
 						<Typography variant="body1">
 							Anzahl: {transaction.piece_amt}
 						</Typography>
