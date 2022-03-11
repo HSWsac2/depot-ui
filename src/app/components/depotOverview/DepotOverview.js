@@ -18,6 +18,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './DepotOverview.css';
 import { Grid } from '@mui/material';
+import { useContext } from 'react';
+import { DepotContext } from '../../../context/DepotContext';
 
 ChartJS.register(
     CategoryScale,
@@ -32,13 +34,16 @@ ChartJS.register(
 export default function DepotOverview() {
 
     const labels = ['5', '10', '15', '20', '25', '30'];
-    const depot = {
+    /*const depot = {
         "position_id": "1234",
         "position_sub_id": "5678",
         "client_id": 1234,
         "buying_power": 500,
         "balance_amt": 20000
-      };
+    };*/
+
+    //TODO hier entstehen noch Probleme, da das Depot anfangs null ist
+    const { currentDepot } = useContext(DepotContext);
 
     const positions = [
         {
@@ -89,10 +94,10 @@ export default function DepotOverview() {
         <div>
             <Grid className='depotGrid' container spacing={2}>
                 <Grid item xs={6} md={8}>
-                    <h1>{depot.balance_amt}€</h1>
+                    <h1>{currentDepot?.balance_amt}€</h1>
                 </Grid>
                 <Grid item xs={3} md={2}>
-                    <p>{depot.buying_power}€ nicht investiert</p>
+                    <p>{currentDepot?.buying_power}€ nicht investiert</p>
                 </Grid>
                 <Grid item xs={3} md={2}>
                     <p>+0.78%</p>
