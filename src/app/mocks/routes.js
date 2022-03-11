@@ -25,8 +25,9 @@ const routes = [
         response: [
             {
                 "client_id": 7777777777,
-                "position_id": "123-456-789",
+                "position_id": "123-456-789",              
                 "position_sub_id": "222-222-222",
+                "position_name":"TR Depot 1",
                 "saldo": 100,
                 "limit": 1000
             },
@@ -34,6 +35,7 @@ const routes = [
                 "client_id": 7777777777,
                 "position_id": "123-456-789",
                 "position_sub_id": "222-222-223",
+                "position_name":"UI Depot 1",
                 "saldo": 200,
                 "limit": 1000
             }
@@ -48,6 +50,7 @@ const routes = [
                 "client_id": 1234567890,
                 "position_id": "111-456-789",
                 "position_sub_id": "222-222-222",
+                "position_name":"UI Depot 1",
                 "saldo": 100,
                 "limit": 1000
             },
@@ -55,6 +58,7 @@ const routes = [
                 "client_id": 1234567890,
                 "position_id": "111-456-789",
                 "position_sub_id": "222-222-223",
+                "position_name":"UI Depot 2",
                 "saldo": 200,
                 "limit": 1000
             }
@@ -68,6 +72,7 @@ const routes = [
             "client_id": 1234567890,
             "position_id": "111-456-789",
             "position_sub_id": "222-222-222",
+            "position_name":"UI Depot 4",
             "saldo": 100,
             "limit": 1000
         },
@@ -80,6 +85,7 @@ const routes = [
             "client_id": 1234567890,
             "position_id": "111-456-789",
             "position_sub_id": "222-222-223",
+            "position_name":"UI Depot 7",
             "saldo": 100,
             "limit": 1000
         },
@@ -92,6 +98,7 @@ const routes = [
             "client_id": 7777777777,
             "position_id": "123-456-789",
             "position_sub_id": "222-222-222",
+            "position_name":"UI Depot 9",
             "saldo": 100,
             "limit": 1000
         },
@@ -104,6 +111,7 @@ const routes = [
             "client_id": 7777777777,
             "position_id": "123-456-789",
             "position_sub_id": "222-222-223",
+            "position_name":"UI Depot 10",
             "saldo": 100,
             "limit": 1000
         },

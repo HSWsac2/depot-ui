@@ -69,7 +69,7 @@ export default function HeaderMenu() {
                     aria-expanded={open ? 'true' : undefined}
                 >
                     <Typography color="white">
-                        {currentDepot ? `${currentDepot.position_id} ${currentDepot.position_sub_id}` : "Depotauswahl"}
+                        {currentDepot ? `${currentDepot.position_name}` : "Depotauswahl"}
                     </Typography>
                     <Avatar sx={{ width: 32, height: 32, ml: 1 }}>
                         <Person />
@@ -94,7 +94,7 @@ export default function HeaderMenu() {
                         onClick={() => handleDepotClicked(deposit)}
                     >
                         {/* Will be the deposit name soon */}
-                        <Avatar></Avatar>{deposit.position_id} {deposit.position_sub_id}
+                        <Avatar></Avatar>{deposit.position_name}
                     </MenuItem>
                 ))}
 
