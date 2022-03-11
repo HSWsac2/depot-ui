@@ -20,22 +20,22 @@ const HeaderBar = () => {
     const pages = [
         {
             label: 'Depotübersicht',
-            target: '/overview',
+            target: '/depot-ui/overview',
             icon: <AccountBalanceWalletIcon />,
         },
         {
             label: 'Depotverwaltung',
-            target: '/management',
+            target: '/depot-ui/management',
             icon: <SettingsIcon />,
         },
         {
             label: 'Handel',
-            target: '/trade',
+            target: '/depot-ui/trade',
             icon: <CurrencyExchangeIcon />,
         },
         {
             label: 'Transaktionen',
-            target: '/transactions',
+            target: '/depot-ui/transactions',
             icon: <ReceiptLongIcon />,
         },
     ];
