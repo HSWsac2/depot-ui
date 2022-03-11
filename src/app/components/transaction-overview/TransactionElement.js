@@ -45,7 +45,16 @@ const TransactionElement = ({ transaction, isLast }) => {
                             </Typography> */}
 							<Typography
 								align="right"
-								sx={{ display: "inline", fontWeight: "bold" }}
+								sx={{
+									display: "inline",
+									fontWeight: "bold",
+									color:
+										transaction.buying_price *
+											transaction.piece_amt >
+										0
+											? "black"
+											: "red",
+								}}
 							>
 								{currencyFormat.format(
 									transaction.buying_price *
