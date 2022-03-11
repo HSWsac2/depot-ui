@@ -123,9 +123,9 @@ export default function DepotOverview() {
                                             {row.name}
                                         </TableCell>
                                         <TableCell align="right">{row.amount}</TableCell>
-                                        <TableCell align="right">{row.buyingPrice}</TableCell>
-                                        <TableCell align="right">{row.currentPrice}</TableCell>
-                                        <TableCell align="right">{(row.currentPrice - row.buyingPrice) < 0 ? "-" + (row.currentPrice * 100 / row.buyingPrice) : "+" + (row.currentPrice * 10 / row.buyingPrice)}</TableCell>
+                                        <TableCell align="right">{row.buyingPrice}€</TableCell>
+                                        <TableCell align="right">{row.currentPrice}€</TableCell>
+                                        <TableCell align="right">{(row.currentPrice - row.buyingPrice) < 0 ? "-" + Number((row.currentPrice * 100 / row.buyingPrice)).toFixed(2) +"%" : "+" + Number((row.currentPrice * 10 / row.buyingPrice)).toFixed(2)+"%"}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
