@@ -10,41 +10,40 @@ import Trading from "./app/components/trading/Trading";
 import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
 
 export default function AppRouter() {
-    //Mock data
-    const [customer, setCustomer] = useState({ name: "Test Name", phone: "+4915785708274", email: "testemail@dingens.com", address: "Beispielstraße 15", birthday: "99.12.2099", nationality: "Deutsch", buyingpower: "12 Mille", account: "DE32DINGSBUMSIBAN" });
-
-    return <>
-        <Router>
-            <Switch>
-                <ProtectedRoute path="/management">
-                    <Frame >
-                        <DepotManagement />
-                    </Frame>
-                </ProtectedRoute>
-                <ProtectedRoute path="/data">
-                    <Frame >
-                        <CustomerInformation customer={customer} setCustomer={setCustomer} />
-                    </Frame>
-                </ProtectedRoute>
-                <ProtectedRoute path="/overview">
-                    <Frame >
-                        <DepotOverview />
-                    </Frame>
-                </ProtectedRoute>
-                <ProtectedRoute path="/transactions">
-                    <Frame >
-                        <TransactionOverview />
-                    </Frame>
-                </ProtectedRoute>
-                <ProtectedRoute path="/trade">
-                    <Frame >
-                        <Trading />
-                    </Frame>
-                </ProtectedRoute>
-                <Route path="/">
-                    <Redirect to="/overview" />
-                </Route>
-            </Switch>
-        </Router>
-    </>;
+	return (
+		<>
+			<Router>
+				<Switch>
+					<ProtectedRoute path="/management">
+						<Frame>
+							<DepotManagement />
+						</Frame>
+					</ProtectedRoute>
+					<ProtectedRoute path="/data">
+						<Frame>
+							<CustomerInformation />
+						</Frame>
+					</ProtectedRoute>
+					<ProtectedRoute path="/overview">
+						<Frame>
+							<DepotOverview />
+						</Frame>
+					</ProtectedRoute>
+					<ProtectedRoute path="/transactions">
+						<Frame>
+							<TransactionOverview />
+						</Frame>
+					</ProtectedRoute>
+					<ProtectedRoute path="/trade">
+						<Frame>
+							<Trading />
+						</Frame>
+					</ProtectedRoute>
+					<Route path="/">
+						<Redirect to="/overview" />
+					</Route>
+				</Switch>
+			</Router>
+		</>
+	);
 }
