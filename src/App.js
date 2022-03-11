@@ -45,9 +45,7 @@ function App() {
     () =>
       createTheme({
         palette: {
-          main: '#002884',
-          backgroundColor: 'blue',
-          mode: 'dark',
+          mode,
         },
       }),
     [mode],
