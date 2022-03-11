@@ -1,29 +1,13 @@
-# pull official base image
-FROM node:12-alpine AS builder
+FROM node:14.9
 
-# set working directory
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY package*.json ./
 
-# install app dependencies
-RUN npm install react-scripts -g --silent
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
+RUN npm install
 
-# add app
-COPY . ./
-RUN NODE_ENV=production npm run build
-RUN ls -la ./build
+COPY . .
 
-FROM node:12-alpine
-RUN npm install serve -g --silent
-WORKDIR /app
-COPY --from=builder /app/build .
+EXPOSE 3001
 
-EXPOSE 3000
-
-# start app
-CMD ["serve", "-p", "3000", "-s", "."]
+CMD [ "npm", "start" ]
