@@ -8,11 +8,12 @@ import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import { DepotContext } from '../../../context/DepotContext';
 import useAxios from '../../hooks/useAxios';
 import { DropdownMenu } from './DropdownMenu';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorContext } from "../../../context/ColorContext";
@@ -23,6 +24,7 @@ export default function HeaderMenu() {
     const open = Boolean(anchorEl);
     const { currentUser, logout } = useContext(UserContext);
     const { currentDepot, selectDepot, deselectDepot } = useContext(DepotContext);
+    const history = useHistory();
 
     const { response, error, loading } = useAxios({
         url: `http://localhost:8080/api/depotService/depots/${currentUser?.client_id}`,
@@ -35,6 +37,12 @@ export default function HeaderMenu() {
         throw error;
     }
 
+    useEffect(() => {
+        if (response && response.length > 0 && !currentDepot) {
+            selectDepot(response[1])
+        }
+    }, [currentDepot, response, selectDepot]);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -42,10 +50,9 @@ export default function HeaderMenu() {
         logout();
         deselectDepot();
     }
+    const handleDepotClicked = (depot) => selectDepot(depot, true);
+    const handleCreateDepot = () => history.push('/create')
 
-    const handleDepotClicked = (depot) => {
-        selectDepot(depot, true);
-    }
 
     const colorMode = React.useContext(ColorContext);
 
@@ -91,7 +98,7 @@ export default function HeaderMenu() {
                 ))}
 
                 <Divider />
-                <MenuItem>
+                <MenuItem onClick={handleCreateDepot}>
                     <ListItemIcon>
                         <AddBox fontSize="small" />
                     </ListItemIcon>

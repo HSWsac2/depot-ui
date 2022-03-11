@@ -31,14 +31,21 @@ export default function BuySellDialog({stock, isOpen, handleClose}) {
     useEffect(() => {
         const fetchStock = async () => {
             axios.get(`http://localhost:8081/depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/currentStocks`).then(res => {
+                let found;
                 res.data.forEach(fetchedStock => {
                     if (fetchedStock.isin === stock.isin) {
-                        setOwnedAmount(stock.piece_amt);
+                        setOwnedAmount(fetchedStock.piece_amt);
+                        found = true;
                     }
                 });
+                if (!found) {
+                    setOwnedAmount(0);
+                }
             });
         };
-        fetchStock();
+        if(stock) {
+            fetchStock();
+        }
     }, [stock]);
     
 
