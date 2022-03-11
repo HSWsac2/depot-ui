@@ -13,13 +13,14 @@ import { UserContext } from '../../../context/UserContext';
 import { DepotContext } from '../../../context/DepotContext';
 import useAxios from '../../hooks/useAxios';
 import { DropdownMenu } from './DropdownMenu';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function HeaderMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const { currentUser, logout } = useContext(UserContext);
     const { currentDepot, selectDepot, deselectDepot } = useContext(DepotContext);
-
+    const history = useHistory();
 
     const { response, error, loading } = useAxios({
         url: `http://localhost:8080/api/depotService/depots/${currentUser?.client_id}`,
@@ -45,10 +46,8 @@ export default function HeaderMenu() {
         logout();
         deselectDepot();
     }
-
-    const handleDepotClicked = (depot) => {
-        selectDepot(depot, true);
-    }
+    const handleDepotClicked = (depot) => selectDepot(depot, true);
+    const handleCreateDepot = () => history.push('/create')
 
 
     return (
@@ -92,7 +91,7 @@ export default function HeaderMenu() {
                 ))}
 
                 <Divider />
-                <MenuItem>
+                <MenuItem onClick={handleCreateDepot}>
                     <ListItemIcon>
                         <AddBox fontSize="small" />
                     </ListItemIcon>

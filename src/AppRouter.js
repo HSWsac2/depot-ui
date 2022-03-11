@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
+import CreateDepot from "./app/components/create-depot/CreateDepot";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
 import DepotManagement from "./app/components/depot-management/DepotManagement";
 import DepotOverview from "./app/components/depotOverview/DepotOverview";
@@ -37,6 +38,11 @@ export default function AppRouter() {
 					<ProtectedRoute path="/trade">
 						<Frame>
 							<Trading />
+						</Frame>
+					</ProtectedRoute>
+					<ProtectedRoute path="/create">
+						<Frame>
+							<CreateDepot />
 						</Frame>
 					</ProtectedRoute>
 					<Route path="/">
