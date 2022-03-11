@@ -27,7 +27,7 @@ export default function HeaderMenu() {
     const history = useHistory();
 
     const { response, error, loading } = useAxios({
-        url: `http://localhost:8080/api/depotService/depots/${currentUser?.client_id}`,
+        url: process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE+`depots/${currentUser?.client_id}`,
         method: 'get',
         baseUrl: '',
         active: currentUser?.client_id != null,

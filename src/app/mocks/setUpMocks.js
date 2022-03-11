@@ -12,7 +12,7 @@ const setUpMocks = () => {
     // arguments for reply are (status, data, headers)
 
     routes.forEach(route => {
-         mock.onGet(`http://localhost:8080/api/depotService${route.url}`).reply(route.code, route.response);
+         mock.onGet(process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE+`${route.url}`).reply(route.code, route.response);
     });
 
     buchungsroutes.forEach(route => {

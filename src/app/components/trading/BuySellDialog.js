@@ -39,7 +39,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 		const fetchStock = async () => {
 			axios
 				.get(
-					`http://localhost:8081/depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/currentStocks`
+					process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE+`depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/currentStocks`
 				)
 				.then((res) => {
 					let found;
@@ -65,7 +65,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 			//TODO set position and sub id correctly
 			axios
 				.post(
-					`http://localhost:8081/orders/${currentDepot.position_id}/${currentDepot.position_sub_id}`,
+					process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE+`orders/${currentDepot.position_id}/${currentDepot.position_sub_id}`,
 					{
 						stock_isin: stock.isin,
 						amount: parseInt(amount),
@@ -91,7 +91,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 			if (ownedAmount >= parseInt(amount)) {
 				axios
 					.post(
-						`http://localhost:8081/orders/${currentDepot.position_id}/${currentDepot.position_sub_id}`,
+						process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE+`orders/${currentDepot.position_id}/${currentDepot.position_sub_id}`,
 						{
 							stock_isin: stock.isin,
 							amount: parseInt(amount * -1),

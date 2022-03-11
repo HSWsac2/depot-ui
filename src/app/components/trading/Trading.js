@@ -24,7 +24,7 @@ export default function Trading() {
 
     useEffect(() => {
         const fetchStocks = async () => {
-            axios.get("http://localhost:8081/stocks/current").then(res => {
+            axios.get(process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE+"stocks/current").then(res => {
                 setAllStocks(res.data);
                 setDisplayedStocks(res.data);
             })
