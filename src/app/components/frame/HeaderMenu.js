@@ -51,6 +51,7 @@ export default function HeaderMenu() {
 	const handleLogout = () => {
 		logout();
 		deselectDepot();
+		history.push("/");
 	};
 	const handleDepotClicked = (depot) => selectDepot(depot, true);
 	const handleCreateDepot = () => history.push("/create");
