@@ -19,32 +19,7 @@ import NavigationMenu from "./NavigationMenu";
 const title = "Depot";
 const HeaderBar = () => {
 	let history = useHistory();
-	const pages = [
-		{
-			label: "Depotübersicht",
-             target: '/depot-ui/overview',
-			icon: <AccountBalanceWalletIcon />,
-		},
-		{
-			label: "Depotverwaltung",
-            target: '/depot-ui/management',
-			icon: <SettingsIcon />,
-		},
-		{
-			label: "Handel",
-            target: '/depot-ui/trade',
-			icon: <CurrencyExchangeIcon />,
-		},
-		{
-			label: "Transaktionen",
-            target: '/depot-ui/transactions',
-			icon: <ReceiptLongIcon />,
-		},
-	];
-           
-            
-            
-            
+	            
     const pages = [
         {
             label: 'Depotübersicht',
