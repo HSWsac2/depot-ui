@@ -5,18 +5,15 @@ import {
 	DialogContentText,
 	DialogTitle,
 	Snackbar,
-	TextField,
+	TextField
 } from "@mui/material";
-import { purple } from "@mui/material/colors";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import { DepotContext } from "../../../context/DepotContext";
 import { UserContext } from "../../../context/UserContext";
-import useDepot from "../../hooks/useDepot";
-import useUser from "../../hooks/useUser";
-
 import "./BuySellDialog.css";
+
 
 export default function BuySellDialog({ stock, isOpen, handleClose }) {
 	const [amount, setAmount] = useState("");

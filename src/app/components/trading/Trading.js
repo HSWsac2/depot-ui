@@ -1,14 +1,12 @@
-import { Alert, Card, InputBase, List, Snackbar } from "@mui/material";
-import React, { useState, useEffect, useContext } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { Alert, Card, InputBase, List, Snackbar } from "@mui/material";
 import axios from "axios";
-
-import "./Trading.css";
-import StockElement from "./StockElement";
-import BuySellDialog from "./BuySellDialog";
-import useUser from "../../hooks/useUser";
-import useDepot from "../../hooks/useDepot";
+import React, { useContext, useEffect, useState } from "react";
 import { DepotContext } from "../../../context/DepotContext";
+import BuySellDialog from "./BuySellDialog";
+import StockElement from "./StockElement";
+import "./Trading.css";
+
 
 export default function Trading() {
 	const [tradingDialogOpen, setTradingDialogOpen] = useState(false);

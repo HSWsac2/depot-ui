@@ -1,7 +1,7 @@
 const routes = [
 	{
 		method: "get",
-		url: "/clients/bymail/john.doe@gmail.com",
+		url: "clients/bymail/john.doe@gmail.com",
 		code: 200,
 		response: {
 			firstname: "John",
@@ -19,7 +19,7 @@ const routes = [
 	},
 	{
 		method: "get",
-		url: "/depots/7777777777",
+		url: "depots/7777777777",
 		code: 200,
 		response: [
 			{
@@ -42,7 +42,7 @@ const routes = [
 	},
 	{
 		method: "get",
-		url: "/depots/1234567890",
+		url: "depots/1234567890",
 		code: 200,
 		response: [
 			{
@@ -65,7 +65,7 @@ const routes = [
 	},
 	{
 		method: "get",
-		url: "/depots/111-456-789/222-222-222",
+		url: "depots/111-456-789/222-222-222",
 		code: 200,
 		response: {
 			client_id: 1234567890,
@@ -78,7 +78,7 @@ const routes = [
 	},
 	{
 		method: "get",
-		url: "/depots/111-456-789/222-222-223",
+		url: "depots/111-456-789/222-222-223",
 		code: 200,
 		response: {
 			client_id: 1234567890,
@@ -91,7 +91,7 @@ const routes = [
 	},
 	{
 		method: "get",
-		url: "/depots/123-456-789/222-222-222",
+		url: "depots/123-456-789/222-222-222",
 		code: 200,
 		response: {
 			client_id: 7777777777,
@@ -104,7 +104,7 @@ const routes = [
 	},
 	{
 		method: "get",
-		url: "/depots/123-456-789/222-222-223",
+		url: "depots/123-456-789/222-222-223",
 		code: 200,
 		response: {
 			client_id: 7777777777,
