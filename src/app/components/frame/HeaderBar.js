@@ -26,22 +26,22 @@ const HeaderBar = () => {
 	const pages = [
 		{
 			label: "Depotübersicht",
-			target: "/depot-ui/overview",
+			target: "/overview",
 			icon: <AccountBalanceWalletIcon />,
 		},
 		{
 			label: "Depotverwaltung",
-			target: "/depot-ui/management",
+			target: "/management",
 			icon: <SettingsIcon />,
 		},
 		{
 			label: "Handel",
-			target: "/depot-ui/trade",
+			target: "/trade",
 			icon: <CurrencyExchangeIcon />,
 		},
 		{
 			label: "Transaktionen",
-			target: "/depot-ui/transactions",
+			target: "/transactions",
 			icon: <ReceiptLongIcon />,
 		},
 		// Does not work because of external url

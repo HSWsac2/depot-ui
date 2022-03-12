@@ -41,9 +41,9 @@ export default function HeaderMenu() {
 		history.push("/");
 	};
 	const handleDepotClicked = (depot) => selectDepot(depot, true);
-	const handleCreateDepot = () => history.push("/depot-ui/create");
+	const handleCreateDepot = () => history.push("/create");
 
-	const handleSettingsClicked = () => history.push("/depot-ui/data");
+	const handleSettingsClicked = () => history.push("/data");
 
 	const colorMode = React.useContext(ColorContext);
 

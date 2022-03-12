@@ -28,7 +28,7 @@ export default function ProtectedRouteWithDepot({ children, ...args }) {
 
                 </Frame>
             )}
-            {!currentDepot && !availableDepotsLoading && <Redirect to={{ pathname: '/depot-ui/create', state: { noDepotsAvailable: true } }} />}
+            {!currentDepot && !availableDepotsLoading && <Redirect to={{ pathname: '/create', state: { noDepotsAvailable: true } }} />}
             {currentDepot && children}
         </ProtectedRoute>
     )
