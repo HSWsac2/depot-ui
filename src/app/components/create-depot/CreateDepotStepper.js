@@ -33,8 +33,9 @@ export default function HorizontalLinearStepper({ }) {
 
     const handleNext = () => {
         if (activeStepIndex + 1 === steps.length) {
-            axios.post('http://localhost:8080/api/depotService/depots', {
+            axios.post(`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots`, {
                 position_id: "1234", // TODO
+                iban: "DE123456789", // TODO
                 client_id: currentUser.client_id,
                 buying_power: buyingPowerWtf,
                 depot_name: depotName,
@@ -44,7 +45,8 @@ export default function HorizontalLinearStepper({ }) {
                     selectDepot(response);
                     invalidateAvailableDepots();
                 })
-                .then(() => history.push('/'));
+                .then(() => history.push('/'))
+                .catch(console.error);
 
         }
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
