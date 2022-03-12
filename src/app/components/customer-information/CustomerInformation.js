@@ -28,14 +28,14 @@ export default function CustomerInformation() {
 									className="dataField"
 									fullWidth
 								/>
-								{/* <TextField 
-                                variant="outlined" 
-                                label="Mobilnummer"
-                                value={userValue.}
-                                className="dataField"
-                                fullWidth
-                                disabled
-                            />   */}
+								<TextField
+									variant="outlined"
+									label="Mobilnummer"
+									value={currentUser.phone_number}
+									className="dataField"
+									fullWidth
+									disabled
+								/>
 								<TextField
 									variant="outlined"
 									label="E-Mail"
@@ -75,7 +75,7 @@ export default function CustomerInformation() {
 								<TextField
 									variant="outlined"
 									label="Anschrift"
-									value={`${currentUser.street} ${currentUser.house_number}`}
+									value={currentUser.adress}
 									className="dataField"
 									fullWidth
 									disabled
