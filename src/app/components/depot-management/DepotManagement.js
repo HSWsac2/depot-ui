@@ -13,7 +13,7 @@ import useAxios from "../../hooks/useAxios";
 import ConfirmButton from "./ConfirmButton";
 
 export default function DepotManagement() {
-	const { currentDepot } = useContext(DepotContext);
+	const { currentDepot, invalidateAvailableDepots } = useContext(DepotContext);
 	const [errorMsg, setErrorMsg] = useState("");
 	const [isError, setIsError] = useState(false);
 	const [successMsg, setSuccessMsg] = useState("");
@@ -31,6 +31,7 @@ export default function DepotManagement() {
 					"Depot erfolgreich gelöscht... jetzt ist es wirklich weg, schade aber auch"
 				);
 				setIsSuccess(true);
+				invalidateAvailableDepots();
 			})
 			.catch((error) => {
 				setErrorMsg(error.response.detail);
