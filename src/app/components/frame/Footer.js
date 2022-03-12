@@ -1,26 +1,29 @@
-import { AppBar, Link, Grid, Toolbar, Typography } from '@mui/material';
+import { AppBar, Link, Grid, Toolbar, Typography, Box } from '@mui/material';
 import "./Footer.css"
 import * as React from 'react';
 
 const Footer = () => {
-  
+
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Grid container spacing={1}>
-          <Grid item xs={10}>
-            <Typography component="div" sx={{ flexGrow: 1 }}>
-              © HSW-Hameln
-            </Typography>
-          </Grid>
-          <Grid item xs={1}>
-            <Link href="#">Impressum</Link>
-          </Grid>
-          <Grid item xs={1}>
-            <Link href="#">DSGVO</Link>
-          </Grid>
-        </Grid>
+        <Typography component="div"
+          sx={{
+            flexGrow: 1
+          }}>
+          © HSW-Hameln
+        </Typography>
+        <Box sx={{
+          display: 'flex',
+        }}>
+          <Typography sx={{ mx: 1 }}>
+            <Link href="#" color="inherit">Impressum</Link>
+          </Typography>
+          <Typography sx={{ mx: 1 }}>
+            <Link href="#" color="inherit" >DSGVO</Link>
+          </Typography>
+        </Box>
       </Toolbar>
     </AppBar>
   )

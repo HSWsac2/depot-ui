@@ -3,7 +3,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
-import { CircularProgress, Typography } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -58,12 +58,15 @@ export default function HeaderMenu() {
 	return (
 		<>
 			<Tooltip title="Account settings">
-				<IconButton
+				<Button
 					onClick={handleClick}
 					size="small"
 					aria-controls={open ? "account-menu" : undefined}
 					aria-haspopup="true"
 					aria-expanded={open ? "true" : undefined}
+					sx={{
+						textTransform: 'none'
+					}}
 				>
 					<Typography color="white">
 						{currentDepot
@@ -73,7 +76,7 @@ export default function HeaderMenu() {
 					<Avatar sx={{ width: 32, height: 32, ml: 1 }}>
 						<Person />
 					</Avatar>
-				</IconButton>
+				</Button>
 			</Tooltip>
 			<DropdownMenu
 				anchorEl={anchorEl}
@@ -136,7 +139,7 @@ export default function HeaderMenu() {
 							<Brightness4Icon />
 						)}
 					</ListItemIcon>
-					{colorMode.mode === "dark" ? "Light Mode" : "Night Mode"}
+					{colorMode.mode === "dark" ? "Helles Design" : "Dunkles Design"}
 				</MenuItem>
 			</DropdownMenu>
 		</>
