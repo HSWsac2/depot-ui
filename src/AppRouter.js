@@ -46,9 +46,9 @@ export default function AppRouter() {
 				<Route path="/login">
 					<Login />
 				</Route>
-				<Route path="/">
+				<ProtectedRouteWithDepot path="/">
 					<Redirect to="/overview" />
-				</Route>
+				</ProtectedRouteWithDepot>
 			</Switch>
 		</BrowserRouter>
 	);

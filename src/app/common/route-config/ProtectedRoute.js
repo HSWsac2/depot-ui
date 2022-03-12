@@ -22,12 +22,14 @@ export default function ProtectedRoute({ children, ...args }) {
         }
     }, [isIdle])
 
+    const targetSearch = location.pathname && location.pathname != '/' ? `?redirect=${location.pathname}` : null
+
     return (
         <Route {...args}>
             {currentUser === null ?
                 <Redirect to={{
                     pathname: "/login",
-                    search: `?redirect=${location.pathname}`,
+                    search: targetSearch,
                 }} /> : children
             }
         </Route>
