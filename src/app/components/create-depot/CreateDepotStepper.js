@@ -14,7 +14,6 @@ import DepotCreated from './DepotCreated';
 import FinalizeCreateDepot from './FinalizeCreateDepot';
 
 
-
 export default function HorizontalLinearStepper({ }) {
     const [activeStepIndex, setActiveStep] = useState(0);
 
@@ -22,7 +21,7 @@ export default function HorizontalLinearStepper({ }) {
     const [buyingPowerWtf, setBuyingPowerWtf] = useState("");
 
     const { currentUser } = useContext(UserContext);
-    const { selectDepot } = useContext(DepotContext);
+    const { selectDepot, invalidateAvailableDepots } = useContext(DepotContext);
     const history = useHistory();
 
 
@@ -42,7 +41,8 @@ export default function HorizontalLinearStepper({ }) {
             })
                 .then(response => response.data)
                 .then(response => {
-                    selectDepot(response)
+                    selectDepot(response);
+                    invalidateAvailableDepots();
                 })
                 .then(() => history.push('/'));
 
