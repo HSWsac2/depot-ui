@@ -1,11 +1,20 @@
 import { AssignmentInd } from "@mui/icons-material";
-import { Card, TextField, Typography } from "@mui/material";
+import { Button, Card, TextField, Typography } from "@mui/material";
 import React, { useContext } from "react";
+import { useHistory } from "react-router";
 import { UserContext } from "../../../context/UserContext";
 import "./CustomerInformation.css";
 
 export default function CustomerInformation() {
 	const { currentUser } = useContext(UserContext);
+
+	function navigateCustomer() {
+		if (currentUser) {
+			window.location.href =
+				process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
+				`${currentUser.client_id}/change`;
+		}
+	}
 
 	return (
 		<>
@@ -106,6 +115,22 @@ export default function CustomerInformation() {
 								/>
 							</div>
 						</Card>
+						<Button
+							variant="contained"
+							onClick={() => navigateCustomer()}
+							sx={{ marginBottom: "5vh", textTransform: "none" }}
+						>
+							Daten bearbeiten
+						</Button>
+						<a
+							href={
+								process.env
+									.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
+								`${currentUser.client_id}/change`
+							}
+						>
+							Testlink
+						</a>
 					</div>
 				</div>
 			)}

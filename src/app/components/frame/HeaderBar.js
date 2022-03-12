@@ -1,3 +1,4 @@
+import { LocalAtm } from "@mui/icons-material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
@@ -13,35 +14,46 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 import HeaderMenu from "./HeaderMenu";
 import NavigationMenu from "./NavigationMenu";
 
 const title = "Depot";
 const HeaderBar = () => {
 	let history = useHistory();
-	            
-    const pages = [
-        {
-            label: 'Depotübersicht',
-            target: '/depot-ui/overview',
-            icon: <AccountBalanceWalletIcon />,
-        },
-        {
-            label: 'Depotverwaltung',
-            target: '/depot-ui/management',
-            icon: <SettingsIcon />,
-        },
-        {
-            label: 'Handel',
-            target: '/depot-ui/trade',
-            icon: <CurrencyExchangeIcon />,
-        },
-        {
-            label: 'Transaktionen',
-            target: '/depot-ui/transactions',
-            icon: <ReceiptLongIcon />,
-        },
-    ];
+	const { currentUser } = React.useContext(UserContext);
+
+	const pages = [
+		{
+			label: "Depotübersicht",
+			target: "/depot-ui/overview",
+			icon: <AccountBalanceWalletIcon />,
+		},
+		{
+			label: "Depotverwaltung",
+			target: "/depot-ui/management",
+			icon: <SettingsIcon />,
+		},
+		{
+			label: "Handel",
+			target: "/depot-ui/trade",
+			icon: <CurrencyExchangeIcon />,
+		},
+		{
+			label: "Transaktionen",
+			target: "/depot-ui/transactions",
+			icon: <ReceiptLongIcon />,
+		},
+		// Does not work because of external url
+		// {
+		// 	label: "Meine Konten",
+		// 	target: `${
+		// 		process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
+		// 		currentUser?.client_id
+		// 	}/accounts`,
+		// 	icon: <LocalAtm />,
+		// },
+	];
 
 	return (
 		<AppBar position="sticky">

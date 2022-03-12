@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 import CreateDepot from "./app/components/create-depot/CreateDepot";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";

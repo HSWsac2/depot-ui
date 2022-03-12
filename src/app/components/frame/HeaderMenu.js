@@ -1,4 +1,4 @@
-import { AddBox, Person } from "@mui/icons-material";
+import { AddBox, LocalAtm, Person } from "@mui/icons-material";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
 import { CircularProgress, Typography } from "@mui/material";
@@ -27,16 +27,18 @@ export default function HeaderMenu() {
 		useContext(DepotContext);
 	const history = useHistory();
 
-    const { response, error, loading } = useAxios({
-        url: process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE+`depots/${currentUser?.client_id}`,
-        method: 'get',
-        baseUrl: '',
-        active: currentUser?.client_id != null,
-    });
-    // simply throw the error (for now)
-    if (error) {
-        throw error;
-    }
+	const { response, error, loading } = useAxios({
+		url:
+			process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
+			`depots/${currentUser?.client_id}`,
+		method: "get",
+		baseUrl: "",
+		active: currentUser?.client_id != null,
+	});
+	// simply throw the error (for now)
+	if (error) {
+		throw error;
+	}
 
 	useEffect(() => {
 		if (response && response.length > 0 && !currentDepot) {
@@ -53,11 +55,19 @@ export default function HeaderMenu() {
 		history.push("/");
 	};
 	const handleDepotClicked = (depot) => selectDepot(depot, true);
-    const handleCreateDepot = () => history.push('/depot-ui/create')
+	const handleCreateDepot = () => history.push("/depot-ui/create");
 
-    const handleSettingsClicked = () => history.push('/depot-ui/data')
+	const handleSettingsClicked = () => history.push("/depot-ui/data");
 
 	const colorMode = React.useContext(ColorContext);
+
+	function navigateAccounts() {
+		if (currentUser) {
+			window.location.href =
+				process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
+				`${currentUser.client_id}/accounts`;
+		}
+	}
 
 	return (
 		<>
@@ -114,6 +124,12 @@ export default function HeaderMenu() {
 						<AddBox fontSize="small" />
 					</ListItemIcon>
 					Depot erstellen
+				</MenuItem>
+				<MenuItem onClick={() => navigateAccounts()}>
+					<ListItemIcon>
+						<LocalAtm fontSize="small" />
+					</ListItemIcon>
+					Verrechnungskonten
 				</MenuItem>
 				<MenuItem onClick={handleSettingsClicked}>
 					<ListItemIcon>
