@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { StyledEngineProvider } from "@mui/material/styles";
 import * as React from "react";
 import "./App.css";
@@ -58,6 +58,7 @@ function App() {
 					<DepotContextProvider>
 						<IdleContextProvider>
 							<ThemeProvider theme={theme}>
+								<CssBaseline />
 								<AppRouter />
 							</ThemeProvider>
 						</IdleContextProvider>
