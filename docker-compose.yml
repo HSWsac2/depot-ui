@@ -2,12 +2,10 @@ version: '3.7'
 services:
   depot-ui:
     container_name: depot-ui
-    build: ./
+    build: 
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - '/app/node_modules'
     ports:
-      - 3030:3000
-    stdin_open: true
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    command: npm start
+      - 3030:80

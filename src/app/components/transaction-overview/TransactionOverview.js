@@ -14,7 +14,7 @@ const TransactionOverview = () => {
 		const fetchTransactions = async () => {
 			axios
 				.get(
-					`http://localhost:8081/depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/orderHistory`
+					`http://localhost:8081/api/depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/orderHistory`
 				)
 				.then((res) => {
 					setTransactions(res.data);
