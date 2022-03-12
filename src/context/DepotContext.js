@@ -79,7 +79,7 @@ export const DepotContextProvider = ({ children }) => {
     // invalidate Available Depots when current user changes
     useEffect(() => {
         invalidateAvailableDepots();
-    }, [currentUser])
+    }, [currentUser, invalidateAvailableDepots])
 
     const depotValue = {
         currentDepot,

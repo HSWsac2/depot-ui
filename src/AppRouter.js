@@ -6,40 +6,41 @@ import CustomerInformation from "./app/components/customer-information/CustomerI
 import DepotManagement from "./app/components/depot-management/DepotManagement";
 import DepotOverview from "./app/components/depotOverview/DepotOverview";
 import Frame from "./app/components/frame/Frame";
-import ProtectedRoute from "./app/components/frame/ProtectedRoute";
+import ProtectedRoute from "./app/common/route-config/ProtectedRoute";
 import Trading from "./app/components/trading/Trading";
 import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
+import ProtectedRouteWithDepot from "./app/common/route-config/ProtectedRouteWithDepot";
 
 export default function AppRouter() {
 	return (
 		<>
 			<Router>
 				<Switch>
-					<ProtectedRoute path="/depot-ui/management">
+					<ProtectedRouteWithDepot path="/depot-ui/management">
 						<Frame>
 							<DepotManagement />
 						</Frame>
-					</ProtectedRoute>
+					</ProtectedRouteWithDepot>
 					<ProtectedRoute path="/depot-ui/data">
 						<Frame>
 							<CustomerInformation />
 						</Frame>
 					</ProtectedRoute>
-					<ProtectedRoute path="/depot-ui/overview">
+					<ProtectedRouteWithDepot path="/depot-ui/overview">
 						<Frame>
 							<DepotOverview />
 						</Frame>
-					</ProtectedRoute>
-					<ProtectedRoute path="/depot-ui/transactions">
+					</ProtectedRouteWithDepot>
+					<ProtectedRouteWithDepot path="/depot-ui/transactions">
 						<Frame>
 							<TransactionOverview />
 						</Frame>
-					</ProtectedRoute>
-					<ProtectedRoute path="/depot-ui/trade">
+					</ProtectedRouteWithDepot>
+					<ProtectedRouteWithDepot path="/depot-ui/trade">
 						<Frame>
 							<Trading />
 						</Frame>
-					</ProtectedRoute>
+					</ProtectedRouteWithDepot>
 					<ProtectedRoute path="/depot-ui/create">
 						<Frame>
 							<CreateDepot />
