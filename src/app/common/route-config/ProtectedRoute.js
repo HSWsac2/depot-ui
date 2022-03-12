@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { DepotContext } from "../../../context/DepotContext";
 import { IdleContext } from "../../../context/IdleContext";
 import { UserContext } from "../../../context/UserContext";
-import Login from "../../common/login/Login";
 
 // pass all args to the underlying Route
 export default function ProtectedRoute({ children, ...args }) {
@@ -12,6 +12,8 @@ export default function ProtectedRoute({ children, ...args }) {
     const { currentUser, logout } = useContext(UserContext);
 
     const isIdle = useContext(IdleContext)
+
+    const location = useLocation();
 
     useEffect(() => {
         if (isIdle) {
@@ -23,8 +25,10 @@ export default function ProtectedRoute({ children, ...args }) {
     return (
         <Route {...args}>
             {currentUser === null ?
-                <Login /> :
-                children
+                <Redirect to={{
+                    pathname: "/login",
+                    search: `?redirect=${location.pathname}`,
+                }} /> : children
             }
         </Route>
     )

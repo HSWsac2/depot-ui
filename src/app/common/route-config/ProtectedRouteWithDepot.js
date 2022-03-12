@@ -1,8 +1,8 @@
-import { CircularProgress, Container, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { DepotContext } from "../../../context/DepotContext";
 import Frame from "../../components/frame/Frame";
+import WaitingScreen from "../WaitingScreen";
 import ProtectedRoute from "./ProtectedRoute";
 // pass all args to the underlying ProtectedRoute
 export default function ProtectedRouteWithDepot({ children, ...args }) {
@@ -13,19 +13,7 @@ export default function ProtectedRouteWithDepot({ children, ...args }) {
         <ProtectedRoute {...args}>
             {!currentDepot && availableDepotsLoading && (
                 <Frame>
-                    <Container
-                        maxWidth="lg"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            height: '100%',
-                        }}>
-                        <CircularProgress size="10rem" sx={{mb: 5}}/>
-                        <Typography variant='h2'>Depotinformationen werden geladen</Typography>
-                    </Container>
-
+                   <WaitingScreen message="Depotinformationen werden geladen" />
                 </Frame>
             )}
             {!currentDepot && !availableDepotsLoading && <Redirect to={{ pathname: '/create', state: { noDepotsAvailable: true } }} />}

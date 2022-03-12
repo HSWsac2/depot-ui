@@ -8,7 +8,7 @@ import DepotOverview from "./app/components/depotOverview/DepotOverview";
 import Frame from "./app/components/frame/Frame";
 import Trading from "./app/components/trading/Trading";
 import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
-
+import Login from './app/common/login/Login'
 export default function AppRouter() {
 	return (
 		<BrowserRouter basename="/depot-ui">
@@ -43,6 +43,9 @@ export default function AppRouter() {
 						<CreateDepot />
 					</Frame>
 				</ProtectedRoute>
+				<Route path="/login">
+					<Login />
+				</Route>
 				<Route path="/">
 					<Redirect to="/overview" />
 				</Route>

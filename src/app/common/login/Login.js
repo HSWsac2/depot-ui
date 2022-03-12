@@ -11,12 +11,22 @@ import {
 	Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../../context/UserContext";
 import { ReactComponent as Avatar } from "./avatar.svg";
 import "./Login.css";
+import qs from 'qs'
+import WaitingScreen from "../WaitingScreen";
+
 
 export default function Login() {
+
+	const location = useLocation();
+	const history = useHistory();
+
+	const { clientId, redirect } = qs.parse(location.search, { ignoreQueryPrefix: true });
+
 	const [loginInformation, setLoginInformation] = useState({
 		email: null,
 		password: null,
@@ -28,30 +38,64 @@ export default function Login() {
 
 	const { login } = useContext(UserContext);
 
+	function loginWithUser(user) {
+		login({ ...user }, rememberUser);
+		history.push(redirect ?? '')
+	}
+
+	function loginWithClientId(clientId) {
+		axios
+			.get(
+				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE + `clients/${clientId}`
+			)
+			.then(response => response.data)
+			.then(user => loginWithUser(user))
+			.catch(error => {
+				console.error("Error", error);
+				history.push('/login');
+			})
+	}
+
 	function handleLogin(event) {
 		event.preventDefault();
 		if (loginInformation.email && loginInformation.password) {
 			axios
 				.get(
-					process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE+`clients/bymail/${loginInformation.email}`
+					process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE + `clients/bymail/${loginInformation.email}`
 				)
 				.then((response) => response.data)
-				// .then(users => users.find(user => user.e_mail === loginInformation.email))
 				.then((user) => {
 					if (user !== undefined) {
 						setLoginFailed(false);
-						login({ ...user }, rememberUser);
+						loginWithUser(user)
 					} else {
 						setLoginFailed(true);
 					}
 				})
 				.catch((error) => {
+					console.error(error)
 					setLoginFailed(true);
 				});
 		} else {
 			setErrorMsg("Es wurden nicht alle Login-Felder gefüllt!");
 			setIsError(true);
 		}
+	}
+
+	useEffect(() => {
+		if (clientId) {
+			loginWithClientId(clientId, redirect, login, history);
+		}
+	}, [clientId])
+
+	if (clientId) {
+		return <div style={{
+			minHeight: '100vh',
+			boxSizing: 'border-box',
+			display: 'flex',
+		}}>
+			<WaitingScreen message="Sie werden in Kürze weitergeleitet" />
+		</div>
 	}
 
 	return (
