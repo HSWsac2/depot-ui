@@ -122,15 +122,6 @@ export default function CustomerInformation() {
 						>
 							Daten bearbeiten
 						</Button>
-						<a
-							href={
-								process.env
-									.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
-								`${currentUser.client_id}/change`
-							}
-						>
-							Testlink
-						</a>
 					</div>
 				</div>
 			)}
