@@ -16,16 +16,17 @@ import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../../context/UserContext";
 import { ReactComponent as Avatar } from "./avatar.svg";
 import "./Login.css";
-import qs from 'qs'
+import qs from "qs";
 import WaitingScreen from "../WaitingScreen";
-
+import sha256 from "crypto-js/sha256";
 
 export default function Login() {
-
 	const location = useLocation();
 	const history = useHistory();
 
-	const { clientId, redirect } = qs.parse(location.search, { ignoreQueryPrefix: true });
+	const { clientId, redirect } = qs.parse(location.search, {
+		ignoreQueryPrefix: true,
+	});
 
 	const [loginInformation, setLoginInformation] = useState({
 		email: null,
@@ -40,42 +41,51 @@ export default function Login() {
 
 	function loginWithUser(user) {
 		login({ ...user }, rememberUser);
-		history.push(redirect ?? '')
+		history.push(redirect ?? "");
 	}
 
 	function loginWithClientId(clientId) {
 		axios
 			.get(
-				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE + `clients/${clientId}`
+				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
+					`clients/${clientId}`
 			)
-			.then(response => response.data)
-			.then(user => loginWithUser(user))
-			.catch(error => {
+			.then((response) => response.data)
+			.then((user) => loginWithUser(user))
+			.catch((error) => {
 				console.error("Error", error);
-				history.push('/login');
-			})
+				history.push("/login");
+			});
 	}
 
 	function handleLogin(event) {
 		event.preventDefault();
 		if (loginInformation.email && loginInformation.password) {
-			axios
-				.get(
-					process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE + `clients/bymail/${loginInformation.email}`
-				)
-				.then((response) => response.data)
-				.then((user) => {
-					if (user !== undefined) {
-						setLoginFailed(false);
-						loginWithUser(user)
-					} else {
+			if (
+				sha256(loginInformation.password).toString() ==
+				"43a7e1b922352c1cb80e9c6936c9f2a8549236f7e42fe52933ba5d0a31850066"
+			) {
+				axios
+					.get(
+						process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
+							`clients/bymail/${loginInformation.email}`
+					)
+					.then((response) => response.data)
+					.then((user) => {
+						if (user !== undefined) {
+							setLoginFailed(false);
+							loginWithUser(user);
+						} else {
+							setLoginFailed(true);
+						}
+					})
+					.catch((error) => {
+						console.error(error);
 						setLoginFailed(true);
-					}
-				})
-				.catch((error) => {
-					console.error(error)
-					setLoginFailed(true);
-				});
+					});
+			} else {
+				setLoginFailed(true);
+			}
 		} else {
 			setErrorMsg("Es wurden nicht alle Login-Felder gefüllt!");
 			setIsError(true);
@@ -86,16 +96,20 @@ export default function Login() {
 		if (clientId) {
 			loginWithClientId(clientId, redirect, login, history);
 		}
-	}, [clientId])
+	}, [clientId]);
 
 	if (clientId) {
-		return <div style={{
-			minHeight: '100vh',
-			boxSizing: 'border-box',
-			display: 'flex',
-		}}>
-			<WaitingScreen message="Sie werden in Kürze weitergeleitet" />
-		</div>
+		return (
+			<div
+				style={{
+					minHeight: "100vh",
+					boxSizing: "border-box",
+					display: "flex",
+				}}
+			>
+				<WaitingScreen message="Sie werden in Kürze weitergeleitet" />
+			</div>
+		);
 	}
 
 	return (
