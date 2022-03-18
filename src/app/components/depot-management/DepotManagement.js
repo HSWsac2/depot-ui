@@ -13,7 +13,7 @@ import useAxios from "../../hooks/useAxios";
 import ConfirmButton from "./ConfirmButton";
 
 export default function DepotManagement() {
-	const { currentDepot, invalidateAvailableDepots } =
+	const { currentDepot, invalidateAvailableDepots, deselectDepot } =
 		useContext(DepotContext);
 	const [errorMsg, setErrorMsg] = useState("");
 	const [isError, setIsError] = useState(false);
