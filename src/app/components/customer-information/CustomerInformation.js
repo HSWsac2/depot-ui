@@ -2,11 +2,13 @@ import { AssignmentInd } from "@mui/icons-material";
 import { Button, Card, TextField, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { useHistory } from "react-router";
+import { DepotContext } from "../../../context/DepotContext";
 import { UserContext } from "../../../context/UserContext";
 import "./CustomerInformation.css";
 
 export default function CustomerInformation() {
 	const { currentUser } = useContext(UserContext);
+	const { currentDepot } = useContext(DepotContext);
 
 	function navigateCustomer() {
 		if (currentUser) {
@@ -55,27 +57,29 @@ export default function CustomerInformation() {
 								/>
 							</div>
 						</Card>
-						{/* <Card className="customerDataCard">
-                        <Typography variant="h5" className="cardTitle">Kontodaten</Typography>
-                        <div className="cardContent">
-                            <TextField 
+						<Card className="customerDataCard">
+							<Typography variant="h5" className="cardTitle">
+								Kontodaten
+							</Typography>
+							<div className="cardContent">
+								{/* <TextField 
                                 variant="outlined" 
                                 label="Verrechnungskonto"
                                 value={customer.account}
                                 className="dataField"
                                 fullWidth
                                 disabled
-                            /> 
-                            <TextField 
-                                variant="outlined" 
-                                label="Kaufkraft"
-                                value={customer.buyingpower}
-                                className="dataField"
-                                fullWidth
-                                disabled
-                            />  
-                        </div>
-                    </Card> */}
+                            />  */}
+								<TextField
+									variant="outlined"
+									label="Kaufkraft"
+									value={`${currentDepot.buying_power} €`}
+									className="dataField"
+									fullWidth
+									disabled
+								/>
+							</div>
+						</Card>
 						<Card className="customerDataCard">
 							<Typography variant="h5" className="cardTitle">
 								Persönliche Daten
@@ -122,15 +126,6 @@ export default function CustomerInformation() {
 						>
 							Daten bearbeiten
 						</Button>
-						<a
-							href={
-								process.env
-									.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
-								`${currentUser.client_id}/change`
-							}
-						>
-							Testlink
-						</a>
 					</div>
 				</div>
 			)}
