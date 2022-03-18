@@ -13,13 +13,14 @@ import useAxios from "../../hooks/useAxios";
 import ConfirmButton from "./ConfirmButton";
 
 export default function DepotManagement() {
-	const { currentDepot, invalidateAvailableDepots } = useContext(DepotContext);
+	const { currentDepot, invalidateAvailableDepots } =
+		useContext(DepotContext);
 	const [errorMsg, setErrorMsg] = useState("");
 	const [isError, setIsError] = useState(false);
 	const [successMsg, setSuccessMsg] = useState("");
 	const [isSuccess, setIsSuccess] = useState(false);
 
-	const handleDeleteDepot = () => {
+	const handleCloseDepot = () => {
 		// alert("Wenn dieser Knopf jetzt funktioniert hätte, wäre Ihr Depot unwiderruflich gelöscht. Glück für Sie, dass wir noch nicht so weit sind.");
 		axios
 			.delete(
@@ -37,10 +38,6 @@ export default function DepotManagement() {
 				setErrorMsg(error.response.detail);
 				setIsError(true);
 			});
-	};
-
-	const handleCloseDepot = () => {
-		alert("Depot geschlossen. Wieder öffnen geht aber nicht :-)");
 	};
 
 	return (
@@ -87,7 +84,7 @@ export default function DepotManagement() {
 						<Box>
 							<ConfirmButton
 								buttonText="Depot löschen"
-								acceptCallback={handleDeleteDepot}
+								acceptCallback={handleCloseDepot}
 								dialogTitle="Wollen Sie Ihr Depot wirklich unwiderruflich löschen?"
 								color="error"
 								dialogBody="Diese Entscheidung kann nicht rückgängig gemacht werden."
