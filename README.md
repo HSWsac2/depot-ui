@@ -1,9 +1,23 @@
-[![Node.js CI](https://github.com/HSWsac2/depot-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/HSWsac2/depot-ui/actions/workflows/ci.yml)
-
 # Depot-UI
+```
+ ▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄          ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄ 
+▐░░░░░░░░░░▌ ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌        ▐░▌       ▐░▌▐░░░░░░░░░░░▌
+▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌ ▀▀▀▀█░█▀▀▀▀         ▐░▌       ▐░▌ ▀▀▀▀█░█▀▀▀▀ 
+▐░▌       ▐░▌▐░▌          ▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌             ▐░▌       ▐░▌     ▐░▌     
+▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░▌       ▐░▌     ▐░▌ ▄▄▄▄▄▄▄▄▄▄▄ ▐░▌       ▐░▌     ▐░▌     
+▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌     ▐░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌     ▐░▌     
+▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌       ▐░▌     ▐░▌ ▀▀▀▀▀▀▀▀▀▀▀ ▐░▌       ▐░▌     ▐░▌     
+▐░▌       ▐░▌▐░▌          ▐░▌          ▐░▌       ▐░▌     ▐░▌             ▐░▌       ▐░▌     ▐░▌     
+▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄▄▄ ▐░▌          ▐░█▄▄▄▄▄▄▄█░▌     ▐░▌             ▐░█▄▄▄▄▄▄▄█░▌ ▄▄▄▄█░█▄▄▄▄ 
+▐░░░░░░░░░░▌ ▐░░░░░░░░░░░▌▐░▌          ▐░░░░░░░░░░░▌     ▐░▌             ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌
+ ▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀▀▀▀▀▀▀  ▀            ▀▀▀▀▀▀▀▀▀▀▀       ▀               ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀ 
+```
 > Das Webfrontend für die Bank, das auf die bereitgestellten Services des DepotService/BuchungsService zugreift.
 
 Eine vom Team sadUI (Skalierbare Anwendungen - Depot UI) bereitgestellte Oberfläche zur Depotverwaltung.
+
+# Depot-UI CI
+[![Node.js CI](https://github.com/HSWsac2/depot-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/HSWsac2/depot-ui/actions/workflows/ci.yml)
 
 ## Available Scripts
 
