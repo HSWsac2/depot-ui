@@ -13,7 +13,6 @@ function FinalizeCreateDepot({ depotName, setDepotName, buyingPowerWtf, setBuyin
                 Finalisieren Sie die Erstellung Ihres Depots durch Vergeben eines Namens
             </Typography>
             <TextField
-                label="Outlined"
                 variant="outlined"
                 label="Depotname"
                 value={depotName}

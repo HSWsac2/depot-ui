@@ -21,6 +21,7 @@ import { Grid } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { DepotContext } from '../../../context/DepotContext';
 import axios from 'axios';
+import moment from 'moment';
 
 ChartJS.register(
     CategoryScale,
@@ -34,11 +35,11 @@ ChartJS.register(
 
 export default function DepotOverview() {
 
-    const labels = ['5', '10', '15', '20', '25', '30'];
+    const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
     const [stocks, setStocks] = useState([]);
-
-    //TODO hier entstehen noch Probleme, da das Depot anfangs null ist
     const { currentDepot } = useContext(DepotContext);
+    const [history, setHistory] = useState([]);
+    const [historyValues, setHistoryValues] = useState([]);
 
     useEffect(() => {
 		const fetchTransactions = async () => {
@@ -57,50 +58,40 @@ export default function DepotOverview() {
 		}
 	}, [currentDepot]);
 
-    /*const positions = [
-        {
-            name: "Tesla",
-            amount: 3.8,
-            buyingPrice: 3578.78,
-            currentPrice: 4000.43
-        },
-        {
-            name: "Microsoft",
-            amount: 3,
-            buyingPrice: 300.78,
-            currentPrice: 4000.43
-        },
-        {
-            name: "Meta",
-            amount: 1,
-            buyingPrice: 1400.78,
-            currentPrice: 3600.43
-        },
-        {
-            name: "Amazon",
-            amount: 9,
-            buyingPrice: 500.78,
-            currentPrice: 300.0
-        },
-    ]*/
+    useEffect(() => {
+		const fetchHistory = async () => {
+			axios
+				.get(
+					`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/history/${currentDepot.position_id}/${currentDepot.position_sub_id}`
+				)
+				.then((res) => {
+					const history = (res.data.sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isBefore(moment(b.keydate, "YYYY-MM-DD"))));
+                    setHistoryValues(history.slice(0,30).sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isAfter(moment(b.keydate, "YYYY-MM-DD"))).map((entry) => {
+                      return entry.win_loss_amt;
+                    }))
+                });
+		};
+		if (currentDepot) {
+			fetchHistory();
+		} else {
+			setHistory([]);
+		}
+	}, [currentDepot, history]);
 
-    //const values = [];
-
-    //positions.forEach(element => values.push(element.))
-
+    //console.log(historyValues);
     const data = {
         labels,
         datasets: [
             {
                 label: 'Depotwert',
-                data: [1, 3, 328, 373, 433, -26, 540],
+                data: historyValues,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }]
     }
+
     const options = {
         responsive: true,
-
     };
     return (
         <div>
@@ -112,7 +103,7 @@ export default function DepotOverview() {
                     <p>{currentDepot?.buying_power}€ nicht investiert</p>
                 </Grid>
                 <Grid item xs={3} md={2}>
-                    <p>+0.78%</p>
+                    <p>{history[0]?.win_loss_amt}</p>
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <Line options={options} data={data}></Line>
@@ -142,7 +133,7 @@ export default function DepotOverview() {
                                         <TableCell align="right">{row.piece_amt}</TableCell>
                                         <TableCell align="right">{row.buying_price}€</TableCell>
                                         <TableCell align="right">{row.current_price}€</TableCell>
-                                        <TableCell align="right">{row.growth_rate < 0 ? "-" + row.growth_rate +"%" : "+" + row.growth_rate +"%"}</TableCell>
+                                        <TableCell align="right">{row.growth_rate < 0 ? Number(row.growth_rate).toFixed(2) +"%" : "+" + Number(row.growth_rate).toFixed(2) +"%"}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
