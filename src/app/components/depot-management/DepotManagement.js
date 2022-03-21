@@ -15,8 +15,7 @@ import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import ConfirmButton from "./ConfirmButton";
 
 export default function DepotManagement() {
-	const { currentDepot, invalidateAvailableDepots, selectDepot } =
-		useContext(DepotContext);
+	const { currentDepot, invalidateAvailableDepots, selectDepot } = useContext(DepotContext);
 	const [errorMsg, setErrorMsg] = useState("");
 	const [successMsg, setSuccessMsg] = useState("");
 	const [newDepotName, setNewDepotName] = useState(null);
@@ -28,12 +27,12 @@ export default function DepotManagement() {
 				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
 				`depots/${currentDepot.position_id}/${currentDepot.position_sub_id}`
 			)
-			.then((res) => {
-				selectDepot(res)
+			.then((_res) => {
+				invalidateAvailableDepots();
+				selectDepot(null)
 				setSuccessMsg(
 					"Depot erfolgreich gelöscht... jetzt ist es wirklich weg, schade aber auch"
 				);
-				invalidateAvailableDepots();
 			})
 			.catch((error) => {
 				setErrorMsg(getErrorMessage(error));

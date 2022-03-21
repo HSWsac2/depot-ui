@@ -19,9 +19,6 @@ export default function CustomerInformation() {
 		<>
 			{currentUser && (
 				<div className="customerContainer">
-					<div className="customerIcon">
-						<AssignmentInd sx={{ fontSize: "13vw" }} />
-					</div>
 					<div className="customerData">
 						<Card className="customerDataCard">
 							<Typography variant="h5" className="cardTitle">
