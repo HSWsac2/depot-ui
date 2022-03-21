@@ -1,14 +1,11 @@
 import { AssignmentInd } from "@mui/icons-material";
 import { Button, Card, TextField, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import { useHistory } from "react-router";
-import { DepotContext } from "../../../context/DepotContext";
 import { UserContext } from "../../../context/UserContext";
 import "./CustomerInformation.css";
 
 export default function CustomerInformation() {
 	const { currentUser } = useContext(UserContext);
-	const { currentDepot } = useContext(DepotContext);
 
 	function navigateCustomer() {
 		if (currentUser) {
@@ -51,29 +48,6 @@ export default function CustomerInformation() {
 									variant="outlined"
 									label="E-Mail"
 									value={currentUser.e_mail}
-									className="dataField"
-									fullWidth
-									disabled
-								/>
-							</div>
-						</Card>
-						<Card className="customerDataCard">
-							<Typography variant="h5" className="cardTitle">
-								Kontodaten
-							</Typography>
-							<div className="cardContent">
-								{/* <TextField 
-                                variant="outlined" 
-                                label="Verrechnungskonto"
-                                value={customer.account}
-                                className="dataField"
-                                fullWidth
-                                disabled
-                            />  */}
-								<TextField
-									variant="outlined"
-									label="Kaufkraft"
-									value={`${currentDepot.buying_power} €`}
 									className="dataField"
 									fullWidth
 									disabled
