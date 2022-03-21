@@ -65,11 +65,10 @@ export default function DepotOverview() {
 					`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/history/${currentDepot.position_id}/${currentDepot.position_sub_id}`
 				)
 				.then((res) => {
-					setHistory(res.data.sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isBefore(moment(b.keydate, "YYYY-MM-DD"))));
-				}).then(()=>{
-                    history.slice(0,30).sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isAfter(moment(b.keydate, "YYYY-MM-DD"))).forEach((entry) => {
-                        historyValues.push(entry.win_loss_amt);
-                    })
+					const history = (res.data.sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isBefore(moment(b.keydate, "YYYY-MM-DD"))));
+                    setHistoryValues(history.slice(0,30).sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isAfter(moment(b.keydate, "YYYY-MM-DD"))).map((entry) => {
+                      return entry.win_loss_amt;
+                    }))
                 });
 		};
 		if (currentDepot) {
@@ -77,8 +76,9 @@ export default function DepotOverview() {
 		} else {
 			setHistory([]);
 		}
-	}, [currentDepot]);
+	}, [currentDepot, history]);
 
+    //console.log(historyValues);
     const data = {
         labels,
         datasets: [
@@ -89,6 +89,7 @@ export default function DepotOverview() {
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }]
     }
+
     const options = {
         responsive: true,
     };
