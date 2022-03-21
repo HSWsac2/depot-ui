@@ -1,14 +1,20 @@
 import { AssignmentInd } from "@mui/icons-material";
 import LaunchIcon from '@mui/icons-material/Launch';
-import { Button, Card, Link, TextField, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import { Box, Button, Card, IconButton, Link, TextField, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
 import "./CustomerInformation.css";
-
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 export default function CustomerInformation() {
-	const { currentUser } = useContext(UserContext);
+	const { currentUser, refreshUser } = useContext(UserContext);
+	const [showRefresh, setShowRefresh] = useState(false);
 
+	function refresh() {
+		setShowRefresh(false);
+		refreshUser();
+	}
+	
 	return (
 		<>
 			{currentUser && (
@@ -87,19 +93,35 @@ export default function CustomerInformation() {
 								/>
 							</div>
 						</Card>
-						<Button
-							startIcon={<LaunchIcon />}
-							component={Link}
-							href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}${currentUser.client_id}/change`}
-							target="_blank"
-							variant="contained"
-							sx={{ marginBottom: "5vh" }}
-						>
-							Bearbeiten
-						</Button>
+						<Box sx={{
+							marginBottom: "2.5rem"
+						}}>
+							<Button
+								startIcon={<LaunchIcon />}
+								component={Link}
+								href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}${currentUser.client_id}/change`}
+								onClick={() => setShowRefresh(true)}
+								target="_blank"
+								variant="contained"
+								sx={{mr: '2rem'}}
+							>
+								Bearbeiten
+							</Button>
+							{
+								showRefresh && <Button
+									startIcon={<RefreshIcon />}
+									variant="outlined"
+									onClick={() => refresh()}
+								>
+									Aktualisieren
+								</Button>
+							}
+						</Box>
+
 					</div>
 				</div>
-			)}
+			)
+			}
 		</>
 	);
 }

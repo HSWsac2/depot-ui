@@ -19,7 +19,6 @@ export default function HorizontalLinearStepper({}) {
 	const [clearingOpen, setClearingOpen] = useState(false);
 
 	const [depotName, setDepotName] = useState("");
-	const [buyingPowerWtf, setBuyingPowerWtf] = useState("");
 	const [selectedAccount, setSelectedAccount] = useState(undefined);
 	const [errorMsg, setErrorMsg] = useState("");
 	const [isError, setIsError] = useState(false);
@@ -43,7 +42,6 @@ export default function HorizontalLinearStepper({}) {
 						position_id: selectedAccount.id,
 						iban: selectedAccount.iban,
 						client_id: currentUser.client_id,
-						buying_power: buyingPowerWtf,
 						depot_name: depotName,
 					}
 				)
@@ -102,8 +100,6 @@ export default function HorizontalLinearStepper({}) {
 						<FinalizeCreateDepot
 							depotName={depotName}
 							setDepotName={setDepotName}
-							buyingPowerWtf={buyingPowerWtf}
-							setBuyingPowerWtf={setBuyingPowerWtf}
 						/>
 					)}
 
