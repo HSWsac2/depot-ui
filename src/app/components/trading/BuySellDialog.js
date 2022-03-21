@@ -25,6 +25,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 
 	function closeDialog() {
 		setAmount("");
+		closeToasts();
 		handleClose();
 	}
 
