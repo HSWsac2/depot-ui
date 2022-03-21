@@ -18,11 +18,11 @@ export default function AppRouter() {
 						<DepotManagement />
 					</Frame>
 				</ProtectedRouteWithDepot>
-				<ProtectedRoute path="/data">
+				<ProtectedRouteWithDepot path="/data">
 					<Frame>
 						<CustomerInformation />
 					</Frame>
-				</ProtectedRoute>
+				</ProtectedRouteWithDepot>
 				<ProtectedRouteWithDepot path="/overview">
 					<Frame>
 						<DepotOverview />
