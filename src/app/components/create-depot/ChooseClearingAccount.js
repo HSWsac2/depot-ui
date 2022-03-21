@@ -11,6 +11,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
+import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import WaitingScreen from "../../common/WaitingScreen";
 import Frame from "../frame/Frame";
 
@@ -34,7 +35,7 @@ function ChooseClearingAccount({ open, selectedAccount, setSelectedAccount }) {
 					setIsLoading(false);
 				})
 				.catch((error) => {
-					setErrorMsg(error.response.detail);
+					setErrorMsg(getErrorMessage(error));
 					setIsError(true);
 				});
 		};

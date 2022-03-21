@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import { useContext, useState } from "react";
 import { DepotContext } from "../../../context/DepotContext";
+import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import useAxios from "../../hooks/useAxios";
 import ConfirmButton from "./ConfirmButton";
 
@@ -35,7 +36,7 @@ export default function DepotManagement() {
 				invalidateAvailableDepots();
 			})
 			.catch((error) => {
-				setErrorMsg(error.response.detail);
+				setErrorMsg(getErrorMessage(error));
 				setIsError(true);
 			});
 	};
