@@ -19,7 +19,7 @@ describe("ConfirmButton", () => {
 
     });
 
-    it("opens on click", async () => {
+    it("calls callback function on confirmation", async () => {
         const acceptCallback = jest.fn();
         render(<ConfirmButton
             buttonText="customButtonText"
@@ -34,12 +34,59 @@ describe("ConfirmButton", () => {
 
         userEvent.click(button);
 
+        await waitFor(() => {
+            expect(screen.getByText("customDialogTitle")).toBeInTheDocument();
+            expect(screen.getByText("customDialogBody")).toBeInTheDocument();
+        });
+
+
+        const confirm = screen.getByRole('button', {
+            name: /Akzeptieren/i
+        });
+
+        userEvent.click(confirm);
+
+        await waitFor(() => {
+            expect(screen.queryByText("customDialogTitle")).not.toBeInTheDocument();
+            expect(screen.queryByText("customDialogBody")).not.toBeInTheDocument();
+        });
+
+        expect(acceptCallback).toHaveBeenCalled();
+        
+    })
+    it("does not call callback function on cancel", async () => {
+        const acceptCallback = jest.fn();
+        render(<ConfirmButton
+            buttonText="customButtonText"
+            acceptCallback={acceptCallback}
+            dialogTitle="customDialogTitle"
+            dialogBody="customDialogBody"
+        />);
+
+        const button = screen.getByRole('button', {
+            name: /customButtonText/i
+        });
+
+        userEvent.click(button);
 
         await waitFor(() => {
             expect(screen.getByText("customDialogTitle")).toBeInTheDocument();
             expect(screen.getByText("customDialogBody")).toBeInTheDocument();
         });
 
-    })
 
+        const confirm = screen.getByRole('button', {
+            name: /Abbrechen/i
+        });
+
+        userEvent.click(confirm);
+
+        await waitFor(() => {
+            expect(screen.queryByText("customDialogTitle")).not.toBeInTheDocument();
+            expect(screen.queryByText("customDialogBody")).not.toBeInTheDocument();
+        });
+
+        expect(acceptCallback).not.toHaveBeenCalled();
+        
+    })
 })

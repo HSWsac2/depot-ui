@@ -1,13 +1,16 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 import { DepotContext } from "../../../context/DepotContext";
 import DepotManagement from "./DepotManagement";
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
+
 
 describe("DepotManagement", () => {
 
     it("should render without error", () => {
         render(
-            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId" } }}>
+            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId" } }}>
                 <DepotManagement />
             </DepotContext.Provider>
         );
@@ -16,35 +19,38 @@ describe("DepotManagement", () => {
 
     });
 
-    it("should call backend on click", () => {
-        var mockAdapter = new MockAdapter(axios);
+    it("should call backend on click", async () => {
+        var mockAdapter = new MockAdapter(axios, { onNoMatch: "throwException" });
 
         mockAdapter.onDelete(process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
-            `depots/${currentDepot.position_id}/${currentDepot.position_sub_id}`).reply(200, {})
+            `depots/positionId/positionSubId`).reply(200, { resp: "some element" })
+
         let spy = jest.spyOn(axios, "delete");
-            
-        
+
+        const invalidateAvailableDepots = jest.fn();
         render(
-            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId" } }}>
+            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId"  }, invalidateAvailableDepots }}>
                 <DepotManagement />
             </DepotContext.Provider>
         );
-        
+
         const deleteButton = screen.getByRole('button', {
             name: /Depot löschen/i
         });
         userEvent.click(deleteButton);
-        
-        
-        expect(screen.getByText("Wollen Sie Ihr Depot wirklich unwiderruflich löschen?")).toBeInTheDocument();
-        
+
+        await waitFor(() => expect(screen.getByText("Wollen Sie Ihr Depot wirklich unwiderruflich löschen?")).toBeInTheDocument())
+
         const confirmButton = screen.getByRole('button', {
             name: /Unwiderruflich löschen/i
         });
         userEvent.click(confirmButton);
-        
-        expect(screen.getByText("Depot erfolgreich gelöscht... jetzt ist es wirklich weg, schade aber auch")).toBeInTheDocument();
+
+        await waitFor(() => expect(screen.queryByText("Wollen Sie Ihr Depot wirklich unwiderruflich löschen?")).not.toBeInTheDocument())
+
         expect(spy).toHaveBeenCalled();
+        expect(invalidateAvailableDepots.toHaveBeenCalled)
+        expect(screen.getByText("Depot erfolgreich gelöscht... jetzt ist es wirklich weg, schade aber auch")).toBeInTheDocument()
 
     });
 
