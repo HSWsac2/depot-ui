@@ -1,11 +1,6 @@
 import {
 	Alert,
-	Card,
-	FormControl,
-	FormControlLabel,
-	Radio,
-	RadioGroup,
-	Snackbar,
+	Card, Radio, Snackbar
 } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
@@ -13,46 +8,45 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
 import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import WaitingScreen from "../../common/WaitingScreen";
-import Frame from "../frame/Frame";
 
-function ChooseClearingAccount({ open, selectedAccount, setSelectedAccount }) {
+function ChooseClearingAccount({ selectedAccount, setSelectedAccount }) {
 	const { currentUser } = useContext(UserContext);
-	const mockUserId = 32;
 	const [accounts, setAccounts] = useState([]);
 	const [errorMsg, setErrorMsg] = useState("");
 	const [isError, setIsError] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const fetchAccounts = async () => {
+		const fetchAccounts = () => {
 			setIsLoading(true);
 			axios
 				.get(
-					`${process.env.REACT_APP_BACKEND_URL_KONTEN_SERVICE}accounts/${mockUserId}/clearingaccounts`
+					`${process.env.REACT_APP_BACKEND_URL_KONTEN_SERVICE}accounts/${currentUser.client_id}/clearingaccounts`
 				)
 				.then((res) => {
 					setAccounts(res.data.data);
-					setIsLoading(false);
 				})
 				.catch((error) => {
 					setErrorMsg(getErrorMessage(error));
 					setIsError(true);
+				})
+				.finally(() => {
+					setIsLoading(false);
 				});
 		};
-		if (open) {
-			fetchAccounts();
-		}
-	}, [open]);
+		fetchAccounts();
+
+	}, []);
 
 	return (
 		<>
-			{open && !isLoading && (
+			{!isLoading && (
 				<>
 					<div style={{ marginBottom: "30px" }}>
 						Verfügbare Verrechnungskonten:
 					</div>
 					{accounts.map((account) => (
-						<span style={{ display: "flex", marginBottom: "40px" }}>
+						<div style={{ display: "flex", marginBottom: "40px" }} key={account.iban}>
 							<Radio
 								checked={selectedAccount === account}
 								onChange={() => setSelectedAccount(account)}
@@ -90,7 +84,7 @@ function ChooseClearingAccount({ open, selectedAccount, setSelectedAccount }) {
 									}}
 								>{`Kontostand: ${account.balance} €`}</p>
 							</Card>
-						</span>
+						</div>
 					))}
 					<Snackbar
 						open={isError}
@@ -101,7 +95,7 @@ function ChooseClearingAccount({ open, selectedAccount, setSelectedAccount }) {
 					</Snackbar>
 				</>
 			)}
-			{open && isLoading && (
+			{isLoading && (
 				<Box
 					sx={{
 						width: "20vw",
