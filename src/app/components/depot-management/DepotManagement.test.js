@@ -1,17 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
+import axios from 'axios';
 import { DepotContext } from "../../../context/DepotContext";
 import DepotManagement from "./DepotManagement";
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 
 
 describe("DepotManagement", () => {
-    let mockAdapter;
-
-    beforeAll(() => {
-        mockAdapter = new MockAdapter(axios);
-    });
 
     it("should render without error", () => {
         render(
@@ -24,7 +18,7 @@ describe("DepotManagement", () => {
 
     });
 
-    xit("should call backend on click", async () => {
+    it("should call backend on click", async () => {
 
         mockAdapter.onDelete(process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
             `depots/positionId/positionSubId`).reply(200, { resp: "some element" })
