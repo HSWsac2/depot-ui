@@ -1,6 +1,6 @@
 import { Container, TextField, Typography } from "@mui/material";
 
-function FinalizeCreateDepot({ depotName, setDepotName, buyingPowerWtf, setBuyingPowerWtf }) {
+function FinalizeCreateDepot({ depotName, setDepotName }) {
     return (
         <Container sx={{
             display: 'flex',
@@ -21,30 +21,6 @@ function FinalizeCreateDepot({ depotName, setDepotName, buyingPowerWtf, setBuyin
                     width: '600px',
                     maxWidth: '100%'
                 }} />
-
-            <Typography variant="h6" sx={{
-                // mb: 2,
-                mt: 5,
-            }}>
-                Bitte geben Sie auch die gewünschte Buying Power an (also wie viel Geld sie haben wollen):
-            </Typography>
-            <Typography variant="subtitle1" sx={{
-                mb: 2
-            }}>
-                Grüße gehen raus an das Backend-Team
-            </Typography>
-
-            <TextField
-                variant="outlined"
-                label="Buying Power"
-                value={buyingPowerWtf}
-                onChange={(event) => setBuyingPowerWtf(event.target.value)}
-                sx={{
-                    width: '600px',
-                    maxWidth: '100%'
-                }} />
-
-
 
         </Container>
 

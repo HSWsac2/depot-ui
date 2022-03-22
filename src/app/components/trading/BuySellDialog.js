@@ -12,6 +12,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import { DepotContext } from "../../../context/DepotContext";
 import { UserContext } from "../../../context/UserContext";
+import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import "./BuySellDialog.css";
 
 export default function BuySellDialog({ stock, isOpen, handleClose }) {
@@ -60,7 +61,6 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 	function buyStock() {
 		setMethod("buy");
 		if (amount) {
-			//TODO set position and sub id correctly
 			axios
 				.post(
 					process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE +
@@ -76,8 +76,8 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 					setOwnedAmount(ownedAmount + parseInt(amount));
 				})
 				.catch((error) => {
-					setErrorMsg(error.response.data);
-					setIsError(true);
+					setErrorMsg(getErrorMessage(error));
+					setErrorOpen(true);
 				});
 		} else {
 			setIsError(true);

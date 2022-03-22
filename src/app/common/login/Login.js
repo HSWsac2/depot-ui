@@ -19,6 +19,7 @@ import "./Login.css";
 import qs from "qs";
 import WaitingScreen from "../WaitingScreen";
 import sha256 from "crypto-js/sha256";
+import { getErrorMessage } from "../enums/ErrorMessages";
 
 export default function Login() {
 	const location = useLocation();
@@ -80,8 +81,8 @@ export default function Login() {
 						}
 					})
 					.catch((error) => {
-						console.error(error);
-						setLoginFailed(true);
+						setErrorMsg(getErrorMessage(error));
+						setIsError(true);
 					});
 			} else {
 				setLoginFailed(true);
@@ -189,7 +190,7 @@ export default function Login() {
 				onClose={() => setLoginFailed(false)}
 			>
 				<Alert severity="error">
-					Login Fehlgeschlagen: E-Mail existiert nicht!
+					Login Fehlgeschlagen: E-Mail oder Passwort inkorrekt!
 				</Alert>
 			</Snackbar>
 			<Snackbar
