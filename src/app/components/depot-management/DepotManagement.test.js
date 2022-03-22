@@ -24,7 +24,7 @@ describe("DepotManagement", () => {
 
     });
 
-    it("should call backend on click", async () => {
+    xit("should call backend on click", async () => {
 
         mockAdapter.onDelete(process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
             `depots/positionId/positionSubId`).reply(200, { resp: "some element" })
