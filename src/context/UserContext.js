@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useCallback, useState } from "react";
 import { useCookies } from "react-cookie";
 
@@ -26,10 +27,22 @@ export const UserContextProvider = ({ children }) => {
         }
     }, [setCurrentUser, setUserCookie, removeUserCookie])
 
+    const refreshUser = useCallback(() => {
+        if (!currentUser) return;
+        return axios
+			.get(
+				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
+					`clients/${currentUser.client_id}`
+			)
+			.then((response) => response.data)
+            .then(data => setCurrentUser(data));
+    }, [currentUser])
+
     const userValue = {
         currentUser,
         logout,
         login,
+        refreshUser,
     }
 
     

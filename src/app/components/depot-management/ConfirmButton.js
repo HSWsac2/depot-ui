@@ -24,7 +24,9 @@ export default function ConfirmButton({ buttonText, acceptCallback, dialogTitle,
 
   return (
     <div>
-      <Button variant="outlined" color={color} onClick={handleClickOpen}>
+      <Button variant="outlined" color={color} onClick={handleClickOpen} sx={{
+        width: "10rem",
+      }}>
         {buttonText}
       </Button>
       <Dialog

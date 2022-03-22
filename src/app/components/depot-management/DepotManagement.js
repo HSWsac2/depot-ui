@@ -1,43 +1,61 @@
 import {
 	Alert,
 	Box,
+	Button,
 	Container,
 	Snackbar,
 	Stack,
-	Typography,
+	TextField,
+	Typography
 } from "@mui/material";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { DepotContext } from "../../../context/DepotContext";
 import { getErrorMessage } from "../../common/enums/ErrorMessages";
-import useAxios from "../../hooks/useAxios";
 import ConfirmButton from "./ConfirmButton";
 
 export default function DepotManagement() {
-	const { currentDepot, invalidateAvailableDepots, deselectDepot } =
-		useContext(DepotContext);
+	const { currentDepot, invalidateAvailableDepots, selectDepot } = useContext(DepotContext);
 	const [errorMsg, setErrorMsg] = useState("");
-	const [isError, setIsError] = useState(false);
 	const [successMsg, setSuccessMsg] = useState("");
-	const [isSuccess, setIsSuccess] = useState(false);
+	const [newDepotName, setNewDepotName] = useState(null);
 
-	const handleCloseDepot = () => {
+	const handleDeleteDepot = () => {
 		// alert("Wenn dieser Knopf jetzt funktioniert hätte, wäre Ihr Depot unwiderruflich gelöscht. Glück für Sie, dass wir noch nicht so weit sind.");
 		axios
 			.delete(
 				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
-					`depots/${currentDepot.position_id}/${currentDepot.position_sub_id}`
+				`depots/${currentDepot.position_id}/${currentDepot.position_sub_id}`
 			)
-			.then((res) => {
+			.then((_res) => {
+				invalidateAvailableDepots();
+				selectDepot(null)
 				setSuccessMsg(
 					"Depot erfolgreich gelöscht... jetzt ist es wirklich weg, schade aber auch"
 				);
-				setIsSuccess(true);
+			})
+			.catch((error) => {
+				setErrorMsg(getErrorMessage(error));
+			});
+	};
+
+	const changeDepotName = (e) => {
+		e.preventDefault();
+		axios
+			.patch(`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/${currentDepot.position_id}/${currentDepot.position_sub_id}`, {
+				depot_name: newDepotName
+			 }
+			)
+			.then(res => res.data)
+			.then((data) => {
+				
+				setSuccessMsg(
+					`Depot erfolgreich in ${data.depot_name} umbenannt`
+				);
 				invalidateAvailableDepots();
 			})
 			.catch((error) => {
 				setErrorMsg(getErrorMessage(error));
-				setIsError(true);
 			});
 	};
 
@@ -49,28 +67,36 @@ export default function DepotManagement() {
 				sx={{
 					display: "flex",
 					justifyContent: "center",
-					marginTop: "4rem",
+					mt: "4rem",
+					mb: "1.5rem"
 				}}
 			>
 				<Stack spacing={12}>
 					<Stack spacing={2}>
-						<Typography variant="h3">Depot schließen</Typography>
-						<Typography variant="body1">
-							Mit Betätigung dieses Buttons sperren Sie ihr Depot.
-							Es können keine weiteren Transaktionen durchgeführt
-							werden. Beachten Sie, dass sich hierfür keine
-							Wertpapiere in ihrem Depot befinden dürfen.
+						<Typography variant="h3">Depot umbenennen</Typography>
+						<Typography component="div" variant="body1">
+							Hier können Sie Ihrem Depot <Box fontWeight="bold" display="inline">
+								{currentDepot.depot_name}
+							</Box> einen neuen Namen verleihen.
 						</Typography>
-						<Box>
-							<ConfirmButton
-								buttonText="Depot schließen"
-								acceptCallback={handleCloseDepot}
-								dialogTitle="Wollen Sie Ihr Depot schließen?"
-								color="error"
-								dialogBody="Eine Wiedereröffnung ist jederzeit an dieser Stelle möglich."
-								acceptText="Schließen"
+						<form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={e => changeDepotName(e)}>
+							<TextField
+								sx={{
+									width: "50rem",
+									mb: "1rem",
+								}}
+								variant="standard"
+								label="Neuer Depotname"
+								value={newDepotName ?? ""}
+								onChange={event => setNewDepotName(event.target.value)}
 							/>
-						</Box>
+							<Button variant="outlined" color="primary" type="submit" disabled={!newDepotName || newDepotName===currentDepot.depot_name} sx={{
+								width: "10rem",
+							}}>
+								Umbenennen
+							</Button>
+						</form>
+
 					</Stack>
 					<Stack spacing={2}>
 						<Typography variant="h3">Depot löschen</Typography>
@@ -79,13 +105,12 @@ export default function DepotManagement() {
 							<Box fontWeight="bold" display="inline">
 								unwiderruflich
 							</Box>
-							. Beachten Sie, dass sich hierfür keine Wertpapiere
-							in ihrem Depot befinden dürfen.
+							. Beachten Sie, dass archivierte Daten aufgrund gesetzlicher Aufbewahrungsfristen nicht entgültig gelöscht werden können.
 						</Typography>
 						<Box>
 							<ConfirmButton
 								buttonText="Depot löschen"
-								acceptCallback={handleCloseDepot}
+								acceptCallback={handleDeleteDepot}
 								dialogTitle="Wollen Sie Ihr Depot wirklich unwiderruflich löschen?"
 								color="error"
 								dialogBody="Diese Entscheidung kann nicht rückgängig gemacht werden."
@@ -96,16 +121,16 @@ export default function DepotManagement() {
 				</Stack>
 			</Container>
 			<Snackbar
-				open={isError}
+				open={Boolean(errorMsg)}
 				autoHideDuration={2000}
-				onClose={() => setIsError(false)}
+				onClose={() => setErrorMsg(null)}
 			>
 				<Alert severity="error">{errorMsg}</Alert>
 			</Snackbar>
 			<Snackbar
-				open={isSuccess}
+				open={Boolean(successMsg)}
 				autoHideDuration={2000}
-				onClose={() => setIsSuccess(false)}
+				onClose={() => setSuccessMsg(null)}
 			>
 				<Alert severity="success">{successMsg}</Alert>
 			</Snackbar>

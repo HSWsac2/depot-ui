@@ -9,6 +9,8 @@ import Frame from "./app/components/frame/Frame";
 import Trading from "./app/components/trading/Trading";
 import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
 import Login from './app/common/login/Login'
+import Impressum from "./app/components/shared/Impressum";
+import DSGVO from "./app/components/shared/DSGVO";
 export default function AppRouter() {
 	return (
 		<BrowserRouter basename="/depot-ui">
@@ -18,11 +20,11 @@ export default function AppRouter() {
 						<DepotManagement />
 					</Frame>
 				</ProtectedRouteWithDepot>
-				<ProtectedRouteWithDepot path="/data">
+				<ProtectedRoute path="/data">
 					<Frame>
 						<CustomerInformation />
 					</Frame>
-				</ProtectedRouteWithDepot>
+				</ProtectedRoute>
 				<ProtectedRouteWithDepot path="/overview">
 					<Frame>
 						<DepotOverview />
@@ -45,6 +47,12 @@ export default function AppRouter() {
 				</ProtectedRoute>
 				<Route path="/login">
 					<Login />
+				</Route>
+				<Route path="/impressum">
+					<Impressum />
+				</Route>
+				<Route path="/dsgvo">
+					<DSGVO />
 				</Route>
 				<ProtectedRouteWithDepot path="/">
 					<Redirect to="/overview" />

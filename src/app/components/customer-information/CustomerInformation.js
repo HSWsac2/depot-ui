@@ -1,30 +1,24 @@
 import { AssignmentInd } from "@mui/icons-material";
-import { Button, Card, TextField, Typography } from "@mui/material";
-import React, { useContext } from "react";
-import { useHistory } from "react-router";
-import { DepotContext } from "../../../context/DepotContext";
+import LaunchIcon from '@mui/icons-material/Launch';
+import { Box, Button, Card, IconButton, Link, TextField, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
 import "./CustomerInformation.css";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 export default function CustomerInformation() {
-	const { currentUser } = useContext(UserContext);
-	const { currentDepot } = useContext(DepotContext);
+	const { currentUser, refreshUser } = useContext(UserContext);
+	const [showRefresh, setShowRefresh] = useState(false);
 
-	function navigateCustomer() {
-		if (currentUser) {
-			window.location.href =
-				process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
-				`${currentUser.client_id}/change`;
-		}
+	function refresh() {
+		setShowRefresh(false);
+		refreshUser();
 	}
-
+	
 	return (
 		<>
 			{currentUser && (
 				<div className="customerContainer">
-					<div className="customerIcon">
-						<AssignmentInd sx={{ fontSize: "13vw" }} />
-					</div>
 					<div className="customerData">
 						<Card className="customerDataCard">
 							<Typography variant="h5" className="cardTitle">
@@ -51,29 +45,6 @@ export default function CustomerInformation() {
 									variant="outlined"
 									label="E-Mail"
 									value={currentUser.e_mail}
-									className="dataField"
-									fullWidth
-									disabled
-								/>
-							</div>
-						</Card>
-						<Card className="customerDataCard">
-							<Typography variant="h5" className="cardTitle">
-								Kontodaten
-							</Typography>
-							<div className="cardContent">
-								{/* <TextField 
-                                variant="outlined" 
-                                label="Verrechnungskonto"
-                                value={customer.account}
-                                className="dataField"
-                                fullWidth
-                                disabled
-                            />  */}
-								<TextField
-									variant="outlined"
-									label="Kaufkraft"
-									value={`${currentDepot.buying_power} €`}
 									className="dataField"
 									fullWidth
 									disabled
@@ -119,16 +90,35 @@ export default function CustomerInformation() {
 								/>
 							</div>
 						</Card>
-						<Button
-							variant="contained"
-							onClick={() => navigateCustomer()}
-							sx={{ marginBottom: "5vh", textTransform: "none" }}
-						>
-							Daten bearbeiten
-						</Button>
+						<Box sx={{
+							marginBottom: "2.5rem"
+						}}>
+							<Button
+								startIcon={<LaunchIcon />}
+								component={Link}
+								href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}${currentUser.client_id}/change`}
+								onClick={() => setShowRefresh(true)}
+								target="_blank"
+								variant="contained"
+								sx={{mr: '2rem'}}
+							>
+								Bearbeiten
+							</Button>
+							{
+								showRefresh && <Button
+									startIcon={<RefreshIcon />}
+									variant="outlined"
+									onClick={() => refresh()}
+								>
+									Aktualisieren
+								</Button>
+							}
+						</Box>
+
 					</div>
 				</div>
-			)}
+			)
+			}
 		</>
 	);
 }

@@ -14,27 +14,41 @@ import ClearingAccount from "./ChooseClearingAccount";
 import DepotCreated from "./DepotCreated";
 import FinalizeCreateDepot from "./FinalizeCreateDepot";
 
-export default function HorizontalLinearStepper({}) {
+export default function HorizontalLinearStepper({ }) {
 	const [activeStepIndex, setActiveStep] = useState(0);
-	const [clearingOpen, setClearingOpen] = useState(false);
 
 	const [depotName, setDepotName] = useState("");
-	const [buyingPowerWtf, setBuyingPowerWtf] = useState("");
 	const [selectedAccount, setSelectedAccount] = useState(undefined);
-	const [errorMsg, setErrorMsg] = useState("");
-	const [isError, setIsError] = useState(false);
+	const [errorMsg, setErrorMsg] = useState(null);
 
 	const { currentUser } = useContext(UserContext);
 	const { selectDepot, invalidateAvailableDepots } = useContext(DepotContext);
 	const history = useHistory();
 
 	const steps = [
-		{ label: "Benutzerdaten verifizieren" },
-		{ label: "Verrechnungskonto auswählen" },
-		{ label: "Depot erstellen" },
+		{
+			label: "Benutzerdaten verifizieren",
+			validate: () => {}
+		},
+		{
+			label: "Verrechnungskonto auswählen",
+			validate: () => !selectedAccount && "Ein Verrechnungskonto muss ausgewählt sein."
+		},
+		{
+			label: "Depot erstellen",
+			validate: () => !depotName && "Der Depot-Name darf nicht leer sein."
+		},
 	];
 
 	const handleNext = () => {
+
+		const validationError = steps[activeStepIndex].validate();
+		if (validationError) {
+			console.log('validation error:', validationError)
+			setErrorMsg(validationError);
+			return;
+		}
+
 		if (activeStepIndex + 1 === steps.length) {
 			axios
 				.post(
@@ -43,7 +57,6 @@ export default function HorizontalLinearStepper({}) {
 						position_id: selectedAccount.id,
 						iban: selectedAccount.iban,
 						client_id: currentUser.client_id,
-						buying_power: buyingPowerWtf,
 						depot_name: depotName,
 					}
 				)
@@ -55,18 +68,7 @@ export default function HorizontalLinearStepper({}) {
 				.then(() => history.push("/"))
 				.catch(console.error);
 		}
-		if (activeStepIndex + 1 === 2) {
-			if (!selectedAccount) {
-				setErrorMsg("Ein Verrechnungskonto muss ausgewählt sein!");
-				setIsError(true);
-				return;
-			}
-		}
-		if (activeStepIndex + 1 === 1) {
-			setClearingOpen(true);
-		} else {
-			setClearingOpen(false);
-		}
+
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
 
@@ -93,7 +95,6 @@ export default function HorizontalLinearStepper({}) {
 					{activeStepIndex === 0 && <CustomerInformation />}
 					{activeStepIndex === 1 && (
 						<ClearingAccount
-							open={clearingOpen}
 							selectedAccount={selectedAccount}
 							setSelectedAccount={setSelectedAccount}
 						/>
@@ -102,8 +103,6 @@ export default function HorizontalLinearStepper({}) {
 						<FinalizeCreateDepot
 							depotName={depotName}
 							setDepotName={setDepotName}
-							buyingPowerWtf={buyingPowerWtf}
-							setBuyingPowerWtf={setBuyingPowerWtf}
 						/>
 					)}
 
@@ -129,9 +128,9 @@ export default function HorizontalLinearStepper({}) {
 			)}
 
 			<Snackbar
-				open={isError}
+				open={Boolean(errorMsg)}
 				autoHideDuration={2000}
-				onClose={() => setIsError(false)}
+				onClose={() => setErrorMsg(null)}
 			>
 				<Alert severity="error">{errorMsg}</Alert>
 			</Snackbar>
