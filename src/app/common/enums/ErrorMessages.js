@@ -30,10 +30,12 @@ function getErrorMessageFromCode(errorCode) {
 }
 
 export function getErrorMessage(error) {
-	let errorCodeString = error.response.data.detail;
-	for (const code in ErrorCode) {
-		if (code == errorCodeString) {
-			return getErrorMessageFromCode(code);
+	if (error.response) {
+		let errorCodeString = error.response.data.detail;
+		for (const code in ErrorCode) {
+			if (code == errorCodeString) {
+				return getErrorMessageFromCode(code);
+			}
 		}
 	}
 	return `Ein unbekannter Fehler ist aufgetreten!, Fehler: ${error.response.data.detail}`;
