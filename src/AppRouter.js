@@ -49,10 +49,14 @@ export default function AppRouter() {
 					<Login />
 				</Route>
 				<Route path="/impressum">
+				<Frame>
 					<Impressum />
+				</Frame>
 				</Route>
 				<Route path="/dsgvo">
+				<Frame>
 					<DSGVO />
+				</Frame>
 				</Route>
 				<ProtectedRouteWithDepot path="/">
 					<Redirect to="/overview" />

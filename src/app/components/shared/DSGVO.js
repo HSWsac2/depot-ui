@@ -1,6 +1,6 @@
-const DSGVO = () => {
+export default function DSGVO () {
   return (
-    <>
+    <div>
       <h4 className="display-4">Rechtliches</h4>
       <h5 className="info-header">Impressum</h5>
       <p>Angaben gemäß § 5 TMG</p>
@@ -271,8 +271,7 @@ const DSGVO = () => {
         Datenschutzerklärung.
       </p>
       <h5 className="info-header">Sonstiges</h5>
-    </>
+    </div>
 
   )
 }
-export default DSGVO

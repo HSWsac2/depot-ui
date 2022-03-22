@@ -1,6 +1,7 @@
-import { AppBar, Link, Grid, Toolbar, Typography, Box } from '@mui/material';
+import { AppBar, Grid, Toolbar, Typography, Box } from '@mui/material';
 import "./Footer.css"
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
 
@@ -17,12 +18,12 @@ const Footer = () => {
         <Box sx={{
           display: 'flex',
         }}>
-          <Typography sx={{ mx: 1 }}>
-            <Link href="/impressum" color="inherit">Impressum</Link>
+          <Typography sx={{ mx: 1 }} component={Link} to="/impressum" >
+            Impressum
           </Typography>
-          <Typography sx={{ mx: 1 }}>
-            <Link href="/dsgvo" color="inherit" >DSGVO</Link>
-          </Typography>
+          {/* <Typography sx={{ mx: 1 }}>
+            <Link to="/dsgvo">DSGVO</Link>
+          </Typography> */}
         </Box>
       </Toolbar>
     </AppBar>
