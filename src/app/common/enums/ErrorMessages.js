@@ -34,5 +34,6 @@ export function getErrorMessage(error) {
 			}
 		}
 	}
+	console.error("Unbekannter Fehler:", error)
 	return `Ein unbekannter Fehler ist aufgetreten!, Fehler: ${error.response.data.detail}`;
 }

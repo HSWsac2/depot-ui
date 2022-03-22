@@ -28,8 +28,10 @@ describe("DepotManagement", () => {
         let spy = jest.spyOn(axios, "delete");
 
         const invalidateAvailableDepots = jest.fn();
+        const selectDepot = jest.fn();
+        
         render(
-            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId"  }, invalidateAvailableDepots }}>
+            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId"  }, invalidateAvailableDepots, selectDepot }}>
                 <DepotManagement />
             </DepotContext.Provider>
         );
