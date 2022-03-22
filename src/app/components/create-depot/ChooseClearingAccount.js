@@ -1,7 +1,4 @@
-import {
-	Alert,
-	Card, Radio, Snackbar
-} from "@mui/material";
+import { Alert, Card, Radio, Snackbar } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
@@ -15,6 +12,10 @@ function ChooseClearingAccount({ selectedAccount, setSelectedAccount }) {
 	const [errorMsg, setErrorMsg] = useState("");
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const currencyFormat = new Intl.NumberFormat("de-DE", {
+		style: "currency",
+		currency: "EUR",
+	});
 
 	useEffect(() => {
 		const fetchAccounts = () => {
@@ -35,7 +36,6 @@ function ChooseClearingAccount({ selectedAccount, setSelectedAccount }) {
 				});
 		};
 		fetchAccounts();
-
 	}, []);
 
 	return (
@@ -46,7 +46,10 @@ function ChooseClearingAccount({ selectedAccount, setSelectedAccount }) {
 						Verfügbare Verrechnungskonten:
 					</div>
 					{accounts.map((account) => (
-						<div style={{ display: "flex", marginBottom: "40px" }} key={account.iban}>
+						<div
+							style={{ display: "flex", marginBottom: "40px" }}
+							key={account.iban}
+						>
 							<Radio
 								checked={selectedAccount === account}
 								onChange={() => setSelectedAccount(account)}
@@ -82,7 +85,9 @@ function ChooseClearingAccount({ selectedAccount, setSelectedAccount }) {
 										marginLeft: "20px",
 										marginRight: "20px",
 									}}
-								>{`Kontostand: ${account.balance} €`}</p>
+								>{`Kontostand: ${currencyFormat.format(
+									account.balance
+								)}`}</p>
 							</Card>
 						</div>
 					))}
