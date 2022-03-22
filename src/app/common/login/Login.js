@@ -20,12 +20,13 @@ import qs from "qs";
 import WaitingScreen from "../WaitingScreen";
 import sha256 from "crypto-js/sha256";
 import { getErrorMessage } from "../enums/ErrorMessages";
+import { DepotContext } from "../../../context/DepotContext";
 
 export default function Login() {
 	const location = useLocation();
 	const history = useHistory();
 
-	const { clientId, redirect } = qs.parse(location.search, {
+	const { clientId, redirect, positionId, positionSubId } = qs.parse(location.search, {
 		ignoreQueryPrefix: true,
 	});
 
@@ -39,22 +40,30 @@ export default function Login() {
 	const [isError, setIsError] = useState(false);
 
 	const { login } = useContext(UserContext);
+	const { selectDepotById } = useContext(DepotContext);
 
 	function loginWithUser(user) {
 		login({ ...user }, rememberUser);
 		history.push(redirect ?? "");
 	}
 
-	function loginWithClientId(clientId) {
+	function loginFromUrl(clientId, positionId, positionSubId) {
 		axios
 			.get(
 				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
 					`clients/${clientId}`
 			)
 			.then((response) => response.data)
-			.then((user) => loginWithUser(user))
+			.then(user => {
+				login({ ...user }, rememberUser);
+				if (positionId && positionSubId) {
+					selectDepotById(positionId, parseInt(positionSubId))
+				}
+				history.push(redirect ?? "");
+			})
 			.catch((error) => {
-				console.error("Error", error);
+				setErrorMsg(getErrorMessage(error));
+				setIsError(true);
 				history.push("/login");
 			});
 	}
@@ -95,7 +104,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if (clientId) {
-			loginWithClientId(clientId, redirect, login, history);
+			loginFromUrl(clientId, positionId, positionSubId);
 		}
 	}, [clientId]);
 

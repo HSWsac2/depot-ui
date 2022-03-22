@@ -24,6 +24,11 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 	const [isError, setIsError] = useState(false);
 	const [ownedAmount, setOwnedAmount] = useState("");
 
+	const currencyFormat = new Intl.NumberFormat("de-DE", {
+		style: "currency",
+		currency: "EUR",
+	});
+
 	function closeDialog() {
 		setAmount("");
 		closeToasts();
@@ -154,10 +159,13 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 								}}
 							></image>
 						</svg>
-						<DialogContentText className="tradingContent">{`Aktueller Preis: ${Number(
+						<DialogContentText className="tradingContent">{`Aktueller Preis: ${currencyFormat.format(
 							stock.price_per_stock
-						).toFixed(2)}€`}</DialogContentText>
+						)}`}</DialogContentText>
 						<DialogContentText className="tradingContent">{`Anzahl im Besitz: ${ownedAmount}`}</DialogContentText>
+						<DialogContentText className="tradingContent">{`Kaufkraft: ${currencyFormat.format(
+							currentDepot.buying_power
+						)}`}</DialogContentText>
 						<div className="amount">
 							<DialogContentText className="tradingContent amountLabel">
 								Anzahl zu handeln:{" "}
@@ -178,9 +186,9 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 							<DialogContentText
 								className="tradingContent"
 								sx={{ marginTop: "10px" }}
-							>{`Gesamtpreis: ${Number(
+							>{`Gesamtpreis: ${currencyFormat.format(
 								amount * stock.price_per_stock
-							).toFixed(2)}€`}</DialogContentText>
+							)}`}</DialogContentText>
 						)}
 						<div className="tradingActions">
 							<Button

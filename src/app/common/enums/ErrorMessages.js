@@ -1,6 +1,6 @@
 import { ErrorCode } from "./Error-Codes";
 
-export const ErrorMessages = {
+const ErrorMessages = {
 	[ErrorCode.INVALID_POSITION_ID]:
 		"Die Positions-ID ist ungültig, bitte stellen Sie sicher, dass ein Depot ausgewählt ist.",
 	[ErrorCode.INVALID_SUB_POSITION_ID]:
@@ -25,16 +25,15 @@ export const ErrorMessages = {
 		"Sie haben keine aktiven Depots. Bitte erstellen Sie zunächst ein Depot.",
 };
 
-function getErrorMessageFromCode(errorCode) {
-	return ErrorMessages[errorCode];
-}
-
 export function getErrorMessage(error) {
-	let errorCodeString = error.response.data.detail;
-	for (const code in ErrorCode) {
-		if (code == errorCodeString) {
-			return getErrorMessageFromCode(code);
+	if (error.response) {
+		let errorCodeString = error.response.data.detail;
+		for (const code in ErrorCode) {
+			if (code == errorCodeString) {
+				return ErrorMessages[code];
+			}
 		}
 	}
+	console.error("Unbekannter Fehler:", error)
 	return `Ein unbekannter Fehler ist aufgetreten!, Fehler: ${error.response.data.detail}`;
 }
