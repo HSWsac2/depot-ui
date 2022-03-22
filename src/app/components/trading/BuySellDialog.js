@@ -158,6 +158,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 							stock.price_per_stock
 						).toFixed(2)}€`}</DialogContentText>
 						<DialogContentText className="tradingContent">{`Anzahl im Besitz: ${ownedAmount}`}</DialogContentText>
+						<DialogContentText className="tradingContent">{`Kaufkraft: ${currentDepot.buying_power}`}</DialogContentText>
 						<div className="amount">
 							<DialogContentText className="tradingContent amountLabel">
 								Anzahl zu handeln:{" "}
