@@ -54,7 +54,8 @@ export default function Login() {
 			.then((response) => response.data)
 			.then((user) => loginWithUser(user))
 			.catch((error) => {
-				console.error("Error", error);
+				setErrorMsg(getErrorMessage(error));
+				setIsError(true);
 				history.push("/login");
 			});
 	}

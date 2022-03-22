@@ -9,12 +9,13 @@ import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { DepotContext } from "../../../context/DepotContext";
 import { UserContext } from "../../../context/UserContext";
+import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import CustomerInformation from "../customer-information/CustomerInformation";
 import ClearingAccount from "./ChooseClearingAccount";
 import DepotCreated from "./DepotCreated";
 import FinalizeCreateDepot from "./FinalizeCreateDepot";
 
-export default function HorizontalLinearStepper({ }) {
+export default function HorizontalLinearStepper({}) {
 	const [activeStepIndex, setActiveStep] = useState(0);
 
 	const [depotName, setDepotName] = useState("");
@@ -28,23 +29,25 @@ export default function HorizontalLinearStepper({ }) {
 	const steps = [
 		{
 			label: "Benutzerdaten verifizieren",
-			validate: () => {}
+			validate: () => {},
 		},
 		{
 			label: "Verrechnungskonto auswählen",
-			validate: () => !selectedAccount && "Ein Verrechnungskonto muss ausgewählt sein."
+			validate: () =>
+				!selectedAccount &&
+				"Ein Verrechnungskonto muss ausgewählt sein.",
 		},
 		{
 			label: "Depot erstellen",
-			validate: () => !depotName && "Der Depot-Name darf nicht leer sein."
+			validate: () =>
+				!depotName && "Der Depot-Name darf nicht leer sein.",
 		},
 	];
 
 	const handleNext = () => {
-
 		const validationError = steps[activeStepIndex].validate();
 		if (validationError) {
-			console.log('validation error:', validationError)
+			console.log("validation error:", validationError);
 			setErrorMsg(validationError);
 			return;
 		}
@@ -66,7 +69,9 @@ export default function HorizontalLinearStepper({ }) {
 					invalidateAvailableDepots();
 				})
 				.then(() => history.push("/"))
-				.catch(console.error);
+				.catch((error) => {
+					setErrorMsg(getErrorMessage(error));
+				});
 		}
 
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
