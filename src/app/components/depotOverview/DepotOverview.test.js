@@ -6,7 +6,17 @@ import axios from 'axios';
 
 describe("DepotOverview", () => {
 
+    let mockAdapter;
+
+    beforeAll(() => {
+        mockAdapter = new MockAdapter(axios);
+    });
+    
     it("should render without error", () => {
+
+        mockAdapter.onGet(process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
+            `depots/positionId/positionSubId/currentStocks}`).reply(200, {})
+
         render(
             <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId" } }}>
                 <DepotOverview />
@@ -18,7 +28,6 @@ describe("DepotOverview", () => {
     });
 
     it("should call backend for generating table", () => {
-        var mockAdapter = new MockAdapter(axios, { onNoMatch: "throwException" });
 
         mockAdapter.onGet(process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
             `depots/positionId/positionSubId/currentStocks}`).reply(200, {})
