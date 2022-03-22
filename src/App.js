@@ -42,18 +42,18 @@ function App() {
 	return (
 		<StyledEngineProvider injectFirst>
 			<ColorContext.Provider value={colorMode}>
-				<UserContextProvider>
-					<DepotContextProvider>
-						<IdleContextProvider>
-							<SnackbarProvider maxSnack={3}>
+				<SnackbarProvider maxSnack={3}>
+					<UserContextProvider>
+						<DepotContextProvider>
+							<IdleContextProvider>
 								<ThemeProvider theme={theme}>
 									<CssBaseline />
 									<AppRouter />
 								</ThemeProvider>
-							</SnackbarProvider>
-						</IdleContextProvider>
-					</DepotContextProvider>
-				</UserContextProvider>
+							</IdleContextProvider>
+						</DepotContextProvider>
+					</UserContextProvider>
+				</SnackbarProvider>
 			</ColorContext.Provider>
 		</StyledEngineProvider>
 	);
