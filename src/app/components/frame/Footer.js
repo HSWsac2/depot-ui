@@ -21,9 +21,9 @@ const Footer = () => {
           <Typography sx={{ mx: 1 }} component={Link} to="/impressum" >
             Impressum
           </Typography>
-          {/* <Typography sx={{ mx: 1 }}>
-            <Link to="/dsgvo">DSGVO</Link>
-          </Typography> */}
+          <Typography sx={{ mx: 1 }} component={Link} to="/dsgvo">
+            DSGVO
+          </Typography>
         </Box>
       </Toolbar>
     </AppBar>

@@ -270,7 +270,6 @@ export default function DSGVO () {
         Services. Für Ihren erneuten Besuch gilt dann die neue
         Datenschutzerklärung.
       </p>
-      <h5 className="info-header">Sonstiges</h5>
     </div>
 
   )
