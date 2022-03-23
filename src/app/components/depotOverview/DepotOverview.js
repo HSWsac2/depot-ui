@@ -1,14 +1,6 @@
 import { Line } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement,
+    Title, Tooltip, Legend } from 'chart.js';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -35,14 +27,18 @@ ChartJS.register(
 
 export default function DepotOverview() {
 
-    const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
+    const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+    '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21',
+    '22', '23', '24', '25', '26', '27', '28', '29', '30'];
     const [stocks, setStocks] = useState([]);
     const { currentDepot } = useContext(DepotContext);
     const [history, setHistory] = useState([]);
     const [historyValues, setHistoryValues] = useState([]);
+    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
 
     useEffect(() => {
 		const fetchTransactions = async () => {
+            //Einzelaktien des aktuellen Depots abfragen
 			axios
 				.get(
 					`${process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE}depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/currentStocks`
@@ -60,12 +56,15 @@ export default function DepotOverview() {
 
     useEffect(() => {
 		const fetchHistory = async () => {
+            //Depot-Historie abfragen
 			axios
 				.get(
 					`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/history/${currentDepot.position_id}/${currentDepot.position_sub_id}`
 				)
 				.then((res) => {
+                    //Historie absteigend (vom aktuellsten Datum ausgehend) sortieren
 					const history = (res.data.sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isBefore(moment(b.keydate, "YYYY-MM-DD"))));
+                    //Die Werte der aktuellsten 30 Einträge speichern
                     setHistoryValues(history.slice(0,30).sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isAfter(moment(b.keydate, "YYYY-MM-DD"))).map((entry) => {
                       return entry.win_loss_amt;
                     }))
@@ -78,7 +77,6 @@ export default function DepotOverview() {
 		}
 	}, [currentDepot, history]);
 
-    //console.log(historyValues);
     const data = {
         labels,
         datasets: [
@@ -93,18 +91,20 @@ export default function DepotOverview() {
     const options = {
         responsive: true,
     };
+
     return (
         <div>
             <Grid className='depotGrid' container spacing={2}>
                 <Grid item xs={6} md={8}>
-                    <h1>{currentDepot?.balance_amt}€</h1>
+                <h3>Buying Power</h3>
+                    <h1>{currencyFormat.format(currentDepot?.buying_power)}</h1>
                 </Grid>
-                <Grid item xs={3} md={2}>
-                    <p>{currentDepot?.buying_power}€ nicht investiert</p>
+                {historyValues[29] != null &&
+                <Grid item xs={6} md={4}>
+                    <h3>Depotwert</h3>
+                    <h1>{currencyFormat.format(historyValues[29])}</h1>
                 </Grid>
-                <Grid item xs={3} md={2}>
-                    <p>{history[0]?.win_loss_amt}</p>
-                </Grid>
+}
                 <Grid item xs={12} md={12}>
                     <Line options={options} data={data}></Line>
                 </Grid>
