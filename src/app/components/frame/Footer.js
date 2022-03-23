@@ -18,10 +18,10 @@ const Footer = () => {
           display: 'flex',
         }}>
           <Typography sx={{ mx: 1 }}>
-            <Link href="#" color="inherit">Impressum</Link>
+            <Link href="/impressum" color="inherit">Impressum</Link>
           </Typography>
           <Typography sx={{ mx: 1 }}>
-            <Link href="#" color="inherit" >DSGVO</Link>
+            <Link href="/dsgvo" color="inherit" >DSGVO</Link>
           </Typography>
         </Box>
       </Toolbar>

@@ -19,12 +19,14 @@ import "./Login.css";
 import qs from "qs";
 import WaitingScreen from "../WaitingScreen";
 import sha256 from "crypto-js/sha256";
+import { getErrorMessage } from "../enums/ErrorMessages";
+import { DepotContext } from "../../../context/DepotContext";
 
 export default function Login() {
 	const location = useLocation();
 	const history = useHistory();
 
-	const { clientId, redirect } = qs.parse(location.search, {
+	const { clientId, redirect, positionId, positionSubId } = qs.parse(location.search, {
 		ignoreQueryPrefix: true,
 	});
 
@@ -38,23 +40,31 @@ export default function Login() {
 	const [isError, setIsError] = useState(false);
 
 	const { login } = useContext(UserContext);
+	const { selectDepotById } = useContext(DepotContext);
 
 	function loginWithUser(user) {
 		login({ ...user }, rememberUser);
-		history.push(redirect ?? "");
+		history.replace(redirect ?? "");
 	}
 
-	function loginWithClientId(clientId) {
+	function loginFromUrl(clientId, positionId, positionSubId) {
 		axios
 			.get(
 				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
 					`clients/${clientId}`
 			)
 			.then((response) => response.data)
-			.then((user) => loginWithUser(user))
+			.then(user => {
+				login({ ...user }, rememberUser);
+				if (positionId && positionSubId) {
+					selectDepotById(positionId, parseInt(positionSubId))
+				}
+				history.replace(redirect ?? "");
+			})
 			.catch((error) => {
-				console.error("Error", error);
-				history.push("/login");
+				setErrorMsg(getErrorMessage(error));
+				setIsError(true);
+				history.replace("/login");
 			});
 	}
 
@@ -80,8 +90,8 @@ export default function Login() {
 						}
 					})
 					.catch((error) => {
-						console.error(error);
-						setLoginFailed(true);
+						setErrorMsg(getErrorMessage(error));
+						setIsError(true);
 					});
 			} else {
 				setLoginFailed(true);
@@ -94,7 +104,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if (clientId) {
-			loginWithClientId(clientId, redirect, login, history);
+			loginFromUrl(clientId, positionId, positionSubId);
 		}
 	}, [clientId]);
 
@@ -116,7 +126,7 @@ export default function Login() {
 		<>
 			<Box className="loginContainer">
 				<Box bgcolor="primary.main" className="accent">
-					<img src="/logo.png" alt="logo" />
+					<img src={`${process.env.PUBLIC_URL}/logo.png`} alt="logo" />
 					<Typography color="white" variant="h2">
 						Mein Depot
 					</Typography>
@@ -189,7 +199,7 @@ export default function Login() {
 				onClose={() => setLoginFailed(false)}
 			>
 				<Alert severity="error">
-					Login Fehlgeschlagen: E-Mail existiert nicht!
+					Login Fehlgeschlagen: E-Mail oder Passwort inkorrekt!
 				</Alert>
 			</Snackbar>
 			<Snackbar

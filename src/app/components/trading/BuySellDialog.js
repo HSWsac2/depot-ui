@@ -12,6 +12,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import { DepotContext } from "../../../context/DepotContext";
 import { UserContext } from "../../../context/UserContext";
+import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import "./BuySellDialog.css";
 
 export default function BuySellDialog({ stock, isOpen, handleClose }) {
@@ -22,6 +23,11 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 	const [errorMsg, setErrorMsg] = useState("");
 	const [isError, setIsError] = useState(false);
 	const [ownedAmount, setOwnedAmount] = useState("");
+
+	const currencyFormat = new Intl.NumberFormat("de-DE", {
+		style: "currency",
+		currency: "EUR",
+	});
 
 	function closeDialog() {
 		setAmount("");
@@ -60,7 +66,6 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 	function buyStock() {
 		setMethod("buy");
 		if (amount) {
-			//TODO set position and sub id correctly
 			axios
 				.post(
 					process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE +
@@ -76,8 +81,8 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 					setOwnedAmount(ownedAmount + parseInt(amount));
 				})
 				.catch((error) => {
-					setErrorMsg(error.response.data);
-					setIsError(true);
+					setErrorMsg(getErrorMessage(error));
+					setErrorOpen(true);
 				});
 		} else {
 			setIsError(true);
@@ -154,10 +159,13 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 								}}
 							></image>
 						</svg>
-						<DialogContentText className="tradingContent">{`Aktueller Preis: ${Number(
+						<DialogContentText className="tradingContent">{`Aktueller Preis: ${currencyFormat.format(
 							stock.price_per_stock
-						).toFixed(2)}€`}</DialogContentText>
+						)}`}</DialogContentText>
 						<DialogContentText className="tradingContent">{`Anzahl im Besitz: ${ownedAmount}`}</DialogContentText>
+						<DialogContentText className="tradingContent">{`Kaufkraft: ${currencyFormat.format(
+							currentDepot.buying_power
+						)}`}</DialogContentText>
 						<div className="amount">
 							<DialogContentText className="tradingContent amountLabel">
 								Anzahl zu handeln:{" "}
@@ -178,9 +186,9 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 							<DialogContentText
 								className="tradingContent"
 								sx={{ marginTop: "10px" }}
-							>{`Gesamtpreis: ${Number(
+							>{`Gesamtpreis: ${currencyFormat.format(
 								amount * stock.price_per_stock
-							).toFixed(2)}€`}</DialogContentText>
+							)}`}</DialogContentText>
 						)}
 						<div className="tradingActions">
 							<Button

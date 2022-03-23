@@ -1,5 +1,6 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { StyledEngineProvider } from "@mui/material/styles";
+import { SnackbarProvider } from "notistack";
 import * as React from "react";
 import "./App.css";
 import AppRouter from "./AppRouter";
@@ -41,16 +42,18 @@ function App() {
 	return (
 		<StyledEngineProvider injectFirst>
 			<ColorContext.Provider value={colorMode}>
-				<UserContextProvider>
-					<DepotContextProvider>
-						<IdleContextProvider>
-							<ThemeProvider theme={theme}>
-								<CssBaseline />
-								<AppRouter />
-							</ThemeProvider>
-						</IdleContextProvider>
-					</DepotContextProvider>
-				</UserContextProvider>
+				<SnackbarProvider maxSnack={3}>
+					<UserContextProvider>
+						<DepotContextProvider>
+							<IdleContextProvider>
+								<ThemeProvider theme={theme}>
+									<CssBaseline />
+									<AppRouter />
+								</ThemeProvider>
+							</IdleContextProvider>
+						</DepotContextProvider>
+					</UserContextProvider>
+				</SnackbarProvider>
 			</ColorContext.Provider>
 		</StyledEngineProvider>
 	);

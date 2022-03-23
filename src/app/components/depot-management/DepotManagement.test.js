@@ -1,9 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
+import axios from 'axios';
 import { DepotContext } from "../../../context/DepotContext";
 import DepotManagement from "./DepotManagement";
-import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 
 
 describe("DepotManagement", () => {
@@ -20,7 +19,6 @@ describe("DepotManagement", () => {
     });
 
     it("should call backend on click", async () => {
-        var mockAdapter = new MockAdapter(axios, { onNoMatch: "throwException" });
 
         mockAdapter.onDelete(process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
             `depots/positionId/positionSubId`).reply(200, { resp: "some element" })
@@ -28,8 +26,10 @@ describe("DepotManagement", () => {
         let spy = jest.spyOn(axios, "delete");
 
         const invalidateAvailableDepots = jest.fn();
+        const selectDepot = jest.fn();
+
         render(
-            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId"  }, invalidateAvailableDepots }}>
+            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId"  }, invalidateAvailableDepots, selectDepot }}>
                 <DepotManagement />
             </DepotContext.Provider>
         );

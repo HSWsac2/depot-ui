@@ -1,40 +1,79 @@
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement,
-    Title, Tooltip, Legend } from 'chart.js';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import './DepotOverview.css';
-import { Grid } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
-import { DepotContext } from '../../../context/DepotContext';
-import axios from 'axios';
-import moment from 'moment';
+import { Line } from "react-chartjs-2";
+import {
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Title,
+	Tooltip,
+	Legend,
+} from "chart.js";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import "./DepotOverview.css";
+import { Grid } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { DepotContext } from "../../../context/DepotContext";
+import axios from "axios";
+import moment from "moment";
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Title,
+	Tooltip,
+	Legend
 );
 
 export default function DepotOverview() {
-
-    const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-    '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21',
-    '22', '23', '24', '25', '26', '27', '28', '29', '30'];
-    const [stocks, setStocks] = useState([]);
-    const { currentDepot } = useContext(DepotContext);
-    const [history, setHistory] = useState([]);
-    const [historyValues, setHistoryValues] = useState([]);
-    const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
+	const labels = [
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+		"23",
+		"24",
+		"25",
+		"26",
+		"27",
+		"28",
+		"29",
+		"30",
+	];
+	const [stocks, setStocks] = useState([]);
+	const { currentDepot } = useContext(DepotContext);
+	const [history, setHistory] = useState([]);
+	const [historyValues, setHistoryValues] = useState([]);
+	const currencyFormat = new Intl.NumberFormat("de-DE", {
+		style: "currency",
+		currency: "EUR",
+	});
 
     useEffect(() => {
 		const fetchTransactions = async () => {
@@ -54,7 +93,7 @@ export default function DepotOverview() {
 		}
 	}, [currentDepot]);
 
-    useEffect(() => {
+	useEffect(() => {
 		const fetchHistory = async () => {
             //Depot-Historie abfragen
 			axios
@@ -62,13 +101,24 @@ export default function DepotOverview() {
 					`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/history/${currentDepot.position_id}/${currentDepot.position_sub_id}`
 				)
 				.then((res) => {
-                    //Historie absteigend (vom aktuellsten Datum ausgehend) sortieren
-					const history = (res.data.sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isBefore(moment(b.keydate, "YYYY-MM-DD"))));
-                    //Die Werte der aktuellsten 30 Einträge speichern
-                    setHistoryValues(history.slice(0,30).sort((a, b) => moment(a.keydate, "YYYY-MM-DD").isAfter(moment(b.keydate, "YYYY-MM-DD"))).map((entry) => {
-                      return entry.win_loss_amt;
-                    }))
-                });
+					const history = res.data.sort((a, b) =>
+						moment(a.keydate, "YYYY-MM-DD").isBefore(
+							moment(b.keydate, "YYYY-MM-DD")
+						)
+					);
+					setHistoryValues(
+						history
+							.slice(0, 30)
+							.sort((a, b) =>
+								moment(a.keydate, "YYYY-MM-DD").isAfter(
+									moment(b.keydate, "YYYY-MM-DD")
+								)
+							)
+							.map((entry) => {
+								return entry.win_loss_amt;
+							})
+					);
+				});
 		};
 		if (currentDepot) {
 			fetchHistory();

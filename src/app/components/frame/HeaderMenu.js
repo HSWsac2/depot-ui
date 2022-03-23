@@ -1,12 +1,12 @@
-import { AddBox, LocalAtm, Person } from "@mui/icons-material";
+import { AddBox, Person } from "@mui/icons-material";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import LaunchIcon from '@mui/icons-material/Launch';
 import Logout from "@mui/icons-material/Logout";
-import Settings from "@mui/icons-material/Settings";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { Button, CircularProgress, Link, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
@@ -46,14 +46,6 @@ export default function HeaderMenu() {
 	const handleSettingsClicked = () => history.push("/data");
 
 	const colorMode = React.useContext(ColorContext);
-
-	function navigateAccounts() {
-		if (currentUser) {
-			window.location.href =
-				process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
-				`${currentUser.client_id}/accounts`;
-		}
-	}
 
 	return (
 		<>
@@ -113,17 +105,21 @@ export default function HeaderMenu() {
 					</ListItemIcon>
 					Depot erstellen
 				</MenuItem>
-				<MenuItem onClick={() => navigateAccounts()}>
+				<MenuItem
+					component={Link}
+					href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}${currentUser.client_id}/`}
+					target='_blank'
+				>
 					<ListItemIcon>
-						<LocalAtm fontSize="small" />
+						<LaunchIcon fontSize="small" />
 					</ListItemIcon>
-					Verrechnungskonten
+					Zur Kontoübersicht
 				</MenuItem>
 				<MenuItem onClick={handleSettingsClicked}>
 					<ListItemIcon>
-						<Settings fontSize="small" />
+						<AccountBoxIcon fontSize="small" />
 					</ListItemIcon>
-					Einstellungen
+					Persönliche Daten
 				</MenuItem>
 				<MenuItem onClick={handleLogout}>
 					<ListItemIcon>
