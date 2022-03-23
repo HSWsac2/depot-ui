@@ -44,7 +44,7 @@ export default function Login() {
 
 	function loginWithUser(user) {
 		login({ ...user }, rememberUser);
-		history.push(redirect ?? "");
+		history.replace(redirect ?? "");
 	}
 
 	function loginFromUrl(clientId, positionId, positionSubId) {
@@ -59,12 +59,12 @@ export default function Login() {
 				if (positionId && positionSubId) {
 					selectDepotById(positionId, parseInt(positionSubId))
 				}
-				history.push(redirect ?? "");
+				history.replace(redirect ?? "");
 			})
 			.catch((error) => {
 				setErrorMsg(getErrorMessage(error));
 				setIsError(true);
-				history.push("/login");
+				history.replace("/login");
 			});
 	}
 
