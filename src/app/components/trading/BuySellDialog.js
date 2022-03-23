@@ -35,8 +35,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 		handleClose();
 	}
 
-	const { currentUser } = useContext(UserContext);
-	const { currentDepot } = useContext(DepotContext);
+	const { currentDepot, refreshDepot } = useContext(DepotContext);
 
 	useEffect(() => {
 		const fetchStock = async () => {
@@ -73,7 +72,6 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 					{
 						stock_isin: stock.isin,
 						amount: parseInt(amount),
-						price_per_stock: stock.price_per_stock,
 					}
 				)
 				.then((res) => {
@@ -83,7 +81,8 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 				.catch((error) => {
 					setErrorMsg(getErrorMessage(error));
 					setErrorOpen(true);
-				});
+				})
+				.finally(() => refreshDepot());
 		} else {
 			setIsError(true);
 		}
@@ -96,11 +95,10 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 				axios
 					.post(
 						process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE +
-							`orders/${currentDepot.position_id}/${currentDepot.position_sub_id}`,
+							`orders/sell/${currentDepot.position_id}/${currentDepot.position_sub_id}`,
 						{
 							stock_isin: stock.isin,
-							amount: parseInt(amount * -1),
-							price_per_stock: stock.price_per_stock,
+							amount: parseInt(amount),
 						}
 					)
 					.then((res) => {
@@ -110,7 +108,9 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 					.catch((error) => {
 						setErrorMsg(error.response.data);
 						setIsError(true);
-					});
+					})
+					.finally(() => refreshDepot());
+
 			} else {
 				setErrorMsg("Nicht genügend Wertpapiere vorhanden");
 				setErrorOpen(true);
@@ -130,6 +130,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 		setErrorOpen(false);
 	}
 
+	console.log("Rerender", currentDepot)
 	return (
 		<>
 			{stock && (
@@ -179,7 +180,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 								onChange={(event) =>
 									enterAmount(event.target.value)
 								}
-								sx={{ display: "inline", marginRight: "20px" }}
+								sx={{ display: "inline", marginRight: "20px", minWidth: '200px' }}
 							></TextField>
 						</div>
 						{amount.length > 0 && (

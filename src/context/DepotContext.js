@@ -81,11 +81,8 @@ export const DepotContextProvider = ({ children }) => {
 
 	const selectDepotById = useCallback((positionId, positionSubId) => {
 		// append task to execute once available depots are loaded
-		console.log("enquing")
 		setAvailableDepotsQueue(val => [...val, availableDepots => {
-			console.log("working task", positionId, positionSubId, availableDepots, typeof positionId, typeof positionSubId)
 			const depot = availableDepots.find(depot => depot.position_id === positionId && depot.position_sub_id === positionSubId);
-			console.log("depot", depot)
 			if (depot) {
 				setCurrentDepot(depot);
 			}
@@ -97,16 +94,20 @@ export const DepotContextProvider = ({ children }) => {
 		setAvailableDepotsInvalid(true);
 	}, [setAvailableDepotsInvalid])
 
+	const refreshDepot = useCallback(() => {
+		invalidateAvailableDepots();
+		if (currentDepot) {
+			selectDepotById(currentDepot.position_id, currentDepot.position_sub_id);
+		}
+	}, [invalidateAvailableDepots,]);
+
 	// invalidate Available Depots when current user changes
 	useEffect(() => {
 		invalidateAvailableDepots();
 	}, [currentUser, invalidateAvailableDepots])
 
 	useEffect(() => {
-		console.log("checking queue", availableDepots, availableDepotsInvalid, availableDepotsQueue)
-
 		if (!availableDepotsInvalid && availableDepotsQueue.length > 0) {
-			console.log("working queue...")
 			availableDepotsQueue.forEach(task => task(availableDepots))
 			setAvailableDepotsQueue([]);
 		}
@@ -120,6 +121,7 @@ export const DepotContextProvider = ({ children }) => {
 		availableDepots,
 		availableDepotsLoading: availableDepotsInvalid,
 		invalidateAvailableDepots,
+		refreshDepot,
 	}
 
 	return (
