@@ -75,8 +75,9 @@ export default function DepotOverview() {
 		currency: "EUR",
 	});
 
-	useEffect(() => {
+    useEffect(() => {
 		const fetchTransactions = async () => {
+            //Einzelaktien des aktuellen Depots abfragen
 			axios
 				.get(
 					`${process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE}depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/currentStocks`
@@ -94,6 +95,7 @@ export default function DepotOverview() {
 
 	useEffect(() => {
 		const fetchHistory = async () => {
+            //Depot-Historie abfragen
 			axios
 				.get(
 					`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/history/${currentDepot.position_id}/${currentDepot.position_sub_id}`
@@ -125,102 +127,70 @@ export default function DepotOverview() {
 		}
 	}, [currentDepot, history]);
 
-	//console.log(historyValues);
-	const data = {
-		labels,
-		datasets: [
-			{
-				label: "Depotwert",
-				data: historyValues,
-				borderColor: "rgb(255, 99, 132)",
-				backgroundColor: "rgba(255, 99, 132, 0.5)",
-			},
-		],
-	};
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Depotwert',
+                data: historyValues,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            }]
+    }
 
-	const options = {
-		responsive: true,
-	};
-	return (
-		<div>
-			<Grid className="depotGrid" container spacing={2}>
-				<Grid item xs={6} md={8}>
-					<h1>{currencyFormat.format(currentDepot?.balance_amt)}</h1>
-				</Grid>
-				<Grid item xs={3} md={2}>
-					<p>
-						{currencyFormat.format(currentDepot?.buying_power)}{" "}
-						nicht investiert
-					</p>
-				</Grid>
-				<Grid item xs={3} md={2}>
-					<p>{history[0]?.win_loss_amt}</p>
-				</Grid>
-				<Grid item xs={12} md={12}>
-					<Line options={options} data={data}></Line>
-				</Grid>
-				<Grid item xs={12} md={12}>
-					<h2>Einzelpositionen</h2>
-					<TableContainer component={Paper}>
-						<Table sx={{ minWidth: 650 }} aria-label="simple table">
-							<TableHead>
-								<TableRow>
-									<TableCell>ISIN</TableCell>
-									<TableCell align="right">Anzahl</TableCell>
-									<TableCell align="right">
-										Einkaufspreis
-									</TableCell>
-									<TableCell align="right">
-										Aktueller Preis
-									</TableCell>
-									<TableCell align="right">
-										Wachstum
-									</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{stocks.map((row) => (
-									<TableRow
-										key={row.isin}
-										sx={{
-											"&:last-child td, &:last-child th":
-												{ border: 0 },
-										}}
-									>
-										<TableCell component="th" scope="row">
-											{row.isin}
-										</TableCell>
-										<TableCell align="right">
-											{row.piece_amt}
-										</TableCell>
-										<TableCell align="right">
-											{currencyFormat.format(
-												row.buying_price
-											)}
-										</TableCell>
-										<TableCell align="right">
-											{currencyFormat.format(
-												row.current_price
-											)}
-										</TableCell>
-										<TableCell align="right">
-											{row.growth_rate < 0
-												? Number(
-														row.growth_rate
-												  ).toFixed(2) + "%"
-												: "+" +
-												  Number(
-														row.growth_rate
-												  ).toFixed(2) +
-												  "%"}
-										</TableCell>
-									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
-				</Grid>
-			</Grid>
-		</div>
-	);
+    const options = {
+        responsive: true,
+    };
+
+    return (
+        <div>
+            <Grid className='depotGrid' container spacing={2}>
+                <Grid item xs={6} md={8}>
+                <h3>Buying Power</h3>
+                    <h1>{currencyFormat.format(currentDepot?.buying_power)}</h1>
+                </Grid>
+                {historyValues[29] != null &&
+                <Grid item xs={6} md={4}>
+                    <h3>Depotwert</h3>
+                    <h1>{currencyFormat.format(historyValues[29])}</h1>
+                </Grid>
+}
+                <Grid item xs={12} md={12}>
+                    <Line options={options} data={data}></Line>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                    <h2>Einzelpositionen</h2>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ISIN</TableCell>
+                                    <TableCell align="right">Anzahl</TableCell>
+                                    <TableCell align="right">Einkaufspreis</TableCell>
+                                    <TableCell align="right">Aktueller Preis</TableCell>
+                                    <TableCell align="right">Wachstum</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {stocks.map((row) => (
+                                    <TableRow
+                                        key={row.isin}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="row">
+                                            {row.isin}
+                                        </TableCell>
+                                        <TableCell align="right">{row.piece_amt}</TableCell>
+                                        <TableCell align="right">{row.buying_price}€</TableCell>
+                                        <TableCell align="right">{row.current_price}€</TableCell>
+                                        <TableCell align="right">{row.growth_rate < 0 ? Number(row.growth_rate).toFixed(2) +"%" : "+" + Number(row.growth_rate).toFixed(2) +"%"}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid>
+            </Grid>
+        </div>
+    );
 }

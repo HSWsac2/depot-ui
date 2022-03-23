@@ -16,6 +16,7 @@
 .amount {
     display: flex;
     margin-top: 40px;
+    flex-wrap: wrap;
 }
 
 .amountLabel {

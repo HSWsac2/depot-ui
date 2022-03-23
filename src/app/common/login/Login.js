@@ -126,7 +126,7 @@ export default function Login() {
 		<>
 			<Box className="loginContainer">
 				<Box bgcolor="primary.main" className="accent">
-					<img src="/logo.png" alt="logo" />
+					<img src={`${process.env.PUBLIC_URL}/logo.png`} alt="logo" />
 					<Typography color="white" variant="h2">
 						Mein Depot
 					</Typography>

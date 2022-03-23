@@ -62,7 +62,7 @@ const HeaderBar = () => {
 					<div onClick={() => history.push("/")}>
 						<Avatar
 							alt="Logo"
-							src="/logo.png"
+							src={`${process.env.PUBLIC_URL}/logo.png`}
 							sx={{
 								display: { xs: "none", md: "flex" },
 								cursor: "pointer",
@@ -81,7 +81,7 @@ const HeaderBar = () => {
 							display: { xs: "flex", md: "none" },
 						}}
 					>
-						<Avatar alt="Logo" src="/logo.png" />
+						<Avatar alt="Logo" src={`${process.env.PUBLIC_URL}/logo.png`} />
 						<Typography
 							variant="h5"
 							noWrap

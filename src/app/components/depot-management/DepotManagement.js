@@ -42,8 +42,10 @@ export default function DepotManagement() {
 	const changeDepotName = (e) => {
 		e.preventDefault();
 		axios
-			.patch(`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/${currentDepot.position_id}/${currentDepot.position_sub_id}`, {
-				depot_name: newDepotName
+			.patch(`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/${currentDepot.position_id}/${currentDepot.position_sub_id}`, null, {
+				params: {
+					depot_name: newDepotName
+				}
 			 }
 			)
 			.then(res => res.data)
@@ -65,8 +67,7 @@ export default function DepotManagement() {
 				maxWidth="lg"
 				spacing={0}
 				sx={{
-					display: "flex",
-					justifyContent: "center",
+					
 					mt: "4rem",
 					mb: "1.5rem"
 				}}
