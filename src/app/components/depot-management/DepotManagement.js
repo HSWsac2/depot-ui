@@ -21,7 +21,6 @@ export default function DepotManagement() {
 	const [newDepotName, setNewDepotName] = useState(null);
 
 	const handleDeleteDepot = () => {
-		// alert("Wenn dieser Knopf jetzt funktioniert hätte, wäre Ihr Depot unwiderruflich gelöscht. Glück für Sie, dass wir noch nicht so weit sind.");
 		axios
 			.delete(
 				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
@@ -50,11 +49,9 @@ export default function DepotManagement() {
 			)
 			.then(res => res.data)
 			.then((data) => {
-				
-				setSuccessMsg(
-					`Depot erfolgreich in ${data.depot_name} umbenannt`
-				);
+				setSuccessMsg(`Depot erfolgreich in ${data.depot_name} umbenannt`);
 				invalidateAvailableDepots();
+				selectDepot(data);
 			})
 			.catch((error) => {
 				setErrorMsg(getErrorMessage(error));
