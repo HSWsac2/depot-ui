@@ -1,8 +1,8 @@
 const DSGVO = () => {
   return (
     <>
-      <h4 className="display-4">Rechtliches</h4>
-      <h5 className="info-header">Impressum</h5>
+      <h2>Rechtliches</h2>
+      <h3>Impressum</h3>
       <p>Angaben gemäß § 5 TMG</p>
       <p>
         Hochschule Weserbergland (HSW)
@@ -14,51 +14,48 @@ const DSGVO = () => {
       <p>
         <strong>Kontakt:</strong>
         <br />
-        E-Mail: info@hsw-hameln.me
+        E-Mail: info@hsw-hameln.de
 
       </p>
-      <p>
-        <strong>Haftungsausschluss: </strong>
-        <br />
-        <br />
-        <strong>Urheberrecht</strong>
-        <br />
-        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf
-        diesen Seiten unterliegen dem deutschen Urheberrecht. Die
-        Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
-        Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der
-        schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
-        Downloads und Kopien dieser Seite sind nur für den privaten,
-        nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf
-        dieser Seite nicht vom Betreiber erstellt wurden, werden die
-        Urheberrechte Dritter beachtet. Insbesondere werden Inhalte
-        Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine
-        Urheberrechtsverletzung aufmerksam werden, bitten wir um einen
-        entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen
-        werden wir derartige Inhalte umgehend entfernen.
-        <br />
-        <br />
-        <strong>Datenschutz</strong>
-        <br />
-        Die Nutzung unserer Webseite ist in der Regel ohne Angabe
-        personenbezogener Daten möglich. Soweit auf unseren Seiten
-        personenbezogene Daten (beispielsweise Name, Anschrift oder
-        eMail-Adressen) erhoben werden, erfolgt dies, soweit möglich,
-        stets auf freiwilliger Basis. Diese Daten werden ohne Ihre
-        ausdrückliche Zustimmung nicht an Dritte weitergegeben. Wir
-        weisen darauf hin, dass die Datenübertragung im Internet (z.B.
-        bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen
-        kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch
-        Dritte ist nicht möglich. Der Nutzung von im Rahmen der
-        Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur
-        Übersendung von nicht ausdrücklich angeforderter Werbung und
-        Informationsmaterialien wird hiermit ausdrücklich widersprochen.
-        Die Betreiber der Seiten behalten sich ausdrücklich rechtliche
-        Schritte im Falle der unverlangten Zusendung von
-        Werbeinformationen, etwa durch Spam-Mails, vor.
-      </p>
-      <h5 className="info-header">Datenschutzerklärung</h5>
-      <b>Datenschutzerklärung</b>
+      <div>
+        <h3>Haftungsausschluss</h3>
+        <h4>Urheberrecht</h4>
+        <p>
+          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf
+          diesen Seiten unterliegen dem deutschen Urheberrecht. Die
+          Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
+          Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der
+          schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+          Downloads und Kopien dieser Seite sind nur für den privaten,
+          nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf
+          dieser Seite nicht vom Betreiber erstellt wurden, werden die
+          Urheberrechte Dritter beachtet. Insbesondere werden Inhalte
+          Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine
+          Urheberrechtsverletzung aufmerksam werden, bitten wir um einen
+          entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen
+          werden wir derartige Inhalte umgehend entfernen.
+        </p>
+        <h4>Datenschutz</h4>
+        <p>
+          Die Nutzung unserer Webseite ist in der Regel ohne Angabe
+          personenbezogener Daten möglich. Soweit auf unseren Seiten
+          personenbezogene Daten (beispielsweise Name, Anschrift oder
+          eMail-Adressen) erhoben werden, erfolgt dies, soweit möglich,
+          stets auf freiwilliger Basis. Diese Daten werden ohne Ihre
+          ausdrückliche Zustimmung nicht an Dritte weitergegeben. Wir
+          weisen darauf hin, dass die Datenübertragung im Internet (z.B.
+          bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen
+          kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch
+          Dritte ist nicht möglich. Der Nutzung von im Rahmen der
+          Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur
+          Übersendung von nicht ausdrücklich angeforderter Werbung und
+          Informationsmaterialien wird hiermit ausdrücklich widersprochen.
+          Die Betreiber der Seiten behalten sich ausdrücklich rechtliche
+          Schritte im Falle der unverlangten Zusendung von
+          Werbeinformationen, etwa durch Spam-Mails, vor.
+        </p>
+      </div>
+      <h3>Datenschutzerklärung</h3>
       <p>
         Verantwortlicher im Sinne der Datenschutzgesetze, insbesondere
         der EU-Datenschutzgrundverordnung (DSGVO), ist:
