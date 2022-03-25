@@ -19,6 +19,11 @@ Eine vom Team sadUI (Skalierbare Anwendungen - Depot UI) bereitgestellte Oberfl√
 # Depot-UI CI
 [![Node.js CI](https://github.com/HSWsac2/depot-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/HSWsac2/depot-ui/actions/workflows/ci.yml)
 
+# Login-Credentials
+
+E-Mail: <taken from DepotService>
+Password: start12345
+
 ## Available Scripts
 
 In the project directory, you can run:
