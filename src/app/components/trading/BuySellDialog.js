@@ -128,7 +128,6 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 		setErrorOpen(false);
 	}
 
-	console.log("Rerender", currentDepot)
 	return (
 		<>
 			{stock && (

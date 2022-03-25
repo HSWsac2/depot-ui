@@ -1,7 +1,7 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
-import * as React from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import AppRouter from "./AppRouter";
 import { ColorContext } from "./context/ColorContext";
@@ -11,9 +11,9 @@ import { UserContextProvider } from "./context/UserContext";
 import raw from "./depot-ui-startup.txt";
 
 function App() {
-	const [mode, setMode] = React.useState("light");
+	const [mode, setMode] = useState("light");
 
-	const colorMode = React.useMemo(
+	const colorMode = useMemo(
 		() => ({
 			toggleColorMode: () => {
 				setMode((prevMode) =>
@@ -25,7 +25,7 @@ function App() {
 		[mode]
 	);
 
-	const theme = React.useMemo(
+	const theme = useMemo(
 		() =>
 			createTheme({
 				palette: {
@@ -35,9 +35,10 @@ function App() {
 		[mode]
 	);
 
-	fetch(raw)
+	useEffect(() => fetch(raw)
 		.then((r) => r.text())
-		.then((text) => console.log(text));
+		.then((text) => console.log(text)), []);
+
 
 	return (
 		<StyledEngineProvider injectFirst>

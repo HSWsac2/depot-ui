@@ -47,7 +47,6 @@ export default function CreateDepotStepper() {
 	const handleNext = () => {
 		const validationError = steps[activeStepIndex].validate();
 		if (validationError) {
-			console.log("validation error:", validationError);
 			setErrorMsg(validationError);
 			return;
 		}
