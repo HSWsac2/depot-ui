@@ -6,15 +6,15 @@ import TransactionElement from "./TransactionElement";
 
 const TransactionOverview = () => {
 	const [transactions, setTransactions] = useState([]);
-	const [errorMsg, setErrorMsg] = useState("");
-	const [isError, setIsError] = useState(false);
+	const [errorMsg, setErrorMsg] = useState(null);
 
 	const { currentDepot } = useContext(DepotContext);
 	useEffect(() => {
 		const fetchTransactions = async () => {
 			axios
 				.get(
-					`${process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE}depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/orderHistory`
+					`${process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE}depots/
+							${currentDepot.position_id}/${currentDepot.position_sub_id}/orderHistory`
 				)
 				.then((res) => {
 					setTransactions(res.data);
@@ -22,10 +22,9 @@ const TransactionOverview = () => {
 		};
 		if (currentDepot) {
 			fetchTransactions();
-			setIsError(false);
+			setErrorMsg(null);
 		} else {
 			setErrorMsg("Bitte zunächst ein Depot auswählen!");
-			setIsError(true);
 		}
 	}, [currentDepot]);
 
@@ -43,9 +42,9 @@ const TransactionOverview = () => {
 				</List>
 			</Container>
 			<Snackbar
-				open={isError}
+				open={Boolean(errorMsg)}
 				autoHideDuration={2000}
-				onClose={() => setIsError(false)}
+				onClose={() => setErrorMsg(null)}
 			>
 				<Alert severity="error">{errorMsg}</Alert>
 			</Snackbar>

@@ -34,7 +34,6 @@ describe("DepotOverview", () => {
             "win_loss_amt"
         
         ])
-
         let spy = jest.spyOn(axios, "get");
 
         await act(async () => render(
@@ -47,12 +46,9 @@ describe("DepotOverview", () => {
             expect(screen.getByText("isin")).toBeInTheDocument();
             expect(screen.getByText("25,30 €")).toBeInTheDocument();
             expect(screen.getByText("31,20 €")).toBeInTheDocument();
-            // expect(screen.getByText("2,1 %")).toBeInTheDocument();
-            // expect(screen.getByText("win_loss_amt")).toBeInTheDocument();
         });
 
         expect(screen.getByText("Einzelpositionen")).toBeInTheDocument();
         expect(spy).toHaveBeenCalled();
-
     });
 })
