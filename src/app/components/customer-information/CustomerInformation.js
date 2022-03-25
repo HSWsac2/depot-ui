@@ -96,7 +96,7 @@ export default function CustomerInformation() {
 							<Button
 								startIcon={<LaunchIcon />}
 								component={Link}
-								href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}${currentUser.client_id}/change`}
+								href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}customers/${currentUser.client_id}/change`}
 								onClick={() => setShowRefresh(true)}
 								target="_blank"
 								variant="contained"

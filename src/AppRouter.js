@@ -13,7 +13,7 @@ import Impressum from "./app/components/shared/Impressum";
 import DSGVO from "./app/components/shared/DSGVO";
 export default function AppRouter() {
 	return (
-		<BrowserRouter basename="/depot-ui">
+		<BrowserRouter basename="/depot">
 			<Switch>
 				<ProtectedRouteWithDepot path="/management">
 					<Frame>
