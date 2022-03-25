@@ -102,7 +102,7 @@ export default function DepotOverview() {
 				)
 				.then((res) => {
 					const history = res.data.sort((a, b) =>
-						moment(a.keydate, "YYYY-MM-DD").isAftere(
+						moment(a.keydate, "YYYY-MM-DD").isAfter(
 							moment(b.keydate, "YYYY-MM-DD")
 						)
 					);
