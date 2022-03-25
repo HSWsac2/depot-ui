@@ -52,7 +52,7 @@ const TransactionElement = ({ transaction, isLast }) => {
 							sx={{
 								display: "inline",
 								fontWeight: "bold",
-								color: transaction.sold ? "black" : "red",
+								color: transaction.sold ? "text.primary" : "error.main",
 							}}
 						>
 							{currencyFormat.format(

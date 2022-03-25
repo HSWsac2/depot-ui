@@ -1,5 +1,5 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { Alert, Card, InputBase, List, Snackbar } from "@mui/material";
+import { Alert, Box, Card, InputBase, List, Snackbar } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { DepotContext } from "../../../context/DepotContext";
@@ -65,7 +65,7 @@ export default function Trading() {
 			{allStocks && displayedStocks && (
 				<>
 					<div className="tradingContainer">
-						<div className="stockSearch">
+						<Box className="stockSearch" sx={{ color: "grey.600"}}>
 							<Card
 								className="searchCard"
 								sx={{ marginBottom: "5vh" }}
@@ -96,7 +96,7 @@ export default function Trading() {
 									))}
 								</List>
 							</Card>
-						</div>
+						</Box>
 						<BuySellDialog
 							isOpen={tradingDialogOpen}
 							handleClose={() => closeDialog()}
