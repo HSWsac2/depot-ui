@@ -125,7 +125,7 @@ export default function DepotOverview() {
 		} else {
 			setHistory([]);
 		}
-	}, [currentDepot, history]);
+	}, []);
 
     const data = {
         labels,
