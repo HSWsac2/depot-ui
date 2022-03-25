@@ -84,7 +84,6 @@ export default function DepotOverview() {
 				)
 				.then((res) => {
 					setStocks(res.data);
-					setHistory([]);
 				});
 		};
 		if (currentDepot) {
@@ -103,7 +102,7 @@ export default function DepotOverview() {
 				)
 				.then((res) => {
 					const history = res.data.sort((a, b) =>
-						moment(a.keydate, "YYYY-MM-DD").isBefore(
+						moment(a.keydate, "YYYY-MM-DD").isAftere(
 							moment(b.keydate, "YYYY-MM-DD")
 						)
 					);
