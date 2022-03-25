@@ -1,8 +1,7 @@
+import { Box, Divider, ListItem, ListItemAvatar, Typography } from "@mui/material";
 import React from "react";
-import { Avatar, Box, Divider, ListItem, ListItemAvatar, ListItemButton, Typography, useMediaQuery } from "@mui/material";
-import { maxHeight } from "@mui/system";
-
 import './StockElement.css';
+
 
 const currencyFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
 

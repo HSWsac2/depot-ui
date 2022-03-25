@@ -5,13 +5,11 @@ import {
 	DialogContentText,
 	DialogTitle,
 	Snackbar,
-	TextField,
+	TextField
 } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import InputMask from "react-input-mask";
 import { DepotContext } from "../../../context/DepotContext";
-import { UserContext } from "../../../context/UserContext";
 import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import "./BuySellDialog.css";
 
@@ -60,7 +58,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 		if (stock) {
 			fetchStock();
 		}
-	}, [stock]);
+	}, [stock, currentDepot.position_id, currentDepot.position_sub_id]);
 
 	function buyStock() {
 		setMethod("buy");
@@ -219,7 +217,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 							onClose={() => closeToasts()}
 							severity="error"
 						>{`Konnte Wertpapier ${stock.name} nicht ${
-							method == "buy" ? "kaufen" : "verkaufen"
+							method === "buy" ? "kaufen" : "verkaufen"
 						}. Fehler: ${errorMsg}.`}</Alert>
 					</Snackbar>
 					<Snackbar
@@ -231,7 +229,7 @@ export default function BuySellDialog({ stock, isOpen, handleClose }) {
 							onClose={() => closeToasts()}
 							severity="success"
 						>{`Wertpapier ${stock.name} erfolgreich ${
-							method == "buy" ? "gekauft" : "verkauft"
+							method === "buy" ? "gekauft" : "verkauft"
 						}.`}</Alert>
 					</Snackbar>
 				</>

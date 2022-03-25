@@ -1,6 +1,4 @@
-import { LocalAtm } from "@mui/icons-material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import ContactPageIcon from "@mui/icons-material/ContactPage";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -11,17 +9,13 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { UserContext } from "../../../context/UserContext";
+import { Link, useHistory } from "react-router-dom";
 import HeaderMenu from "./HeaderMenu";
 import NavigationMenu from "./NavigationMenu";
 
 const title = "Depot";
 const HeaderBar = () => {
 	let history = useHistory();
-	const { currentUser } = React.useContext(UserContext);
 
 	const pages = [
 		{
@@ -44,15 +38,6 @@ const HeaderBar = () => {
 			target: "/transactions",
 			icon: <ReceiptLongIcon />,
 		},
-		// Does not work because of external url
-		// {
-		// 	label: "Meine Konten",
-		// 	target: `${
-		// 		process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE +
-		// 		currentUser?.client_id
-		// 	}/accounts`,
-		// 	icon: <LocalAtm />,
-		// },
 	];
 
 	return (

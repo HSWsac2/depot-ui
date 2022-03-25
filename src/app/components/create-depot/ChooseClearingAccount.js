@@ -18,25 +18,22 @@ function ChooseClearingAccount({ selectedAccount, setSelectedAccount }) {
 	});
 
 	useEffect(() => {
-		const fetchAccounts = () => {
-			setIsLoading(true);
-			axios
-				.get(
-					`${process.env.REACT_APP_BACKEND_URL_KONTEN_SERVICE}accounts/${currentUser.client_id}/clearingaccounts`
-				)
-				.then((res) => {
-					setAccounts(res.data.data);
-				})
-				.catch((error) => {
-					setErrorMsg(getErrorMessage(error));
-					setIsError(true);
-				})
-				.finally(() => {
-					setIsLoading(false);
-				});
-		};
-		fetchAccounts();
-	}, []);
+		setIsLoading(true);
+		axios
+			.get(
+				`${process.env.REACT_APP_BACKEND_URL_KONTEN_SERVICE}accounts/${currentUser.client_id}/clearingaccounts`
+			)
+			.then((res) => {
+				setAccounts(res.data.data);
+			})
+			.catch((error) => {
+				setErrorMsg(getErrorMessage(error));
+				setIsError(true);
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
+	}, [currentUser.client_id, setIsLoading]);
 
 	return (
 		<>

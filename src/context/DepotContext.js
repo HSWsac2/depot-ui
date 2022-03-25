@@ -38,7 +38,7 @@ export const DepotContextProvider = ({ children }) => {
 		// the dependency array is intentionally left empty - the initial fetch should not reaccur when the cookie or user
 		// changes as those changes are usually accompanied by a dedicated fetch, so fetching the data again would be wasteful
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [enqueueSnackbar]);
+	}, []);
 
 	// get all available depots whenever available depots are invalidated
 	useEffect(() => {
@@ -99,7 +99,7 @@ export const DepotContextProvider = ({ children }) => {
 		if (currentDepot) {
 			selectDepotById(currentDepot.position_id, currentDepot.position_sub_id);
 		}
-	}, [invalidateAvailableDepots, currentDepot]);
+	}, [invalidateAvailableDepots, currentDepot, selectDepotById]);
 
 	// invalidate Available Depots when current user changes
 	useEffect(() => {

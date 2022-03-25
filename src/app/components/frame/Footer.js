@@ -1,6 +1,6 @@
-import { AppBar, Link, Grid, Toolbar, Typography, Box } from '@mui/material';
-import "./Footer.css"
+import { AppBar, Box, Link, Toolbar, Typography } from '@mui/material';
 import * as React from 'react';
+import "./Footer.css";
 
 const Footer = () => {
 

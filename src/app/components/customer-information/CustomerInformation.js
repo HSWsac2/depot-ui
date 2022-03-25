@@ -1,10 +1,9 @@
-import { AssignmentInd } from "@mui/icons-material";
 import LaunchIcon from '@mui/icons-material/Launch';
-import { Box, Button, Card, IconButton, Link, TextField, Typography } from "@mui/material";
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
 import "./CustomerInformation.css";
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 export default function CustomerInformation() {
 	const { currentUser, refreshUser } = useContext(UserContext);

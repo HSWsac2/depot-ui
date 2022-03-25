@@ -15,7 +15,7 @@ import ClearingAccount from "./ChooseClearingAccount";
 import DepotCreated from "./DepotCreated";
 import FinalizeCreateDepot from "./FinalizeCreateDepot";
 
-export default function HorizontalLinearStepper({}) {
+export default function CreateDepotStepper() {
 	const [activeStepIndex, setActiveStep] = useState(0);
 
 	const [depotName, setDepotName] = useState("");

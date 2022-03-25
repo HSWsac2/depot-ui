@@ -11,7 +11,7 @@ import {
 	Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../../../context/UserContext";
 import { ReactComponent as Avatar } from "./avatar.svg";
@@ -47,7 +47,7 @@ export default function Login() {
 		history.replace(redirect ?? "");
 	}
 
-	function loginFromUrl(clientId, positionId, positionSubId) {
+	const loginFromUrl = useCallback((clientId, positionId, positionSubId) => {
 		axios
 			.get(
 				process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE +
@@ -66,13 +66,13 @@ export default function Login() {
 				setIsError(true);
 				history.replace("/login");
 			});
-	}
+	}, [history, login, redirect, rememberUser, selectDepotById]);
 
 	function handleLogin(event) {
 		event.preventDefault();
 		if (loginInformation.email && loginInformation.password) {
 			if (
-				sha256(loginInformation.password).toString() ==
+				sha256(loginInformation.password).toString() ===
 				"43a7e1b922352c1cb80e9c6936c9f2a8549236f7e42fe52933ba5d0a31850066"
 			) {
 				axios
@@ -106,7 +106,7 @@ export default function Login() {
 		if (clientId) {
 			loginFromUrl(clientId, positionId, positionSubId);
 		}
-	}, [clientId]);
+	}, [clientId, positionId, positionSubId, loginFromUrl]);
 
 	if (clientId) {
 		return (

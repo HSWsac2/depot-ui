@@ -20,9 +20,9 @@ export default function ProtectedRoute({ children, ...args }) {
             logout();
             deselectDepot();
         }
-    }, [isIdle])
+    }, [isIdle, logout, deselectDepot])
 
-    const targetSearch = location.pathname && location.pathname != '/' ? `?redirect=${location.pathname}` : null
+    const targetSearch = location.pathname && location.pathname !== '/' ? `?redirect=${location.pathname}` : null
 
     return (
         <Route {...args}>

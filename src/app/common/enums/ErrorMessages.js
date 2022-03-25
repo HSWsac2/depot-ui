@@ -29,7 +29,7 @@ export function getErrorMessage(error) {
 	if (error.response) {
 		let errorCodeString = error.response.data.detail;
 		for (const code in ErrorCode) {
-			if (code == errorCodeString) {
+			if (code === errorCodeString) {
 				return ErrorMessages[code];
 			}
 		}
