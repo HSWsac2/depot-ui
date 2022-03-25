@@ -24,6 +24,7 @@ import { DepotContext } from "../../../context/DepotContext";
 import axios from "axios";
 import moment from "moment";
 import 'chartjs-adapter-moment';
+import { ErrorCode } from "../../common/enums/ErrorCodes";
 
 ChartJS.register(
     TimeScale,
@@ -78,14 +79,20 @@ export default function DepotOverview() {
                         )
                     );
                     setHistoryValues(history.slice(-30)); //.map(a => ({ ...a, keydate: moment(a.keydate, "YYYY-MM-DD") })
+                })
+                .catch(error => {
+                    if (error?.response?.status !== 404 || error?.response?.data?.detail !== ErrorCode.INVALID_POSITION_ID_OR_POSITION_SUB_ID) {
+                        // no data found is not a functional error that requires attention
+                        console.error(error);
+                    }
                 });
-        };
-        if (currentDepot) {
-            fetchHistory();
-        } else {
-            setHistory([]);
-        }
-    }, [currentDepot, history]);
+            }
+            if (currentDepot) {
+                fetchHistory();
+            } else {
+                setHistory([]);
+            }
+        }, [currentDepot, history]);
 
     const data = {
         labels: historyValues.map(h => h.keydate),
