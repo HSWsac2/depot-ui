@@ -115,7 +115,7 @@ export default function DepotOverview() {
 								)
 							)
 							.map((entry) => {
-								return entry.win_loss_amt;
+								return entry.depot_value;
 							})
 					);
 				});
