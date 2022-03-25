@@ -84,6 +84,7 @@ export default function DepotOverview() {
 				)
 				.then((res) => {
 					setStocks(res.data);
+					setHistory([]);
 				});
 		};
 		if (currentDepot) {
@@ -125,7 +126,7 @@ export default function DepotOverview() {
 		} else {
 			setHistory([]);
 		}
-	}, []);
+	}, [currentDepot, history]);
 
     const data = {
         labels,
