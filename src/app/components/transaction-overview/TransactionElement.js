@@ -57,12 +57,7 @@ const TransactionElement = ({ transaction, isLast }) => {
 								sx={{
 									display: "inline",
 									fontWeight: "bold",
-									color:
-										transaction.buying_price *
-											transaction.piece_amt >
-										0
-											? "black"
-											: "red",
+									color: transaction.sold ? "black" : "red",
 								}}
 							>
 								{currencyFormat.format(
@@ -78,7 +73,10 @@ const TransactionElement = ({ transaction, isLast }) => {
 							)}
 						</Typography>
 						<Typography variant="body1">
-							Anzahl: {transaction.piece_amt}
+							Anzahl:{" "}
+							{`${transaction.sold ? "-" : ""}${
+								transaction.piece_amt
+							}`}
 						</Typography>
 						<Typography variant="body1">
 							Preis pro Stück:{" "}

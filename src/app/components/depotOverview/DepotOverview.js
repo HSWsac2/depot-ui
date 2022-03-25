@@ -102,20 +102,15 @@ export default function DepotOverview() {
 				)
 				.then((res) => {
 					const history = res.data.sort((a, b) =>
-						moment(a.keydate, "YYYY-MM-DD").isBefore(
+						moment(a.keydate, "YYYY-MM-DD").isAfter(
 							moment(b.keydate, "YYYY-MM-DD")
 						)
 					);
 					setHistoryValues(
 						history
-							.slice(0, 30)
-							.sort((a, b) =>
-								moment(a.keydate, "YYYY-MM-DD").isAfter(
-									moment(b.keydate, "YYYY-MM-DD")
-								)
-							)
+							.slice(-30)
 							.map((entry) => {
-								return entry.win_loss_amt;
+								return entry.depot_value;
 							})
 					);
 				});

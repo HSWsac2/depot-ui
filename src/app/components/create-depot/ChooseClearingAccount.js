@@ -86,7 +86,7 @@ function ChooseClearingAccount({ selectedAccount, setSelectedAccount }) {
 										marginRight: "20px",
 									}}
 								>{`Kontostand: ${currencyFormat.format(
-									account.balance
+									account.balance / 100
 								)}`}</p>
 							</Card>
 						</div>
