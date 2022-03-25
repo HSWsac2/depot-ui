@@ -8,6 +8,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    TimeScale,
 } from "chart.js";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -22,9 +23,10 @@ import { useContext, useEffect, useState } from "react";
 import { DepotContext } from "../../../context/DepotContext";
 import axios from "axios";
 import moment from "moment";
+import 'chartjs-adapter-moment';
 
 ChartJS.register(
-    CategoryScale,
+    TimeScale,
     LinearScale,
     PointElement,
     LineElement,
@@ -34,38 +36,7 @@ ChartJS.register(
 );
 
 export default function DepotOverview() {
-    const labels = [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29",
-        "30",
-    ];
+
     const [stocks, setStocks] = useState([]);
     const { currentDepot } = useContext(DepotContext);
     const [history, setHistory] = useState([]);
@@ -106,13 +77,7 @@ export default function DepotOverview() {
                             moment(b.keydate, "YYYY-MM-DD")
                         )
                     );
-                    setHistoryValues(
-                        history
-                            .slice(-30)
-                            .map((entry) => {
-                                return entry.depot_value;
-                            })
-                    );
+                    setHistoryValues(history.slice(-30)); //.map(a => ({ ...a, keydate: moment(a.keydate, "YYYY-MM-DD") })
                 });
         };
         if (currentDepot) {
@@ -123,18 +88,47 @@ export default function DepotOverview() {
     }, [currentDepot, history]);
 
     const data = {
-        labels,
-        datasets: [
-            {
-                label: 'Depotwert',
-                data: historyValues,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            }]
+        labels: historyValues.map(h => h.keydate),
+        datasets: [{
+            label: 'Depotwert',
+            data: historyValues.map(h => h.depot_value),
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        }],
     }
 
     const options = {
-        responsive: true
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'day',
+                    tooltipFormat: 'DD.MM.YYYY',
+                    displayFormats: {
+                        day: 'DD.MM.'
+                    },
+                }
+            },
+            y: {
+                ticks: {
+                    callback: value => currencyFormat.format(value),
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false,
+            },
+            tooltip: {
+                displayColors: false,
+                callbacks: {
+                    label: h => currencyFormat.format(h.raw),
+                }
+            },
+        },
+
     };
 
     return (
@@ -147,10 +141,10 @@ export default function DepotOverview() {
                 {historyValues?.length > 1 &&
                     <Grid item xs={6} md={4}>
                         <h3>Depotwert</h3>
-                        <h1>{currencyFormat.format(historyValues[historyValues.length - 1])}</h1>
+                        <h1>{currencyFormat.format(historyValues[historyValues.length - 1].depot_value)}</h1>
                     </Grid>
                 }
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12} height={"60rem"} sx={{ maxHeight: '60vh' }}>
                     <Line options={options} data={data}></Line>
                 </Grid>
                 <Grid item xs={12} md={12}>
