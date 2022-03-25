@@ -107,7 +107,7 @@ export default function HeaderMenu() {
 				</MenuItem>
 				<MenuItem
 					component={Link}
-					href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}${currentUser.client_id}/`}
+					href={`${process.env.REACT_APP_FRONTEND_URL_ONLINEBANKING_SERVICE}customers/${currentUser.client_id}/`}
 					target='_blank'
 				>
 					<ListItemIcon>

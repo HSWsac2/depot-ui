@@ -95,11 +95,11 @@ export const DepotContextProvider = ({ children }) => {
 	}, [setAvailableDepotsInvalid])
 
 	const refreshDepot = useCallback(() => {
-		invalidateAvailableDepots();
+		setAvailableDepotsInvalid(true);
 		if (currentDepot) {
 			selectDepotById(currentDepot.position_id, currentDepot.position_sub_id);
 		}
-	}, [invalidateAvailableDepots,]);
+	}, [invalidateAvailableDepots, currentDepot]);
 
 	// invalidate Available Depots when current user changes
 	useEffect(() => {
