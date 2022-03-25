@@ -1,5 +1,6 @@
 .customerContainer {
-    width: 80%;
+    width: 100%;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 2rem;
@@ -7,12 +8,6 @@
 
 .customerIcon {
     width: 13vw;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.customerData {
-    width: 70%;
     margin-left: auto;
     margin-right: auto;
 }

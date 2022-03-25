@@ -1,15 +1,11 @@
 .search {
     position: relative;
     background-color: darkgray;
-    width: 30%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     border-radius: 5px;
-}
-
-.tradingContainer {
-    min-height: 100%;
 }
 
 .search:hover {
@@ -33,9 +29,11 @@
 
 .stockSearch {
     margin-top: 50px;
-    margin-right: 10vw;
-    margin-left: 10vw;
     height: auto;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .searchCard {

@@ -25,7 +25,7 @@ export default function Trading() {
 			axios
 				.get(
 					process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE +
-						"stocks/current"
+					"stocks/current"
 				)
 				.then((res) => {
 					setAllStocks(res.data);
@@ -64,45 +64,43 @@ export default function Trading() {
 		<>
 			{allStocks && displayedStocks && (
 				<>
-					<div className="tradingContainer">
-						<Box className="stockSearch" sx={{ color: "grey.600"}}>
-							<Card
-								className="searchCard"
-								sx={{ marginBottom: "5vh" }}
-							>
-								<div className="search">
-									<div className="searchIconWrapper">
-										<SearchIcon />
-									</div>
-									<InputBase
-										placeholder="Suche nach Wertpapier"
-										className="searchfield"
-										onInput={(event) =>
-											onStockSearch(event.target.value)
-										}
-									/>
+					<Box className="stockSearch" sx={{ color: "grey.600" }}>
+						<Card
+							className="searchCard"
+							sx={{ marginBottom: "5vh" }}
+						>
+							<div className="search">
+								<div className="searchIconWrapper">
+									<SearchIcon />
 								</div>
-								<List sx={{ paddingBottom: 0 }}>
-									{displayedStocks.map((stock, index) => (
-										<StockElement
-											key={index}
-											stock={stock}
-											isLast={
-												index ===
-												displayedStocks.length - 1
-											}
-											onClick={() => onSelectStock(stock)}
-										/>
-									))}
-								</List>
-							</Card>
-						</Box>
-						<BuySellDialog
-							isOpen={tradingDialogOpen}
-							handleClose={() => closeDialog()}
-							stock={selectedStock}
-						></BuySellDialog>
-					</div>
+								<InputBase
+									placeholder="Suche nach Wertpapier"
+									className="searchfield"
+									onInput={(event) =>
+										onStockSearch(event.target.value)
+									}
+								/>
+							</div>
+							<List sx={{ paddingBottom: 0 }}>
+								{displayedStocks.map((stock, index) => (
+									<StockElement
+										key={index}
+										stock={stock}
+										isLast={
+											index ===
+											displayedStocks.length - 1
+										}
+										onClick={() => onSelectStock(stock)}
+									/>
+								))}
+							</List>
+						</Card>
+					</Box>
+					<BuySellDialog
+						isOpen={tradingDialogOpen}
+						handleClose={() => closeDialog()}
+						stock={selectedStock}
+					></BuySellDialog>
 					<Snackbar
 						open={isError}
 						autoHideDuration={2000}
