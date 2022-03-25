@@ -108,12 +108,7 @@ export default function DepotOverview() {
 					);
 					setHistoryValues(
 						history
-							.slice(0, 30)
-							.sort((a, b) =>
-								moment(a.keydate, "YYYY-MM-DD").isAfter(
-									moment(b.keydate, "YYYY-MM-DD")
-								)
-							)
+							.slice(-30)
 							.map((entry) => {
 								return entry.depot_value;
 							})
