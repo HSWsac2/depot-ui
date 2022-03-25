@@ -2,7 +2,6 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
 import { useEffect, useMemo, useState } from "react";
-import "./App.css";
 import AppRouter from "./AppRouter";
 import { ColorContext } from "./context/ColorContext";
 import { DepotContextProvider } from "./context/DepotContext";

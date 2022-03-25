@@ -1,4 +1,4 @@
-import { ErrorCode } from "./Error-Codes";
+import { ErrorCode } from "./ErrorCodes";
 
 const ErrorMessages = {
 	[ErrorCode.INVALID_POSITION_ID]:

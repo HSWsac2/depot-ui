@@ -4,13 +4,13 @@ import ProtectedRouteWithDepot from "./app/common/route-config/ProtectedRouteWit
 import CreateDepot from "./app/components/create-depot/CreateDepot";
 import CustomerInformation from "./app/components/customer-information/CustomerInformation";
 import DepotManagement from "./app/components/depot-management/DepotManagement";
-import DepotOverview from "./app/components/depotOverview/DepotOverview";
+import DepotOverview from "./app/components/depot-overview/DepotOverview";
 import Frame from "./app/components/frame/Frame";
 import Trading from "./app/components/trading/Trading";
 import TransactionOverview from "./app/components/transaction-overview/TransactionOverview";
 import Login from './app/common/login/Login'
-import Impressum from "./app/components/shared/Impressum";
-import DSGVO from "./app/components/shared/DSGVO";
+import Impressum from "./app/components/legal/Impressum";
+import DSGVO from "./app/components/legal/DSGVO";
 export default function AppRouter() {
 	return (
 		<BrowserRouter basename="/depot">
