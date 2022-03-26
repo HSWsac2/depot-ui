@@ -37,19 +37,4 @@ describe("DepotOverview", () => {
         expect(spy).toHaveBeenCalled();
 
     });
-
-    xit("should call backend for generating chart", async () => {
-        mockAdapter.onGet(`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/positionId/positionSubId/currentStocks`).reply(200, [])
-        mockAdapter.onGet(`${process.env.REACT_APP_BACKEND_URL_DEPOT_SERVICE}depots/history/positionId/positionSubId`).reply(200, [])
-        let spy = jest.spyOn(axios, "get");
-
-        await act(async () => render(
-            <DepotContext.Provider value={{ currentDepot: { position_id: "positionId", position_sub_id: "positionSubId" } }}>
-                <DepotOverview />
-            </DepotContext.Provider>
-        ));
-
-        expect(spy).toHaveBeenCalled();
-
-    });
 })
