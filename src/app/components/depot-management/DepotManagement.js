@@ -9,7 +9,7 @@ import {
 	Typography
 } from "@mui/material";
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DepotContext } from "../../../context/DepotContext";
 import { getErrorMessage } from "../../common/enums/ErrorMessages";
 import ConfirmButton from "./ConfirmButton";
@@ -19,6 +19,18 @@ export default function DepotManagement() {
 	const [errorMsg, setErrorMsg] = useState("");
 	const [successMsg, setSuccessMsg] = useState("");
 	const [newDepotName, setNewDepotName] = useState(null);
+
+	const [currentStocks, setCurrentStocks] = useState(null);
+
+	useEffect(() => {
+		axios
+			.get(
+				`${process.env.REACT_APP_BACKEND_URL_TRANSACTION_SERVICE}depots/${currentDepot.position_id}/${currentDepot.position_sub_id}/currentStocks`
+			)
+			.then((res) => {
+				setCurrentStocks(res.data);
+			});
+	}, [currentDepot.position_id, currentDepot.position_sub_id, setCurrentStocks]);
 
 	const handleDeleteDepot = () => {
 		axios
@@ -45,7 +57,7 @@ export default function DepotManagement() {
 				params: {
 					depot_name: newDepotName
 				}
-			 }
+			}
 			)
 			.then(res => res.data)
 			.then((data) => {
@@ -64,7 +76,7 @@ export default function DepotManagement() {
 				maxWidth="lg"
 				spacing={0}
 				sx={{
-					
+
 					mt: "4rem",
 					mb: "1.5rem"
 				}}
@@ -88,7 +100,7 @@ export default function DepotManagement() {
 								value={newDepotName ?? ""}
 								onChange={event => setNewDepotName(event.target.value)}
 							/>
-							<Button variant="outlined" color="primary" type="submit" disabled={!newDepotName || newDepotName===currentDepot.depot_name} sx={{
+							<Button variant="outlined" color="primary" type="submit" disabled={!newDepotName || newDepotName === currentDepot.depot_name} sx={{
 								width: "10rem",
 							}}>
 								Umbenennen
@@ -105,6 +117,7 @@ export default function DepotManagement() {
 							</Box>
 							. Beachten Sie, dass archivierte Daten aufgrund gesetzlicher Aufbewahrungsfristen nicht entgültig gelöscht werden können.
 						</Typography>
+						{currentStocks?.length > 0 && <Typography>Eine Löschung ist nur möglich, wenn sich keine Wertpapiere in Ihrem Depot befinden.</Typography>}
 						<Box>
 							<ConfirmButton
 								buttonText="Depot löschen"
@@ -113,6 +126,7 @@ export default function DepotManagement() {
 								color="error"
 								dialogBody="Diese Entscheidung kann nicht rückgängig gemacht werden."
 								acceptText="Unwiderruflich löschen"
+								disabled={!currentStocks || currentStocks.length > 0}
 							/>
 						</Box>
 					</Stack>

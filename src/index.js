@@ -4,11 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CookiesProvider } from 'react-cookie';
-import setUpMocks from './app/mocks/setUpMocks';
-
-if (process.env.REACT_APP_DEPOT_API_MODE === 'MOCKED') {
-  setUpMocks();
-}
 
 ReactDOM.render(
   <React.StrictMode>

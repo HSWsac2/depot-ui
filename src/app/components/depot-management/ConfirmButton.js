@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 
-export default function ConfirmButton({ buttonText, acceptCallback, dialogTitle, dialogBody, color = "primary", acceptText = "Akzeptieren", cancelText = "Abbrechen" }) {
+export default function ConfirmButton({ buttonText, acceptCallback, dialogTitle, dialogBody, disabled = false, color = "primary", acceptText = "Akzeptieren", cancelText = "Abbrechen" }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -24,7 +24,7 @@ export default function ConfirmButton({ buttonText, acceptCallback, dialogTitle,
 
   return (
     <div>
-      <Button variant="outlined" color={color} onClick={handleClickOpen} sx={{
+      <Button variant="outlined" color={color} onClick={handleClickOpen} disabled={disabled}sx={{
         width: "10rem",
       }}>
         {buttonText}

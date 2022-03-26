@@ -1,6 +1,7 @@
-import { Alert, Container, List, Snackbar } from "@mui/material";
+import { Alert, Container, List, Snackbar, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { DepotContext } from "../../../context/DepotContext";
 import TransactionElement from "./TransactionElement";
 
@@ -32,7 +33,12 @@ const TransactionOverview = () => {
 	return (
 		<>
 			<Container maxWidth="lg" spacing={0} sx={{ marginTop: "2rem" }}>
-				<List>
+				{transactions.length === 0 && <Typography>
+					Sobald Sie <Link to="trade">
+						mit dem Handeln beginnen
+					</Link>, werden hier Ihre Transaktionen dargestellt. Derzeit sind keine Transaktionen vorhanden.
+				</Typography>}
+				{transactions.length > 0 && <List>
 					{transactions.map((transaction, index) => (
 						<TransactionElement
 							key={transaction.transaction_id}
@@ -40,7 +46,7 @@ const TransactionOverview = () => {
 							isLast={index === transactions.length - 1}
 						/>
 					))}
-				</List>
+				</List>}
 			</Container>
 			<Snackbar
 				open={isError}
